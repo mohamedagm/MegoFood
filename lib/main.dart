@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -13,8 +14,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Farag passed from here!'))),
-    );
+    return MaterialApp(home: BoardingView());
   }
 }

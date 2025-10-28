@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:mego_food/features/onBoarding/data/model/onboarding_model.dart';
+import 'package:mego_food/features/onBoarding/presentation/widgets/boarding_view_body.dart';
+import 'package:mego_food/features/onBoarding/presentation/widgets/boarding_view_bottom.dart';
 
 class BoardingView extends StatefulWidget {
   const BoardingView({super.key});
@@ -11,52 +11,38 @@ class BoardingView extends StatefulWidget {
 
 class _BoardingViewState extends State<BoardingView> {
   PageController? controller = PageController();
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: BoardingViewBody(controller: controller),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class BoardingViewBody extends StatelessWidget {
-  const BoardingViewBody({super.key, required this.controller});
-
-  final PageController? controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView(
-      controller: controller,
-      children: List.generate(
-        3,
-        (index) => Column(
-          children: [
-            Image.asset('assets/images/mego.png'),
-            SizedBox(
-              height: 200,
-              child: Stack(
-                children: [
-                  SvgPicture.asset('assets/images/Vector_bg.svg'),
-                  SvgPicture.asset(onboardingPages[index].image),
-                ],
-              ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22.0),
+            child: Column(
+              spacing: 15,
+              children: [
+                Image.asset('assets/images/mego.png'),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: BoardingViewBody(
+                    controller: controller,
+                    onPageChanged: (index) =>
+                        setState(() => currentIndex = index),
+                  ),
+                ),
+                BoardingViewBottom(
+                  controller: controller,
+                  onNextPressed: () => currentIndex == 2
+                      ? null
+                      : controller!.nextPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                        ),
+                ),
+              ],
             ),
-
-            Text(onboardingPages[index].title, textAlign: TextAlign.center),
-            Text(onboardingPages[index].subTitle, textAlign: TextAlign.center),
-          ],
+          ),
         ),
       ),
     );

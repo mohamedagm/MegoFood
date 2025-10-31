@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mego_food/core/const/app_assets.dart';
 import 'package:mego_food/features/onBoarding/presentation/widgets/boarding_view_body.dart';
 import 'package:mego_food/features/onBoarding/presentation/widgets/boarding_view_bottom.dart';
 
@@ -22,7 +23,7 @@ class _BoardingViewState extends State<BoardingView> {
             child: Column(
               spacing: 15,
               children: [
-                Image.asset('assets/images/mego.png'),
+                Image.asset(AppAssets.mego),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.7,
                   child: BoardingViewBody(

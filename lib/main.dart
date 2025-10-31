@@ -15,6 +15,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
-    return MaterialApp(home: BoardingView(), theme: AppTheme.light);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: BoardingView(),
+      theme: AppTheme.light,
+    );
   }
 }

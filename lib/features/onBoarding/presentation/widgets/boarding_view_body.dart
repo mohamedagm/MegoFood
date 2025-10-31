@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mego_food/core/const/app_assets.dart';
 import 'package:mego_food/features/onBoarding/data/model/onboarding_model.dart';
 
 class BoardingViewBody extends StatelessWidget {
@@ -26,12 +27,11 @@ class BoardingViewBody extends StatelessWidget {
                 Positioned(
                   left: 20,
                   top: 40,
-                  child: SvgPicture.asset('assets/images/Vector_bg.svg'),
+                  child: SvgPicture.asset(AppAssets.vector),
                 ),
                 SvgPicture.asset(onboardingPages[index].image),
               ],
             ),
-
             Text(
               onboardingPages[index].title,
               textAlign: TextAlign.center,

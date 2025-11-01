@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/app_colors.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -37,7 +39,7 @@ class BoardingViewBottom extends StatelessWidget {
               flex: 2,
               child: AppElevatedButton(
                 onPressed: () {
-                  //navigate to authentication view
+                  GoRouter.of(context).push(AppRoutes.startAuth);
                 },
                 backgroundColor: AppColors.light.primary100,
                 foregroundColor: AppColors.light.primary600,

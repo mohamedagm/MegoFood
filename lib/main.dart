@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:mego_food/core/routing/app_router.dart';
 import 'package:mego_food/core/theme/app_theme.dart';
-import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -15,9 +15,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: BoardingView(),
+      routerConfig: AppRouter.router,
       theme: AppTheme.light,
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mego_food/core/const/app_assets.dart';
-import 'package:mego_food/core/theme/app_colors.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
 
@@ -34,6 +33,7 @@ class StartAuthView extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: context.exTextStyles.heading1,
                 ),
+                SizedBox(height: 50),
                 AppElevatedButton(
                   child: Row(
                     spacing: 8,
@@ -53,7 +53,6 @@ class StartAuthView extends StatelessWidget {
                   onPressed: () {},
                 ),
                 Text('or', style: context.exTextStyles.medium600),
-
                 Row(
                   spacing: 8.0,
                   children: List.generate(
@@ -61,8 +60,7 @@ class StartAuthView extends StatelessWidget {
                     (index) => Expanded(
                       child: AppElevatedButton(
                         onPressed: () => {},
-                        hasGradient: false,
-                        backgroundColor: AppColors.light.backgroundBlur80,
+                        buttonType: AppButtonType.skip,
                         child: SvgPicture.asset(
                           'assets/icons/social_$index.svg',
                         ),

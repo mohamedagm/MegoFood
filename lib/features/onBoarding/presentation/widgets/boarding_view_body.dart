@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mego_food/core/const/app_assets.dart';
+import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/features/onBoarding/data/model/onboarding_model.dart';
 
 class BoardingViewBody extends StatelessWidget {
@@ -35,12 +36,12 @@ class BoardingViewBody extends StatelessWidget {
             Text(
               onboardingPages[index].title,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: context.exTextStyles.heading1,
             ),
             Text(
               onboardingPages[index].subTitle,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: context.exTextStyles.medium400,
             ),
           ],
         ),

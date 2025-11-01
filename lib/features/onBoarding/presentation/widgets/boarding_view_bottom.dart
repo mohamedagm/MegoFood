@@ -41,9 +41,7 @@ class BoardingViewBottom extends StatelessWidget {
                 onPressed: () {
                   GoRouter.of(context).push(AppRoutes.startAuth);
                 },
-                backgroundColor: AppColors.light.primary100,
-                foregroundColor: AppColors.light.primary600,
-                hasGradient: false,
+                buttonType: AppButtonType.skip,
                 child: const Text('Skip'),
               ),
             ),
@@ -51,6 +49,7 @@ class BoardingViewBottom extends StatelessWidget {
               flex: 5,
               child: AppElevatedButton(
                 onPressed: onNextPressed,
+                buttonType: AppButtonType.primary,
                 child: const Text('Next'),
               ),
             ),

@@ -7,7 +7,7 @@ class AppTheme {
   static final ThemeData light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    scaffoldBackgroundColor: AppColorsExtension.light.grey50,
+    scaffoldBackgroundColor: AppColorsExtension.light.grey0,
     primaryColor: AppColorsExtension.light.primary500,
 
     colorScheme: ColorScheme.light(

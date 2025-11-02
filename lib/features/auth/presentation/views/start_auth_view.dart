@@ -11,7 +11,7 @@ class StartAuthView extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               spacing: 15,
               children: [

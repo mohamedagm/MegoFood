@@ -7,6 +7,7 @@ class AppAssets {
   static const String emailFill = 'assets/icons/Email filled.svg';
   static const String google = 'assets/icons/Google.svg';
   static const String facebook = 'assets/icons/Facebook.svg';
+  static const String arrowLeft = 'assets/icons/Arrow left.svg';
 }
 
 List<String> authIcons = [

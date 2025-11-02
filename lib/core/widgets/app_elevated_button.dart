@@ -39,7 +39,7 @@ class AppElevatedButton extends StatelessWidget {
         shadowColor: Colors.transparent,
       ),
 
-      onPressed: onPressed,
+      onPressed: buttonType == AppButtonType.disabled ? null : onPressed,
       child: child,
     );
 

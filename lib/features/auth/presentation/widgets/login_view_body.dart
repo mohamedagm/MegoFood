@@ -18,16 +18,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool empty = true;
 
   @override
   void initState() {
-    emailController.addListener(() {
-      setState(() {
-        empty = emailController.text.trim().isEmpty; //هعتمد علي حاجه غيرها
-        //قدام بالاضافه هعمل فالدييشن للايميل برضو عشان الي اعمله يبقي ليه لازمه
-      });
-    });
     super.initState();
   }
 
@@ -87,7 +80,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {}
                         },
-                        buttonType: empty == true
+                        buttonType: emailController.text.isEmpty
                             ? AppButtonType.disabled
                             : AppButtonType.primary,
                         child: Text('Log In'),

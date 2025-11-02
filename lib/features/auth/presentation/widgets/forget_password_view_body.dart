@@ -42,6 +42,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                         style: context.exTextStyles.medium400,
                       ),
                       OtpTextField(
+                        onChanged: (value) => setState(() {}),
                         pinController: pinController,
                         isError: false, // temporary value
                       ),
@@ -72,7 +73,9 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {}
                         },
-                        buttonType: AppButtonType.primary,
+                        buttonType: pinController.text.isEmpty
+                            ? AppButtonType.disabled
+                            : AppButtonType.primary,
                         child: const Text('Continue'),
                       ),
                     ],

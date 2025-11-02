@@ -29,6 +29,7 @@ class _AuthTextFieldsState extends State<AuthTextFields> {
       spacing: 15,
       children: [
         AppTextField(
+          onChanged: widget.onChanged,
           validator: (value) => emailValidator(value),
           emailController: widget.emailController,
           hintText: 'email address',

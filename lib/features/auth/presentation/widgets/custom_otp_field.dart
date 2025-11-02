@@ -7,9 +7,11 @@ class OtpTextField extends StatefulWidget {
     super.key,
     required this.pinController,
     required this.isError,
+    this.onChanged,
   });
   final TextEditingController pinController;
   final bool isError;
+  final void Function(String)? onChanged;
   @override
   State<OtpTextField> createState() => _OtpTextFieldState();
 }
@@ -41,6 +43,7 @@ class _OtpTextFieldState extends State<OtpTextField> {
           Directionality(
             textDirection: TextDirection.ltr,
             child: Pinput(
+              onChanged: widget.onChanged,
               forceErrorState: widget.isError,
               length: 4,
               controller: widget.pinController,

@@ -8,10 +8,12 @@ import 'package:mego_food/features/auth/presentation/widgets/live_validate_passw
 class AuthTextFields extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final void Function(String)? onChanged;
   const AuthTextFields({
     super.key,
     required this.emailController,
     required this.passwordController,
+    this.onChanged,
   });
 
   @override
@@ -32,6 +34,7 @@ class _AuthTextFieldsState extends State<AuthTextFields> {
           hintText: 'email address',
         ),
         AppTextField(
+          onChanged: widget.onChanged,
           validator: (value) => passwordValidator(value),
           emailController: widget.passwordController,
           obscureText: !isVisible,

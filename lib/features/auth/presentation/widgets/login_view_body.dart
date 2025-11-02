@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
 import 'package:mego_food/features/auth/presentation/widgets/auth_header.dart';
@@ -16,16 +18,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool? empty;
-  bool get isButtonEnabled =>
-      emailController.text.trim().isNotEmpty &&
-      passwordController.text.trim().isNotEmpty;
+  bool empty = true;
 
   @override
   void initState() {
     emailController.addListener(() {
       setState(() {
-        empty = emailController.text.trim().isEmpty;
+        empty = emailController.text.trim().isEmpty; //هعتمد علي حاجه غيرها
+        //قدام بالاضافه هعمل فالدييشن للايميل برضو عشان الي اعمله يبقي ليه لازمه
       });
     });
     super.initState();
@@ -63,9 +63,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       AuthTextFields(
                         emailController: emailController,
                         passwordController: passwordController,
+                        onChanged: (value) => setState(() {}),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          GoRouter.of(context).push(AppRoutes.forgotPassword);
+                        },
                         child: Text(
                           'forget password',
                           style: context.exTextStyles.medium700.copyWith(
@@ -73,13 +76,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                      ),
                       if (passwordController.text.isEmpty)
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.1,
                         ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.2,
-                      ),
                       AppElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {}

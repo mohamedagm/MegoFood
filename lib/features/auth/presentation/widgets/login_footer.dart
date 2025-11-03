@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 
 class LoginFooter extends StatelessWidget {
@@ -11,7 +13,9 @@ class LoginFooter extends StatelessWidget {
       children: [
         Text("Don't have an account? ", style: context.exTextStyles.medium400),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push(AppRoutes.register);
+          },
           child: Text(
             'Sign Up',
             style: context.exTextStyles.medium600.copyWith(

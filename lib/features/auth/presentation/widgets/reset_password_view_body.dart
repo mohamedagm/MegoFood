@@ -15,8 +15,6 @@ class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final newPasswordController = TextEditingController();
   final reNewPasswordController = TextEditingController();
-  bool isVisible = false;
-  bool isVisible2 = false;
 
   @override
   Widget build(BuildContext context) {

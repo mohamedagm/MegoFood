@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/auth/presentation/views/forget_password_view.dart';
 import 'package:mego_food/features/auth/presentation/views/login_view.dart';
+import 'package:mego_food/features/auth/presentation/views/reset_password_view.dart';
 import 'package:mego_food/features/auth/presentation/views/start_auth_view.dart';
 import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.dart';
 
@@ -24,6 +25,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.forgotPassword,
         builder: (context, state) => const ForgetPasswordView(),
+      ),
+      GoRoute(
+        path: AppRoutes.newPassword,
+        builder: (context, state) => const ResetPasswordView(),
       ),
     ],
   );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
 import 'package:mego_food/features/auth/presentation/widgets/auth_header.dart';
@@ -71,7 +73,9 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
 
                       AppElevatedButton(
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {}
+                          if (formKey.currentState!.validate()) {
+                            GoRouter.of(context).push(AppRoutes.newPassword);
+                          }
                         },
                         buttonType: pinController.text.isEmpty
                             ? AppButtonType.disabled

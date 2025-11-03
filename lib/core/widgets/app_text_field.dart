@@ -4,7 +4,7 @@ import 'package:mego_food/core/theme/theme_context_extensions.dart';
 class AppTextField extends StatelessWidget {
   const AppTextField({
     super.key,
-    required this.emailController,
+    required this.controller,
     this.hintText,
     this.suffixIcon,
     this.obscureText = false,
@@ -12,7 +12,7 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
   });
 
-  final TextEditingController emailController;
+  final TextEditingController controller;
   final String? hintText;
   final Widget? suffixIcon;
   final bool obscureText;
@@ -21,7 +21,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: emailController,
+      controller: controller,
       obscureText: obscureText,
       obscuringCharacter: '●',
       validator: validator,

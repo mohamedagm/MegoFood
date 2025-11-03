@@ -31,13 +31,13 @@ class _AuthTextFieldsState extends State<AuthTextFields> {
         AppTextField(
           onChanged: widget.onChanged,
           validator: (value) => emailValidator(value),
-          emailController: widget.emailController,
+          controller: widget.emailController,
           hintText: 'email address',
         ),
         AppTextField(
           onChanged: widget.onChanged,
           validator: (value) => passwordValidator(value),
-          emailController: widget.passwordController,
+          controller: widget.passwordController,
           obscureText: !isVisible,
           hintText: 'password',
           suffixIcon: InkWell(

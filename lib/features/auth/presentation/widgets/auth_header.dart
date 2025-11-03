@@ -9,7 +9,7 @@ class AuthHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: AppBackButton()),
+        Expanded(child: Row(children: [AppBackButton(), SizedBox()])),
         Image.asset(AppAssets.mego),
         const Expanded(child: SizedBox()),
       ],

@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
+import 'package:mego_food/features/auth/presentation/views/add_address_view.dart';
+import 'package:mego_food/features/auth/presentation/views/create_profile_view.dart';
 import 'package:mego_food/features/auth/presentation/views/forget_password_view.dart';
 import 'package:mego_food/features/auth/presentation/views/login_view.dart';
 import 'package:mego_food/features/auth/presentation/views/register_view.dart';
@@ -10,7 +12,7 @@ import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.d
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.onboarding,
+    initialLocation: AppRoutes.createProfile,
     routes: <RouteBase>[
       GoRoute(
         path: AppRoutes.onboarding,
@@ -39,6 +41,17 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.otpAfterRegister,
         builder: (context, state) => const OtpAfterRegisterView(),
+      ),
+      GoRoute(
+        path: AppRoutes.createProfile,
+        builder: (context, state) => const CreateProfileView(),
+      ),
+      GoRoute(
+        path: AppRoutes.addAddress,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>?;
+          return AddAddressView(initialData: data);
+        },
       ),
     ],
   );

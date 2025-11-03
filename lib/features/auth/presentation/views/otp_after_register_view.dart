@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/auth/presentation/widgets/otp_vertification_body.dart';
 
 class OtpAfterRegisterView extends StatelessWidget {
@@ -6,10 +8,11 @@ class OtpAfterRegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OtpVerificationBody(
-      title: 'Verify your\naccount',
-      onContinue: () {},
-      //onContinue: () => GoRouter.of(context).push(AppRoutes.home),
+    return Scaffold(
+      body: OtpVerificationBody(
+        title: 'Verify your\naccount',
+        onContinue: () => GoRouter.of(context).push(AppRoutes.createProfile),
+      ),
     );
   }
 }

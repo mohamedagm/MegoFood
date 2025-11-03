@@ -33,64 +33,54 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    spacing: 15,
-                    children: [
-                      AuthHeader(),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Log in to your\naccount',
-                          style: context.exTextStyles.heading1,
-                        ),
-                      ),
-                      AuthTextFields(
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        onChanged: (value) => setState(() {}),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          GoRouter.of(context).push(AppRoutes.forgotPassword);
-                        },
-                        child: Text(
-                          'forget password',
-                          style: context.exTextStyles.medium700.copyWith(
-                            color: context.exColors.primary600,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.2,
-                      ),
-                      if (passwordController.text.isEmpty)
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                        ),
-                      AppElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {}
-                        },
-                        buttonType: emailController.text.isEmpty
-                            ? AppButtonType.disabled
-                            : AppButtonType.primary,
-                        child: Text('Log In'),
-                      ),
-                      AuthFooter(isLogin: true),
-                    ],
+    return SingleChildScrollView(
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Form(
+            key: formKey,
+            child: Column(
+              spacing: 15,
+              children: [
+                AuthHeader(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Log in to your\naccount',
+                    style: context.exTextStyles.heading1,
                   ),
                 ),
-              ),
-            ],
+                AuthTextFields(
+                  emailController: emailController,
+                  passwordController: passwordController,
+                  onChanged: (value) => setState(() {}),
+                ),
+                TextButton(
+                  onPressed: () {
+                    GoRouter.of(context).push(AppRoutes.forgotPassword);
+                  },
+                  child: Text(
+                    'forget password',
+                    style: context.exTextStyles.medium700.copyWith(
+                      color: context.exColors.primary600,
+                    ),
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                if (passwordController.text.isEmpty)
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                AppElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {}
+                  },
+                  buttonType: emailController.text.isEmpty
+                      ? AppButtonType.disabled
+                      : AppButtonType.primary,
+                  child: Text('Log In'),
+                ),
+                AuthFooter(isLogin: true),
+              ],
+            ),
           ),
         ),
       ),

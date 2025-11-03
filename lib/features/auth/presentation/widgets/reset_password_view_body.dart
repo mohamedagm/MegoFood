@@ -18,57 +18,47 @@ class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    spacing: 15,
-                    children: [
-                      const AuthHeader(),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Create a new\npassword',
-                          style: context.exTextStyles.heading1,
-                        ),
-                      ),
-                      Text(
-                        'Enter a new password and try not to forget it.',
-                        style: context.exTextStyles.medium400,
-                      ),
-                      ResetPasswordFields(
-                        onChanged: (value) => setState(() {}),
-                        newPasswordController: newPasswordController,
-                        reNewPasswordController: reNewPasswordController,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.25,
-                      ),
-                      if (newPasswordController.text.isEmpty)
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.15,
-                        ),
-
-                      AppElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {}
-                        },
-                        buttonType: newPasswordController.text.isEmpty
-                            ? AppButtonType.disabled
-                            : AppButtonType.primary,
-                        child: const Text('Continue'),
-                      ),
-                    ],
+    return SingleChildScrollView(
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Form(
+            key: formKey,
+            child: Column(
+              spacing: 15,
+              children: [
+                const AuthHeader(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Create a new\npassword',
+                    style: context.exTextStyles.heading1,
                   ),
                 ),
-              ),
-            ],
+                Text(
+                  'Enter a new password and try not to forget it.',
+                  style: context.exTextStyles.medium400,
+                ),
+                ResetPasswordFields(
+                  onChanged: (value) => setState(() {}),
+                  newPasswordController: newPasswordController,
+                  reNewPasswordController: reNewPasswordController,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.25),
+                if (newPasswordController.text.isEmpty)
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+
+                AppElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {}
+                  },
+                  buttonType: newPasswordController.text.isEmpty
+                      ? AppButtonType.disabled
+                      : AppButtonType.primary,
+                  child: const Text('Continue'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

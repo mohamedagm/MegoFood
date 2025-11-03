@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
+import 'package:mego_food/features/auth/presentation/widgets/auth_footer.dart';
 import 'package:mego_food/features/auth/presentation/widgets/auth_header.dart';
 import 'package:mego_food/features/auth/presentation/widgets/auth_text_fields.dart';
 
@@ -92,26 +93,7 @@ class _LoginViewBodyState extends State<RegisterViewBody> {
                             : AppButtonType.primary,
                         child: Text('Create account'),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "have an account? ",
-                            style: context.exTextStyles.medium400,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              GoRouter.of(context).pop();
-                            },
-                            child: Text(
-                              'Sign In',
-                              style: context.exTextStyles.medium600.copyWith(
-                                color: context.exColors.primary600,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      AuthFooter(isLogin: false),
                     ],
                   ),
                 ),

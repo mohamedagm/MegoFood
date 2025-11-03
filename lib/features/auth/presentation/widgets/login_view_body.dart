@@ -5,7 +5,7 @@ import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
 import 'package:mego_food/features/auth/presentation/widgets/auth_header.dart';
 import 'package:mego_food/features/auth/presentation/widgets/auth_text_fields.dart';
-import 'package:mego_food/features/auth/presentation/widgets/login_footer.dart';
+import 'package:mego_food/features/auth/presentation/widgets/auth_footer.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -85,7 +85,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             : AppButtonType.primary,
                         child: Text('Log In'),
                       ),
-                      LoginFooter(),
+                      AuthFooter(isLogin: true),
                     ],
                   ),
                 ),

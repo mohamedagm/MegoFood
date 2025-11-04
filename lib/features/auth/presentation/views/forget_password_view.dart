@@ -8,9 +8,11 @@ class ForgetPasswordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OtpVerificationBody(
-      title: 'Forgot your\npassword',
-      onContinue: () => GoRouter.of(context).push(AppRoutes.newPassword),
+    return Scaffold(
+      body: OtpVerificationBody(
+        title: 'Forgot your\npassword',
+        onContinue: () => GoRouter.of(context).push(AppRoutes.newPassword),
+      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-abstract class Failures {
+ class Failures {
   final String message;
   Failures(this.message);
 }

@@ -1,13 +1,15 @@
+import 'package:mego_food/core/errors/failures.dart';
 import 'package:mego_food/features/auth/data/models/error_code_message.dart';
 
-class ErrorLoginModel {
+class ErrorLoginModel extends Failures {
   final String type;
   final String title;
   final int status;
   final ErrorCodeMessage error;
   final String? traceId;
 
-  ErrorLoginModel({
+  ErrorLoginModel(
+    super.message, {
     required this.type,
     required this.title,
     required this.status,
@@ -17,6 +19,7 @@ class ErrorLoginModel {
 
   factory ErrorLoginModel.fromJson(Map<String, dynamic> json) {
     return ErrorLoginModel(
+      ErrorCodeMessage.fromJson(json['error']).message,
       type: json['type'],
       title: json['title'],
       status: json['status'],

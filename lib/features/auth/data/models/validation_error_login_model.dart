@@ -1,13 +1,16 @@
 import 'dart:convert';
 
-class ValidationErrorLoginModel {
+import 'package:mego_food/core/errors/failures.dart';
+
+class ValidationErrorLoginModel extends Failures {
   final String type;
   final String title;
   final int status;
   final Map<String, List<String>> errors;
   final String? traceId;
 
-  ValidationErrorLoginModel({
+  ValidationErrorLoginModel(
+    super.message, {
     required this.type,
     required this.title,
     required this.status,
@@ -16,29 +19,23 @@ class ValidationErrorLoginModel {
   });
 
   factory ValidationErrorLoginModel.fromJson(Map<String, dynamic> json) {
-    final rawErrors = (json['errors'] as Map<String, dynamic>?) ?? {};
     final Map<String, List<String>> parsed = {};
-    rawErrors.forEach((key, value) {
+    json['errors'].forEach((key, value) {
       if (value is List) {
-        parsed[key] = value
-            .map((e) => e?.toString() ?? '')
-            .where((s) => s.isNotEmpty)
-            .toList();
+        parsed[key] = List<String>.from(value);
       } else if (value is String) {
         parsed[key] = [value];
       } else {
-        parsed[key] = [value?.toString() ?? ''];
+        parsed[key] = (value as List).map((e) => e.toString()).toList();
       }
     });
-
     return ValidationErrorLoginModel(
-      type: json['type']?.toString() ?? '',
-      title: json['title']?.toString() ?? '',
-      status: (json['status'] is int)
-          ? json['status'] as int
-          : int.tryParse(json['status']?.toString() ?? '') ?? 0,
+      parsed.values.first.first,
+      type: json['type'],
+      title: json['title'],
+      status: json['status'],
       errors: parsed,
-      traceId: json['traceId']?.toString(),
+      traceId: json['traceId'],
     );
   }
 

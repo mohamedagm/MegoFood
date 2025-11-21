@@ -73,4 +73,27 @@ class AuthRepoImpl implements AuthRepo {
       return left(DioExceptions.fromDioError(e));
     }
   }
+
+  @override
+  Future<Either<Failures, Unit>> resetPassword(
+    String email,
+    String token,
+    String newPassword,
+    String confirmNewPassword,
+  ) async {
+    try {
+      await apiConsumer.put(
+        ApiEndPoints.resetPassword,
+        data: {
+          ApiKeys.email: email,
+          ApiKeys.token: token,
+          ApiKeys.newPassword: newPassword,
+          ApiKeys.confirmNewPassword: confirmNewPassword,
+        },
+      );
+      return right(unit); //return in real (true) but dontCare
+    } on DioException catch (e) {
+      return left(DioExceptions.fromDioError(e));
+    }
+  }
 }

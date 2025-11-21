@@ -13,6 +13,12 @@ abstract class AuthRepo {
     String email,
     String otp,
   );
+  Future<Either<Failures, Unit>> resetPassword(
+    String email,
+    String token,
+    String newPassword,
+    String confirmNewPassword,
+  );
 
   Future<Either<Failures, SuccessLoginModel>> logout();
 }

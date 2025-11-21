@@ -51,4 +51,23 @@ class AuthCubit extends Cubit<AuthState> {
       (resetToken) => emit(AuthVertifyForgetPasswordOtp(resetToken)),
     );
   }
+
+  Future<void> resetPasswordC({
+    required String email,
+    required String token,
+    required String newPassword,
+    required String confirmNewPassword,
+  }) async {
+    emit(AuthLoading());
+    final result = await authRepo.resetPassword(
+      email,
+      token,
+      newPassword,
+      confirmNewPassword,
+    );
+    result.fold(
+      (failure) => emit(AuthFailure(failure)),
+      (resetToken) => emit(AuthresetPassword()),
+    );
+  }
 }

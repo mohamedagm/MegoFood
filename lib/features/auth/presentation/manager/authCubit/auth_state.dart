@@ -29,6 +29,8 @@ final class AuthVertifyForgetPasswordOtp extends AuthState {
   AuthVertifyForgetPasswordOtp(this.resetToken);
 }
 
+final class AuthresetPassword extends AuthState {}
+
 final class AuthFailure extends AuthState {
   final Failures failure;
 

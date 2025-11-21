@@ -41,7 +41,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         FocusScope.of(context).unfocus();
-        if (state is AuthSuccess) {
+        if (state is AuthLoginSuccess) {
           customSnackbar(
             context,
             'your id: ${state.successLoginModel.userId}',
@@ -50,13 +50,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           GoRouter.of(context).push(AppRoutes.home);
         } else if (state is AuthFailure) {
           final failure = state.failure;
-          if (failure is ValidationErrorLoginModel) {
+          if (failure is ValidationErrorAuthModel) {
             customSnackbar(
               context,
               failure.errors.values.first.first,
               SnackbarType.error,
             );
-          } else if (failure is ErrorLoginModel) {
+          } else if (failure is ErrorAuthModel) {
             customSnackbar(context, failure.error.message, SnackbarType.error);
           }
         }

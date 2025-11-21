@@ -27,11 +27,11 @@ class DioExceptions extends Failures {
 
         if (data is Map<String, dynamic>) {
           if (data.containsKey('errors')) {
-            return ValidationErrorLoginModel.fromJson(data);
+            return ValidationErrorAuthModel.fromJson(data);
           }
 
           if (data.containsKey('error')) {
-            return ErrorLoginModel.fromJson(data);
+            return ErrorAuthModel.fromJson(data);
           }
         }
 

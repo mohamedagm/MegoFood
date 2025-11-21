@@ -33,11 +33,15 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failures, SuccessLoginModel>> register(
-    String email,
-    String password,
-  ) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<Either<Failures, Unit>> register(String email, String password) async {
+    try {
+      await apiConsumer.post(
+        ApiEndPoints.register,
+        data: {ApiKeys.email: email, ApiKeys.password: password},
+      );
+      return right(unit);
+    } on DioException catch (e) {
+      return left(DioExceptions.fromDioError(e));
+    }
   }
 }

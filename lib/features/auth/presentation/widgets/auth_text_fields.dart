@@ -38,7 +38,7 @@ class _AuthTextFieldsState extends State<AuthTextFields> {
           onChanged: widget.onChanged,
           validator: (value) => passwordValidator(value),
           controller: widget.passwordController,
-          obscureText: !isVisible,
+          obscureText: isVisible,
           hintText: 'password',
           suffixIcon: InkWell(
             onTap: () => setState(() => isVisible = !isVisible),

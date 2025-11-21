@@ -15,7 +15,19 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await authRepo.login(email, password);
     result.fold(
       (failure) => emit(AuthFailure(failure)),
-      (successLoginModel) => emit(AuthSuccess(successLoginModel)),
+      (successLoginModel) => emit(AuthLoginSuccess(successLoginModel)),
+    );
+  }
+
+  Future<void> registerC({
+    required String email,
+    required String password,
+  }) async {
+    emit(AuthLoading());
+    final result = await authRepo.register(email, password);
+    result.fold(
+      (failure) => emit(AuthFailure(failure)),
+      (unit) => emit(AuthRegisterSuccess()),
     );
   }
 }

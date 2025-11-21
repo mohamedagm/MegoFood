@@ -10,14 +10,16 @@ final class AuthInitial extends AuthState {}
 
 final class AuthLoading extends AuthState {}
 
-final class AuthSuccess extends AuthState {
+final class AuthLoginSuccess extends AuthState {
   final SuccessLoginModel successLoginModel;
 
-  AuthSuccess(this.successLoginModel);
+  AuthLoginSuccess(this.successLoginModel);
 
   @override
   List<Object?> get props => [successLoginModel];
 }
+
+final class AuthRegisterSuccess extends AuthState {}
 
 final class AuthFailure extends AuthState {
   final Failures failure;

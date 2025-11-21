@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:mego_food/core/errors/failures.dart';
 
-class ValidationErrorLoginModel extends Failures {
+class ValidationErrorAuthModel extends Failures {
   final String type;
   final String title;
   final int status;
   final Map<String, List<String>> errors;
   final String? traceId;
 
-  ValidationErrorLoginModel(
+  ValidationErrorAuthModel(
     super.message, {
     required this.type,
     required this.title,
@@ -18,7 +18,7 @@ class ValidationErrorLoginModel extends Failures {
     this.traceId,
   });
 
-  factory ValidationErrorLoginModel.fromJson(Map<String, dynamic> json) {
+  factory ValidationErrorAuthModel.fromJson(Map<String, dynamic> json) {
     final Map<String, List<String>> parsed = {};
     json['errors'].forEach((key, value) {
       if (value is List) {
@@ -29,7 +29,7 @@ class ValidationErrorLoginModel extends Failures {
         parsed[key] = (value as List).map((e) => e.toString()).toList();
       }
     });
-    return ValidationErrorLoginModel(
+    return ValidationErrorAuthModel(
       parsed.values.first.first,
       type: json['type'],
       title: json['title'],

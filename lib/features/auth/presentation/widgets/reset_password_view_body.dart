@@ -5,7 +5,9 @@ import 'package:mego_food/features/auth/presentation/widgets/auth_header.dart';
 import 'package:mego_food/features/auth/presentation/widgets/reset_password_fields.dart';
 
 class ResetPasswordViewBody extends StatefulWidget {
-  const ResetPasswordViewBody({super.key});
+  const ResetPasswordViewBody({super.key, required this.resetToken});
+    final String resetToken;
+
 
   @override
   State<ResetPasswordViewBody> createState() => _ResetPasswordViewBodyState();

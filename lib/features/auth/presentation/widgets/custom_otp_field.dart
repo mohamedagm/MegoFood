@@ -25,7 +25,7 @@ class _OtpTextFieldState extends State<OtpTextField> {
     final theme = Theme.of(context);
     final defaultPinTheme = PinTheme(
       margin: EdgeInsets.all(4),
-      width: 75,
+      width: 60,
       height: 50,
       textStyle: TextStyle(
         fontSize: 22,
@@ -48,7 +48,7 @@ class _OtpTextFieldState extends State<OtpTextField> {
               validator: widget.validator,
               onChanged: widget.onChanged,
               forceErrorState: widget.isError,
-              length: 4,
+              length: 6,
               controller: widget.pinController,
               defaultPinTheme: defaultPinTheme,
               hapticFeedbackType: HapticFeedbackType.lightImpact,

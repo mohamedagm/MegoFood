@@ -38,15 +38,20 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.vertifyForgotPassword,
-        builder: (context, state) => const VertifyForgetPasswordOtpView(),
+        builder: (context, state) =>
+            VertifyForgetPasswordOtpView(email: state.extra as String),
       ),
       GoRoute(
         path: AppRoutes.newPassword,
-        builder: (context, state) => const ResetPasswordView(),
+        builder: (context, state) {
+          final list = state.extra as List<String>;
+          return ResetPasswordView(email: list[0], resetToken: list[1]);
+        },
       ),
       GoRoute(
         path: AppRoutes.otpAfterRegister,
-        builder: (context, state) => const OtpAfterRegisterView(),
+        builder: (context, state) =>
+            OtpAfterRegisterView(email: state.extra as String),
       ),
       GoRoute(
         path: AppRoutes.createProfile,

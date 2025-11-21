@@ -48,7 +48,9 @@ class _LoginViewBodyState extends State<RegisterViewBody> {
             'Initially success, proof Yourself',
             SnackbarType.success,
           );
-          GoRouter.of(context).push(AppRoutes.otpAfterRegister);
+          GoRouter.of(
+            context,
+          ).push(AppRoutes.otpAfterRegister, extra: emailController.text);
         } else if (state is AuthFailure) {
           final failure = state.failure;
           if (failure is ValidationErrorAuthModel) {

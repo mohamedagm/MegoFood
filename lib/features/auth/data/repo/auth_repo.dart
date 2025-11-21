@@ -8,5 +8,11 @@ abstract class AuthRepo {
     String password,
   );
   Future<Either<Failures, Unit>> register(String email, String password);
+  Future<Either<Failures, Unit>> forgetPassword(String email);
+  Future<Either<Failures, String>> vertifyForgetPasswordOtp(
+    String email,
+    String otp,
+  );
+
   Future<Either<Failures, SuccessLoginModel>> logout();
 }

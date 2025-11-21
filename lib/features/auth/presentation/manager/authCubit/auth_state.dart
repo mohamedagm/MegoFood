@@ -21,6 +21,14 @@ final class AuthLoginSuccess extends AuthState {
 
 final class AuthRegisterSuccess extends AuthState {}
 
+final class AuthForgetPassword extends AuthState {}
+
+final class AuthVertifyForgetPasswordOtp extends AuthState {
+  final String resetToken;
+
+  AuthVertifyForgetPasswordOtp(this.resetToken);
+}
+
 final class AuthFailure extends AuthState {
   final Failures failure;
 

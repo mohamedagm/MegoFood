@@ -44,4 +44,33 @@ class AuthRepoImpl implements AuthRepo {
       return left(DioExceptions.fromDioError(e));
     }
   }
+
+  @override
+  Future<Either<Failures, Unit>> forgetPassword(String email) async {
+    try {
+      await apiConsumer.post(
+        ApiEndPoints.forgetPassword,
+        data: {ApiKeys.email: email},
+      );
+      return right(unit);
+    } on DioException catch (e) {
+      return left(DioExceptions.fromDioError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failures, String>> vertifyForgetPasswordOtp(
+    String email,
+    String otp,
+  ) async {
+    try {
+      final response = await apiConsumer.post(
+        ApiEndPoints.vertifyForgetPassword,
+        data: {ApiKeys.email: email, ApiKeys.otp: otp},
+      );
+      return right(response.data); //token for rseset
+    } on DioException catch (e) {
+      return left(DioExceptions.fromDioError(e));
+    }
+  }
 }

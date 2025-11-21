@@ -3,6 +3,7 @@ import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/auth/presentation/views/add_address_view.dart';
 import 'package:mego_food/features/auth/presentation/views/create_profile_view.dart';
 import 'package:mego_food/features/auth/presentation/views/forget_password_view.dart';
+import 'package:mego_food/features/auth/presentation/views/vertify_forget_password_otp_view.dart';
 import 'package:mego_food/features/auth/presentation/views/login_view.dart';
 import 'package:mego_food/features/auth/presentation/views/register_view.dart';
 import 'package:mego_food/features/auth/presentation/views/reset_password_view.dart';
@@ -34,6 +35,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.forgotPassword,
         builder: (context, state) => const ForgetPasswordView(),
+      ),
+      GoRoute(
+        path: AppRoutes.vertifyForgotPassword,
+        builder: (context, state) => const VertifyForgetPasswordOtpView(),
       ),
       GoRoute(
         path: AppRoutes.newPassword,

@@ -4,6 +4,7 @@ class AppRoutes {
   static const String login = '/login';
   static const String register = '/register';
   static const String forgotPassword = '/forgot-password';
+  static const String vertifyForgotPassword = '/vertify-forgot-password';
   static const String newPassword = '/new-password';
   static const String otpAfterRegister = '/otp-after-register';
   static const String createProfile = '/create-profile';

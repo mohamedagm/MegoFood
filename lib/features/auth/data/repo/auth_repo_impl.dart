@@ -66,7 +66,7 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final response = await apiConsumer.post(
         ApiEndPoints.vertifyForgetPassword,
-        data: {ApiKeys.email: email, ApiKeys.otp: otp},
+        data: {ApiKeys.email: email, ApiKeys.otpForgetPassword: otp},
       );
       return right(response.data); //token for rseset
     } on DioException catch (e) {
@@ -92,6 +92,19 @@ class AuthRepoImpl implements AuthRepo {
         },
       );
       return right(unit); //return in real (true) but dontCare
+    } on DioException catch (e) {
+      return left(DioExceptions.fromDioError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failures, Unit>> confirmEmail(String email, String otp) async {
+    try {
+      await apiConsumer.post(
+        ApiEndPoints.confirmEmail,
+        data: {ApiKeys.email: email, ApiKeys.otpConfirmEmail: otp},
+      );
+      return right(unit);
     } on DioException catch (e) {
       return left(DioExceptions.fromDioError(e));
     }

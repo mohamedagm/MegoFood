@@ -67,7 +67,19 @@ class AuthCubit extends Cubit<AuthState> {
     );
     result.fold(
       (failure) => emit(AuthFailure(failure)),
-      (resetToken) => emit(AuthresetPassword()),
+      (unit) => emit(AuthresetPassword()),
+    );
+  }
+
+  Future<void> confirmEmailC({
+    required String email,
+    required String otp,
+  }) async {
+    emit(AuthLoading());
+    final result = await authRepo.confirmEmail(email, otp);
+    result.fold(
+      (failure) => emit(AuthFailure(failure)),
+      (unit) => emit(AuthConfirmEmail()),
     );
   }
 }

@@ -5,12 +5,14 @@ class ApiEndPoints {
   static String forgetPassword = '/api/Account/ForgetPassword';
   static String vertifyForgetPassword = '/api/Account/VerfiyForgetPasswordOTP';
   static String resetPassword = '/api/Account/ResetPassword';
+  static String confirmEmail = '/api/Account/confirm-email';
 }
 
 class ApiKeys {
   static String email = 'email';
   static String password = 'password';
-  static String otp = 'codeOTP';
+  static String otpForgetPassword = 'codeOTP';
+  static String otpConfirmEmail = 'otp';
   static String token = 'token';
   static String newPassword = 'newPassword';
   static String confirmNewPassword = 'confirmNewPassword';

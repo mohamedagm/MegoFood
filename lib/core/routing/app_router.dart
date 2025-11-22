@@ -51,7 +51,7 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.otpAfterRegister,
         builder: (context, state) =>
-            OtpAfterRegisterView(email: state.extra as String),
+            VertifyEmailOtpView(email: state.extra as String),
       ),
       GoRoute(
         path: AppRoutes.createProfile,

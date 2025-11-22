@@ -19,6 +19,7 @@ abstract class AuthRepo {
     String newPassword,
     String confirmNewPassword,
   );
+  Future<Either<Failures, Unit>> confirmEmail(String email, String otp);
 
   Future<Either<Failures, SuccessLoginModel>> logout();
 }

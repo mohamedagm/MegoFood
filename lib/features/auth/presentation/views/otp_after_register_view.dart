@@ -32,6 +32,12 @@ class VertifyEmailOtpView extends StatelessWidget {
                 SnackbarType.success,
               );
               GoRouter.of(context).push(AppRoutes.createProfile);
+            } else if (state is AuthResendConfirmEmail) {
+              customSnackbar(
+                context,
+                'resend Successfully',
+                SnackbarType.success,
+              );
             } else if (state is AuthFailure) {
               final failure = state.failure;
               if (failure is ValidationErrorAuthModel) {

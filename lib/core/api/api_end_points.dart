@@ -6,6 +6,8 @@ class ApiEndPoints {
   static String vertifyForgetPassword = '/api/Account/VerfiyForgetPasswordOTP';
   static String resetPassword = '/api/Account/ResetPassword';
   static String confirmEmail = '/api/Account/confirm-email';
+  static String resendConfirmEmail =
+      '/api/Account/resend-confirmation-email- OTP';
 }
 
 class ApiKeys {

@@ -1,13 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
-import 'package:mego_food/core/utils/functions/custom_snack_bar.dart';
+import 'package:mego_food/core/utils/functions/format_time.dart';
 import 'package:mego_food/core/utils/validators/otp_validator.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
-import 'package:mego_food/features/auth/data/models/error_login_model.dart';
-import 'package:mego_food/features/auth/data/models/validation_error_login_model.dart';
 import 'package:mego_food/features/auth/presentation/manager/authCubit/auth_cubit.dart';
 import 'package:mego_food/features/auth/presentation/widgets/auth_header.dart';
 import 'package:mego_food/features/auth/presentation/widgets/custom_otp_field.dart';
@@ -33,6 +31,39 @@ class OtpVerificationBody extends StatefulWidget {
 class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController pinController = TextEditingController();
+  int seconds = 60;
+  Timer? timer;
+  bool isTimerEnd = false;
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    timer?.cancel();
+    setState(() {
+      isTimerEnd = false;
+    });
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (seconds > 0) {
+        setState(() {
+          seconds--;
+        });
+      } else {
+        setState(() {
+          isTimerEnd = true;
+        });
+        timer.cancel();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +102,26 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                         "Didn’t receive the code? ",
                         style: context.exTextStyles.medium400,
                       ),
-                      Text('00:59'),
+                      Text(formatTime(seconds)),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (isTimerEnd) {
+                            context.read<AuthCubit>().resendConfirmEmailC(
+                              email: widget.email,
+                            );
+                            setState(() {
+                              seconds = 60;
+                              isTimerEnd = false;
+                              startTimer();
+                            });
+                          }
+                        },
                         child: Text(
                           'Resend',
                           style: context.exTextStyles.medium600.copyWith(
-                            color: context.exColors.primary600,
+                            color: isTimerEnd
+                                ? context.exColors.primary600
+                                : context.exColors.primary100,
                           ),
                         ),
                       ),
@@ -90,7 +134,6 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                       return AppElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            print('hereeeeeeee${pinController.text}');
                             widget.isVertifyPassword
                                 ? context
                                       .read<AuthCubit>()

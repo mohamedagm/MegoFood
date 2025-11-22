@@ -27,25 +27,6 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failures, SuccessLoginModel>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failures, Unit>> register(String email, String password) async {
-    try {
-      await apiConsumer.post(
-        ApiEndPoints.register,
-        data: {ApiKeys.email: email, ApiKeys.password: password},
-      );
-      return right(unit);
-    } on DioException catch (e) {
-      return left(DioExceptions.fromDioError(e));
-    }
-  }
-
-  @override
   Future<Either<Failures, Unit>> forgetPassword(String email) async {
     try {
       await apiConsumer.post(
@@ -98,6 +79,19 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
+  Future<Either<Failures, Unit>> register(String email, String password) async {
+    try {
+      await apiConsumer.post(
+        ApiEndPoints.register,
+        data: {ApiKeys.email: email, ApiKeys.password: password},
+      );
+      return right(unit);
+    } on DioException catch (e) {
+      return left(DioExceptions.fromDioError(e));
+    }
+  }
+
+  @override
   Future<Either<Failures, Unit>> confirmEmail(String email, String otp) async {
     try {
       await apiConsumer.post(
@@ -108,5 +102,24 @@ class AuthRepoImpl implements AuthRepo {
     } on DioException catch (e) {
       return left(DioExceptions.fromDioError(e));
     }
+  }
+
+  @override
+  Future<Either<Failures, Unit>> resendConfirmEmail(String email) async {
+    try {
+      await apiConsumer.post(
+        ApiEndPoints.resendConfirmEmail,
+        data: {ApiKeys.email: email},
+      );
+      return right(unit);
+    } on DioException catch (e) {
+      return left(DioExceptions.fromDioError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failures, SuccessLoginModel>> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
   }
 }

@@ -82,4 +82,13 @@ class AuthCubit extends Cubit<AuthState> {
       (unit) => emit(AuthConfirmEmail()),
     );
   }
+
+  Future<void> resendConfirmEmailC({required String email}) async {
+    emit(AuthLoading());
+    final result = await authRepo.resendConfirmEmail(email);
+    result.fold(
+      (failure) => emit(AuthFailure(failure)),
+      (unit) => emit(AuthResendConfirmEmail()),
+    );
+  }
 }

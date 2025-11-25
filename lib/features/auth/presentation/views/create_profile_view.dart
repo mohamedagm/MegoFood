@@ -6,6 +6,10 @@ class CreateProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: CreateProfileViewBody());
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(body: CreateProfileViewBody()),
+    );
   }
 }

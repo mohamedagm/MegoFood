@@ -7,6 +7,10 @@ class AddAddressView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: AddAddressViewBody(initialData: initialData));
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(body: AddAddressViewBody(initialData: initialData)),
+    );
   }
 }

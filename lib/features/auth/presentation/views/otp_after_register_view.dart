@@ -16,45 +16,49 @@ class VertifyEmailOtpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
-        child: OtpVerificationBody(
-          isVertifyPassword: false,
-          title: 'Verify your\naccount',
-          email: email,
-          listener: (context, state) {
-            FocusScope.of(context).unfocus();
-            if (state is AuthConfirmEmail) {
-              customSnackbar(
-                context,
-                'Vertified Successfully',
-                SnackbarType.success,
-              );
-              GoRouter.of(context).push(AppRoutes.createProfile);
-            } else if (state is AuthResendConfirmEmail) {
-              customSnackbar(
-                context,
-                'resend Successfully',
-                SnackbarType.success,
-              );
-            } else if (state is AuthFailure) {
-              final failure = state.failure;
-              if (failure is ValidationErrorAuthModel) {
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        body: BlocProvider(
+          create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
+          child: OtpVerificationBody(
+            isVertifyPassword: false,
+            title: 'Verify your\naccount',
+            email: email,
+            listener: (context, state) {
+              FocusScope.of(context).unfocus();
+              if (state is AuthConfirmEmail) {
                 customSnackbar(
                   context,
-                  failure.errors.values.first.first,
-                  SnackbarType.error,
+                  'Vertified Successfully',
+                  SnackbarType.success,
                 );
-              } else if (failure is ErrorAuthModel) {
+                GoRouter.of(context).push(AppRoutes.createProfile);
+              } else if (state is AuthResendConfirmEmail) {
                 customSnackbar(
                   context,
-                  failure.error.message,
-                  SnackbarType.error,
+                  'resend Successfully',
+                  SnackbarType.success,
                 );
+              } else if (state is AuthFailure) {
+                final failure = state.failure;
+                if (failure is ValidationErrorAuthModel) {
+                  customSnackbar(
+                    context,
+                    failure.errors.values.first.first,
+                    SnackbarType.error,
+                  );
+                } else if (failure is ErrorAuthModel) {
+                  customSnackbar(
+                    context,
+                    failure.error.message,
+                    SnackbarType.error,
+                  );
+                }
               }
-            }
-          },
+            },
+          ),
         ),
       ),
     );

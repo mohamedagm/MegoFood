@@ -16,10 +16,14 @@ class ResetPasswordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
-        child: ResetPasswordViewBody(email: email, resetToken: resetToken),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        body: BlocProvider(
+          create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
+          child: ResetPasswordViewBody(email: email, resetToken: resetToken),
+        ),
       ),
     );
   }

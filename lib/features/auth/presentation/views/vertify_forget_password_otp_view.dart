@@ -16,47 +16,51 @@ class VertifyForgetPasswordOtpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
-        child: OtpVerificationBody(
-          isVertifyPassword: true,
-          email: email,
-          title: 'Forgot your\npassword',
-          listener: (context, state) {
-            FocusScope.of(context).unfocus();
-            if (state is AuthVertifyForgetPasswordOtp) {
-              customSnackbar(
-                context,
-                'Created Successfully',
-                SnackbarType.success,
-              );
-              GoRouter.of(
-                context,
-              ).push(AppRoutes.newPassword, extra: [email, state.resetToken]);
-            } else if (state is AuthForgetPassword) {
-              customSnackbar(
-                context,
-                'resend Successfully',
-                SnackbarType.success,
-              );
-            } else if (state is AuthFailure) {
-              final failure = state.failure;
-              if (failure is ValidationErrorAuthModel) {
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        body: BlocProvider(
+          create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
+          child: OtpVerificationBody(
+            isVertifyPassword: true,
+            email: email,
+            title: 'Forgot your\npassword',
+            listener: (context, state) {
+              FocusScope.of(context).unfocus();
+              if (state is AuthVertifyForgetPasswordOtp) {
                 customSnackbar(
                   context,
-                  failure.errors.values.first.first,
-                  SnackbarType.error,
+                  'Created Successfully',
+                  SnackbarType.success,
                 );
-              } else if (failure is ErrorAuthModel) {
+                GoRouter.of(
+                  context,
+                ).push(AppRoutes.newPassword, extra: [email, state.resetToken]);
+              } else if (state is AuthForgetPassword) {
                 customSnackbar(
                   context,
-                  failure.error.message,
-                  SnackbarType.error,
+                  'resend Successfully',
+                  SnackbarType.success,
                 );
+              } else if (state is AuthFailure) {
+                final failure = state.failure;
+                if (failure is ValidationErrorAuthModel) {
+                  customSnackbar(
+                    context,
+                    failure.errors.values.first.first,
+                    SnackbarType.error,
+                  );
+                } else if (failure is ErrorAuthModel) {
+                  customSnackbar(
+                    context,
+                    failure.error.message,
+                    SnackbarType.error,
+                  );
+                }
               }
-            }
-          },
+            },
+          ),
         ),
       ),
     );

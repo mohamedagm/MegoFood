@@ -27,9 +27,10 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthForgetPassword) {
-          GoRouter.of(
-            context,
-          ).push(AppRoutes.vertifyForgotPassword, extra: emailController.text);
+          GoRouter.of(context).pushReplacement(
+            AppRoutes.vertifyForgotPassword,
+            extra: emailController.text,
+          );
         } else if (state is AuthFailure) {
           final failure = state.failure;
           if (failure is ValidationErrorAuthModel) {

@@ -47,7 +47,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             'your id: ${state.successLoginModel.userId}',
             SnackbarType.success,
           );
-          GoRouter.of(context).push(AppRoutes.home);
+          GoRouter.of(context).go(AppRoutes.home);
         } else if (state is AuthFailure) {
           final failure = state.failure;
           if (failure is ValidationErrorAuthModel) {

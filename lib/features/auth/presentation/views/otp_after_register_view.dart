@@ -34,7 +34,7 @@ class VertifyEmailOtpView extends StatelessWidget {
                   'Vertified Successfully',
                   SnackbarType.success,
                 );
-                GoRouter.of(context).push(AppRoutes.createProfile);
+                GoRouter.of(context).go(AppRoutes.login);
               } else if (state is AuthResendConfirmEmail) {
                 customSnackbar(
                   context,

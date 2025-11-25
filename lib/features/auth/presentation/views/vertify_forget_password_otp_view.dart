@@ -31,12 +31,13 @@ class VertifyForgetPasswordOtpView extends StatelessWidget {
               if (state is AuthVertifyForgetPasswordOtp) {
                 customSnackbar(
                   context,
-                  'Created Successfully',
+                  'vertifying OTP Successfully',
                   SnackbarType.success,
                 );
-                GoRouter.of(
-                  context,
-                ).push(AppRoutes.newPassword, extra: [email, state.resetToken]);
+                GoRouter.of(context).pushReplacement(
+                  AppRoutes.newPassword,
+                  extra: [email, state.resetToken],
+                );
               } else if (state is AuthForgetPassword) {
                 customSnackbar(
                   context,

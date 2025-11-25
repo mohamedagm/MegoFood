@@ -34,6 +34,12 @@ class VertifyForgetPasswordOtpView extends StatelessWidget {
               GoRouter.of(
                 context,
               ).push(AppRoutes.newPassword, extra: [email, state.resetToken]);
+            } else if (state is AuthForgetPassword) {
+              customSnackbar(
+                context,
+                'resend Successfully',
+                SnackbarType.success,
+              );
             } else if (state is AuthFailure) {
               final failure = state.failure;
               if (failure is ValidationErrorAuthModel) {

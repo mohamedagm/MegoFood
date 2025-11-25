@@ -106,9 +106,13 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                       TextButton(
                         onPressed: () {
                           if (isTimerEnd) {
-                            context.read<AuthCubit>().resendConfirmEmailC(
-                              email: widget.email,
-                            );
+                            widget.isVertifyPassword
+                                ? context.read<AuthCubit>().forgetPasswordC(
+                                    email: widget.email,
+                                  )
+                                : context.read<AuthCubit>().resendConfirmEmailC(
+                                    email: widget.email,
+                                  );
                             setState(() {
                               seconds = 60;
                               isTimerEnd = false;

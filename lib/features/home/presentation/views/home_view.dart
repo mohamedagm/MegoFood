@@ -38,13 +38,18 @@ class _HomeViewState extends State<HomeView> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(index: currentIndex, children: pages),
-      bottomNavigationBar: CustomBottomNav(
-        currentIndex: currentIndex,
-        onTap: (i) => setState(() => currentIndex = i),
-        listIcons1: listIcons1,
-        listIcons2: listIcons2,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: IndexedStack(index: currentIndex, children: pages),
+        bottomNavigationBar: CustomBottomNav(
+          currentIndex: currentIndex,
+          onTap: (i) => setState(() => currentIndex = i),
+          listIcons1: listIcons1,
+          listIcons2: listIcons2,
+        ),
       ),
     );
   }

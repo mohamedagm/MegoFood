@@ -9,6 +9,7 @@ import 'package:mego_food/features/auth/presentation/views/register_view.dart';
 import 'package:mego_food/features/auth/presentation/views/reset_password_view.dart';
 import 'package:mego_food/features/auth/presentation/views/start_auth_view.dart';
 import 'package:mego_food/features/auth/presentation/views/otp_after_register_view.dart';
+import 'package:mego_food/features/home/presentation/views/home_product_details_view.dart';
 import 'package:mego_food/features/home/presentation/views/home_view.dart';
 import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.dart';
 
@@ -67,6 +68,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.home,
         builder: (context, state) => const HomeView(),
+      ),
+      GoRoute(
+        path: AppRoutes.productDetails,
+        builder: (context, state) => const HomeProductDetailsView(),
       ),
     ],
   );

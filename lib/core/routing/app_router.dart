@@ -14,7 +14,7 @@ import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.d
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.onboarding,
+    initialLocation: AppRoutes.home,
     routes: <RouteBase>[
       GoRoute(
         path: AppRoutes.onboarding,

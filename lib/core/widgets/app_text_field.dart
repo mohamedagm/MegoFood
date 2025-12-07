@@ -11,11 +11,13 @@ class AppTextField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.maxLines,
+    this.prefixIcon,
   });
 
   final TextEditingController controller;
   final String? hintText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final bool obscureText;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
@@ -39,11 +41,16 @@ class AppTextField extends StatelessWidget {
           color: context.exColors.typography200,
         ),
         hintText: hintText,
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: prefixIcon,
+        ),
         suffixIcon: Padding(
           padding: const EdgeInsets.only(right: 12.0),
           child: suffixIcon,
         ),
         suffixIconConstraints: BoxConstraints(minHeight: 24, minWidth: 24),
+        prefixIconConstraints: BoxConstraints(minHeight: 24, minWidth: 24),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
           borderSide: BorderSide(color: context.exColors.grey200),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mego_food/features/home/presentation/views/cart_view.dart';
+import 'package:mego_food/features/cart/presentation/views/cart_view.dart';
 import 'package:mego_food/features/home/presentation/views/custom_bottom_nav.dart';
 import 'package:mego_food/features/home/presentation/views/explore_view.dart';
 import 'package:mego_food/features/home/presentation/views/favorite_view.dart';

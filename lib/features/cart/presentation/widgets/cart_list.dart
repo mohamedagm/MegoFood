@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mego_food/features/home/presentation/widgets/cart/cart_list_item.dart';
+import 'package:mego_food/features/cart/presentation/widgets/cart_list_item.dart';
 
 class CartList extends StatefulWidget {
   const CartList({super.key});
@@ -13,7 +13,7 @@ class _CartListState extends State<CartList> {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: 6,
+        itemCount: 4,
         itemBuilder: (context, index) => CartListItem(),
       ),
     );

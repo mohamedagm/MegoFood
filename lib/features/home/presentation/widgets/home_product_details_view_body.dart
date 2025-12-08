@@ -3,7 +3,7 @@ import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/features/home/presentation/widgets/product_count.dart';
 import 'package:mego_food/features/home/presentation/widgets/product_desc.dart';
 import 'package:mego_food/features/home/presentation/widgets/product_details_header.dart';
-import 'package:mego_food/features/home/presentation/widgets/product_details_footer.dart';
+import 'package:mego_food/features/home/presentation/widgets/total_footer.dart';
 import 'package:mego_food/features/home/presentation/widgets/product_info_bar.dart';
 import 'package:mego_food/features/home/presentation/widgets/product_page_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -58,7 +58,7 @@ class _HomeProductDetailsViewBodyState
               //desc
               ProductDesc(),
               //price+AddToCart
-              ProductDetailsFooter(),
+              TotalFooter(buttonText: 'Add to card', total: 12.99),
             ],
           ),
         ),

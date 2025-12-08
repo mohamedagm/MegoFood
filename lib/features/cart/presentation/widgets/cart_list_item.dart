@@ -21,7 +21,7 @@ class _CartListItemState extends State<CartListItem> {
         border: Border.all(color: context.exColors.grey100),
       ),
       margin: const EdgeInsets.all(8),
-      height: 82,
+      height: 90,
       child: Row(
         spacing: 4,
         children: [

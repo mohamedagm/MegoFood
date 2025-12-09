@@ -37,7 +37,7 @@ class PlaceOrderPriceSec extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
           children: [
-            Text('Total', style: context.exTextStyles.large),
+            Text('Total', style: context.exTextStyles.large400),
             Text('60.26', style: context.exTextStyles.robotoLarge),
           ],
         ),

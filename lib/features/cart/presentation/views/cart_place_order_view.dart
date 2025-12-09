@@ -53,7 +53,7 @@ class _CartPlaceOrderViewState extends State<CartPlaceOrderView> {
                 buttonText: 'Continue',
                 total: 60.26,
                 onPressed: () {
-                  //  GoRouter.of(context).push(AppRoutes);
+                  GoRouter.of(context).push(AppRoutes.checkOut, extra: res);
                 },
               ),
               SizedBox(),

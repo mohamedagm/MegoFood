@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 
 class SaveButton extends StatelessWidget {
-  const SaveButton({super.key, required this.data});
-  final Map<String, dynamic> data;
+  const SaveButton({super.key, this.data});
+  final Map<String, dynamic>? data;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -15,7 +15,7 @@ class SaveButton extends StatelessWidget {
           Text(
             'save',
             style: context.exTextStyles.medium700.copyWith(
-              color: context.exColors.typography500,
+              color: context.exColors.primary600,
             ),
           ),
         ],

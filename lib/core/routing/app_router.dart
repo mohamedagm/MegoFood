@@ -11,6 +11,10 @@ import 'package:mego_food/features/auth/presentation/views/start_auth_view.dart'
 import 'package:mego_food/features/auth/presentation/views/otp_after_register_view.dart';
 import 'package:mego_food/features/cart/presentation/views/cart_place_order_view.dart';
 import 'package:mego_food/features/cart/presentation/views/add_coupon_view.dart';
+import 'package:mego_food/features/cart/presentation/views/checkout_view.dart';
+import 'package:mego_food/features/cart/presentation/views/order_placed_view.dart';
+import 'package:mego_food/features/cart/presentation/widgets/change_address.dart';
+import 'package:mego_food/features/cart/presentation/widgets/change_card.dart';
 import 'package:mego_food/features/home/presentation/views/home_product_details_view.dart';
 import 'package:mego_food/features/home/presentation/views/home_view.dart';
 import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.dart';
@@ -82,6 +86,22 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.addCoupon,
         builder: (context, state) => const AddCouponView(),
+      ),
+      GoRoute(
+        path: AppRoutes.checkOut,
+        builder: (context, state) => const CheckoutView(),
+      ),
+      GoRoute(
+        path: AppRoutes.changeAddress,
+        builder: (context, state) => const ChangeAddress(),
+      ),
+      GoRoute(
+        path: AppRoutes.changeCard,
+        builder: (context, state) => const ChangeCard(),
+      ),
+      GoRoute(
+        path: AppRoutes.orderPlaced,
+        builder: (context, state) => const OrderPlacedView(),
       ),
     ],
   );

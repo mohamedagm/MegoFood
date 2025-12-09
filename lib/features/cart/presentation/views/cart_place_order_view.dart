@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_back_button.dart';
 import 'package:mego_food/core/widgets/custom_header.dart';
@@ -8,9 +9,15 @@ import 'package:mego_food/features/cart/presentation/widgets/cart_list.dart';
 import 'package:mego_food/features/cart/presentation/widgets/place_order_price_sec.dart';
 import 'package:mego_food/features/home/presentation/widgets/total_footer.dart';
 
-class CartPlaceOrderView extends StatelessWidget {
+class CartPlaceOrderView extends StatefulWidget {
   const CartPlaceOrderView({super.key});
 
+  @override
+  State<CartPlaceOrderView> createState() => _CartPlaceOrderViewState();
+}
+
+class _CartPlaceOrderViewState extends State<CartPlaceOrderView> {
+  Map<String, dynamic>? res;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +39,23 @@ class CartPlaceOrderView extends StatelessWidget {
                   color: context.exColors.primary700,
                 ),
               ),
-              AddCouponContainer(),
-              PlaceOrderPriceSec(),
-              TotalFooter(buttonText: 'Continue', total: 60.26),
+              AddCouponContainer(
+                selectedCoupon: res,
+                onTap: () async {
+                  res = await GoRouter.of(context).push(AppRoutes.addCoupon);
+                  if (res != null) {
+                    setState(() {});
+                  }
+                },
+              ),
+              PlaceOrderPriceSec(coupon: res),
+              TotalFooter(
+                buttonText: 'Continue',
+                total: 60.26,
+                onPressed: () {
+                  //  GoRouter.of(context).push(AppRoutes);
+                },
+              ),
               SizedBox(),
             ],
           ),

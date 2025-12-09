@@ -58,7 +58,11 @@ class _HomeProductDetailsViewBodyState
               //desc
               ProductDesc(),
               //price+AddToCart
-              TotalFooter(buttonText: 'Add to card', total: 12.99),
+              TotalFooter(
+                buttonText: 'Add to card',
+                total: 12.99,
+                onPressed: () {},
+              ),
             ],
           ),
         ),

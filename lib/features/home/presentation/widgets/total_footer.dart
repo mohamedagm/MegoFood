@@ -3,9 +3,15 @@ import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
 
 class TotalFooter extends StatelessWidget {
-  const TotalFooter({super.key, required this.buttonText, required this.total});
+  const TotalFooter({
+    super.key,
+    required this.buttonText,
+    required this.total,
+    this.onPressed,
+  });
   final String buttonText;
   final double total;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class TotalFooter extends StatelessWidget {
         Expanded(
           child: AppElevatedButton(
             buttonType: AppButtonType.primary,
-            onPressed: () {},
+            onPressed: onPressed,
             child: Text(buttonText),
           ),
         ),

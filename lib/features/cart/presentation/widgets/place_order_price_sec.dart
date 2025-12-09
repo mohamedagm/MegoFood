@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 
 class PlaceOrderPriceSec extends StatelessWidget {
-  const PlaceOrderPriceSec({super.key});
+  const PlaceOrderPriceSec({super.key, this.coupon});
+  final Map<String, dynamic>? coupon;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,14 @@ class PlaceOrderPriceSec extends StatelessWidget {
             Text('56.27', style: context.exTextStyles.medium),
           ],
         ),
+        if (coupon != null)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Coupon', style: context.exTextStyles.medium400),
+              Text('-10', style: context.exTextStyles.medium),
+            ],
+          ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
 

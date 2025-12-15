@@ -23,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
   ];
   final List<String> listIcons2 = [
     'assets/icons/Home tilted.svg',
-    'assets/icons/Explore tilted.svg',
+    'assets/icons/Explore  tilted.svg',
     'assets/icons/Cart tilted.svg',
     'assets/icons/Like tilted.svg',
     'assets/icons/Notification-1.svg',

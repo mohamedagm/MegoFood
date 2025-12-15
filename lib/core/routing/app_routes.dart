@@ -17,4 +17,5 @@ class AppRoutes {
   static const String changeAddress = '/change-address';
   static const String changeCard = '/change-card';
   static const String orderPlaced = '/order-placed';
+  static const String menu = '/menu';
 }

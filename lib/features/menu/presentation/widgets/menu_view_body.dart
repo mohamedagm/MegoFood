@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/widgets/app_elevated_button.dart';
 import 'package:mego_food/features/menu/presentation/widgets/menu_tabs.dart';
 
 class MenuViewBody extends StatefulWidget {
@@ -13,7 +16,6 @@ class MenuViewBody extends StatefulWidget {
 class _MenuViewBodyState extends State<MenuViewBody> {
   bool isOn = false;
   List<String> iconsList = [
-    'assets/icons/Profile.svg',
     'assets/icons/Orders.svg',
     'assets/icons/Credit Card.svg',
     'assets/icons/Location.svg',
@@ -22,12 +24,19 @@ class _MenuViewBodyState extends State<MenuViewBody> {
     '',
   ];
   List<String> titlesList = [
-    'My Account',
     'My Orders',
     'Payment',
     'Addresses',
     'Subscription',
     'Settings',
+  ];
+  List<String> navigationPaths = [
+    AppRoutes.editProfile,
+    AppRoutes.editProfile,
+    AppRoutes.editProfile,
+    AppRoutes.editProfile,
+    AppRoutes.editProfile,
+    AppRoutes.editProfile,
   ];
   @override
   Widget build(BuildContext context) {
@@ -48,6 +57,18 @@ class _MenuViewBodyState extends State<MenuViewBody> {
                   fit: BoxFit.fitHeight,
                 ),
                 Image.asset('assets/images/mego.png'),
+                Spacer(),
+                SizedBox(
+                  height: 30,
+                  width: 80,
+                  child: AppElevatedButton(
+                    buttonType: AppButtonType.primary,
+                    onPressed: () {
+                      GoRouter.of(context).push(AppRoutes.editProfile);
+                    },
+                    child: Text('Edit'),
+                  ),
+                ),
               ],
             ),
 
@@ -102,10 +123,10 @@ class _MenuViewBodyState extends State<MenuViewBody> {
             ),
 
             Text('General', style: context.exTextStyles.small600),
-
             ...List.generate(
-              6,
+              5,
               (index) => MenuTab(
+                navigationPath: navigationPaths[index],
                 prefIconLink: iconsList[index],
                 title: titlesList[index],
               ),

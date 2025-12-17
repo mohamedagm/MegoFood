@@ -18,4 +18,5 @@ class AppRoutes {
   static const String changeCard = '/change-card';
   static const String orderPlaced = '/order-placed';
   static const String menu = '/menu';
+  static const String editProfile = '/edit-profile';
 }

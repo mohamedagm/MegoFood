@@ -194,7 +194,6 @@ class AppTextStylesExtension extends ThemeExtension<AppTextStylesExtension> {
       fontSize: 15,
       fontWeight: FontWeight.bold,
       height: 1.7,
-      color: AppColorsExtension.light.baseWhite,
     ),
 
     small: GoogleFonts.poppins(

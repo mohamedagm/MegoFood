@@ -18,6 +18,7 @@ import 'package:mego_food/features/cart/presentation/widgets/change_card.dart';
 import 'package:mego_food/features/home/presentation/views/home_product_details_view.dart';
 import 'package:mego_food/features/home/presentation/views/home_view.dart';
 import 'package:mego_food/features/menu/presentation/views/menu_view.dart';
+import 'package:mego_food/features/menu/presentation/views/orders_view.dart';
 import 'package:mego_food/features/menu/presentation/views/profile_edit_view.dart';
 import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.dart';
 
@@ -112,6 +113,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.editProfile,
         builder: (context, state) => const ProfileEditView(),
+      ),
+      GoRoute(
+        path: AppRoutes.myOrders,
+        builder: (context, state) => const OrdersView(),
       ),
     ],
   );

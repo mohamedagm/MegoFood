@@ -31,7 +31,7 @@ class _MenuViewBodyState extends State<MenuViewBody> {
     'Settings',
   ];
   List<String> navigationPaths = [
-    AppRoutes.editProfile,
+    AppRoutes.myOrders,
     AppRoutes.editProfile,
     AppRoutes.editProfile,
     AppRoutes.editProfile,

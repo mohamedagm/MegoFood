@@ -20,6 +20,9 @@ import 'package:mego_food/features/home/presentation/views/home_view.dart';
 import 'package:mego_food/features/menu/presentation/views/menu_view.dart';
 import 'package:mego_food/features/menu/presentation/views/orders_view.dart';
 import 'package:mego_food/features/menu/presentation/views/profile_edit_view.dart';
+import 'package:mego_food/features/menu/presentation/views/setting_view.dart';
+import 'package:mego_food/features/menu/presentation/widgets/choose_lang.dart';
+import 'package:mego_food/features/menu/presentation/widgets/delete_account.dart';
 import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.dart';
 
 class AppRouter {
@@ -117,6 +120,18 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.myOrders,
         builder: (context, state) => const OrdersView(),
+      ),
+      GoRoute(
+        path: AppRoutes.settings,
+        builder: (context, state) => const SettingView(),
+      ),
+      GoRoute(
+        path: AppRoutes.chooseLang,
+        builder: (context, state) => const ChooseLang(),
+      ),
+      GoRoute(
+        path: AppRoutes.deleteAcc,
+        builder: (context, state) => const DeleteAccount(),
       ),
     ],
   );

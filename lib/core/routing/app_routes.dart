@@ -20,4 +20,8 @@ class AppRoutes {
   static const String menu = '/menu';
   static const String editProfile = '/edit-profile';
   static const String myOrders = '/my-orders';
+  static const String settings = '/settings';
+  static const String chooseLang = '/choose-lang';
+
+  static const String deleteAcc = '/delete-acc';
 }

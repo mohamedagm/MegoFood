@@ -9,15 +9,19 @@ class MenuTab extends StatelessWidget {
     required this.prefIconLink,
     required this.title,
     required this.navigationPath,
+    this.customSuffix,
+    this.onTap,
   });
   final String prefIconLink;
   final String title;
   final String navigationPath;
+  final Widget? customSuffix;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => GoRouter.of(context).push(navigationPath),
+      onTap: onTap ?? () => GoRouter.of(context).push(navigationPath),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
@@ -30,13 +34,15 @@ class MenuTab extends StatelessWidget {
             SvgPicture.asset(prefIconLink),
             Text(title, style: context.exTextStyles.medium400),
             Spacer(),
-            SvgPicture.asset(
-              'assets/icons/Arrow right.svg',
-              colorFilter: ColorFilter.mode(
-                context.exColors.grey400,
-                BlendMode.srcIn,
+            if (customSuffix == null)
+              SvgPicture.asset(
+                'assets/icons/Arrow right.svg',
+                colorFilter: ColorFilter.mode(
+                  context.exColors.grey400,
+                  BlendMode.srcIn,
+                ),
               ),
-            ),
+            if (customSuffix != null) customSuffix!,
           ],
         ),
       ),

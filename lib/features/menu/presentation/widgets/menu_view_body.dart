@@ -35,8 +35,7 @@ class _MenuViewBodyState extends State<MenuViewBody> {
     AppRoutes.editProfile,
     AppRoutes.editProfile,
     AppRoutes.editProfile,
-    AppRoutes.editProfile,
-    AppRoutes.editProfile,
+    AppRoutes.settings,
   ];
   @override
   Widget build(BuildContext context) {

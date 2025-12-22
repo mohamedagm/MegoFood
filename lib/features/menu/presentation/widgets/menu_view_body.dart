@@ -49,11 +49,14 @@ class _MenuViewBodyState extends State<MenuViewBody> {
             Row(
               spacing: 20,
               children: [
-                SvgPicture.asset(
-                  'assets/icons/Close.svg',
-                  width: 32,
-                  height: 32,
-                  fit: BoxFit.fitHeight,
+                GestureDetector(
+                  onTap: () => GoRouter.of(context).pop(),
+                  child: SvgPicture.asset(
+                    'assets/icons/Close.svg',
+                    width: 32,
+                    height: 32,
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
                 Image.asset('assets/images/mego.png'),
                 Spacer(),

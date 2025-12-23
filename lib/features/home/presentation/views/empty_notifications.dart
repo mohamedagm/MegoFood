@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
-import 'package:mego_food/core/widgets/app_elevated_button.dart';
 
 class EmptyNotifications extends StatelessWidget {
   const EmptyNotifications({super.key});

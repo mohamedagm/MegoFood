@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/explore/presentation/widgets/filters_bottom_sheet.dart';
 
 class FilterButton extends StatelessWidget {
   const FilterButton({super.key});
@@ -17,7 +18,12 @@ class FilterButton extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
-          // TODO: Navigator.push(FilterView)
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (_) => const FiltersBottomSheet(),
+          );
         },
         child: Center(
           child: SvgPicture.asset(

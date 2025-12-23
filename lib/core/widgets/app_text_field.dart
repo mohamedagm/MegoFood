@@ -14,6 +14,7 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.onTap,
     this.focusNode,
+    this.onFieldSubmitted,
   });
 
   final TextEditingController controller;
@@ -26,9 +27,11 @@ class AppTextField extends StatelessWidget {
   final int? maxLines;
   final void Function()? onTap;
   final FocusNode? focusNode;
+  final void Function(String)? onFieldSubmitted;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: onFieldSubmitted,
       focusNode: focusNode,
       onTap: onTap,
       maxLines: maxLines ?? 1,

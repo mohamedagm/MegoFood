@@ -4,7 +4,8 @@ import 'package:mego_food/core/theme/theme_context_extensions.dart';
 
 class SuggestionItem extends StatelessWidget {
   final String text;
-  const SuggestionItem({super.key, required this.text});
+  final void Function()? onTap;
+  const SuggestionItem({super.key, required this.text, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +13,7 @@ class SuggestionItem extends StatelessWidget {
       dense: true,
       leading: SvgPicture.asset('assets/icons/Trending.svg'),
       title: Text(text, style: context.exTextStyles.medium400),
-      onTap: () {
-        // controller.text = text;
-        // setState(() => showSuggestions = false);
-      },
+      onTap: onTap,
     );
   }
 }

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 
-class CartListItem extends StatefulWidget {
-  const CartListItem({super.key});
+class ExploreResultsItem extends StatefulWidget {
+  const ExploreResultsItem({super.key});
 
   @override
-  State<CartListItem> createState() => _CartListItemState();
+  State<ExploreResultsItem> createState() => _ExploreResultsItemState();
 }
 
-class _CartListItemState extends State<CartListItem> {
-  int count = 1;
-
+class _ExploreResultsItemState extends State<ExploreResultsItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +19,7 @@ class _CartListItemState extends State<CartListItem> {
         border: Border.all(color: context.exColors.grey100),
       ),
       margin: const EdgeInsets.all(8),
-      height: 90,
+      height: 108,
       child: Row(
         spacing: 4,
         children: [
@@ -37,8 +35,8 @@ class _CartListItemState extends State<CartListItem> {
                 child: Image.asset(
                   fit: BoxFit.cover,
                   'assets/images/pizaa.png',
-                  height: 80,
-                  width: 80,
+                  height: 108,
+                  width: 120,
                 ),
               ),
               Positioned(
@@ -48,7 +46,7 @@ class _CartListItemState extends State<CartListItem> {
                   width: 47,
                   height: 20,
                   decoration: BoxDecoration(
-                    color: context.exColors.grey100,
+                    color: context.exColors.grey0,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -80,59 +78,40 @@ class _CartListItemState extends State<CartListItem> {
                   maxLines: 2,
                   overflow: TextOverflow.fade,
                 ),
+                // if()
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  spacing: 8,
                   children: [
                     Text(r'$12.99', style: context.exTextStyles.robotoMedium),
                     Container(
-                      width: 95,
-                      height: 40,
-                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32),
-                        border: Border.all(color: context.exColors.grey100),
+                        color: context.exColors.grey100,
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () => setState(() {
-                              if (count > 1) count--;
-                            }),
-                            child: Container(
-                              height: 32,
-                              width: 32,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: context.exColors.grey100,
-                              ),
-                              child: count == 1
-                                  ? SvgPicture.asset('assets/icons/Delete.svg')
-                                  : Icon(Icons.remove),
-                            ),
-                          ),
-                          Text(
-                            '$count',
-                            style: context.exTextStyles.robotoMedium,
-                          ),
-                          InkWell(
-                            onTap: () => setState(() {
-                              count++;
-                            }),
-                            child: Container(
-                              height: 32,
-                              width: 32,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: context.exColors.grey100,
-                              ),
-                              child: Icon(Icons.add),
-                            ),
-                          ),
-                        ],
-                      ),
+                      child: Text('10% OFF', style: context.exTextStyles.small),
                     ),
                   ],
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: context.exColors.primary100,
+                    ),
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () {},
+                      child: Icon(
+                        Icons.add,
+                        size: 20,
+                        color: context.exColors.primary600,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

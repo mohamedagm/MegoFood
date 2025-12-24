@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/custom_header.dart';
 import 'package:mego_food/features/menu/presentation/widgets/current_order_item.dart';
-import 'package:mego_food/features/menu/presentation/widgets/orders_toggle_tabs.dart';
+import 'package:mego_food/features/menu/presentation/widgets/custom_toggle_tabs.dart';
 import 'package:mego_food/features/menu/presentation/widgets/previous_oreder_item.dart';
 
 class OrdersViewBody extends StatefulWidget {
@@ -30,13 +30,15 @@ class _OrdersViewBodyState extends State<OrdersViewBody> {
                 actions: [SvgPicture.asset('assets/icons/More.svg')],
               ),
 
-              OrdersToggleTabs(
+              CustomToggleTabs(
                 isCurrentSelected: isCurrentSelected,
                 onTap: (value) {
                   setState(() {
                     isCurrentSelected = value;
                   });
                 },
+                tab1: 'Current',
+                tab2: 'Previous',
               ),
               if (isCurrentSelected) CurrentOrderItem(),
               if (!isCurrentSelected) ...[

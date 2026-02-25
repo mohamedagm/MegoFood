@@ -38,6 +38,9 @@ class _LoginViewBodyState extends State<RegisterViewBody> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
+      listenWhen: (previous, current) {
+        return current is AuthRegisterSuccess || current is AuthFailure;
+      },
       listener: (context, state) {
         FocusScope.of(context).unfocus();
         if (state is AuthRegisterSuccess) {

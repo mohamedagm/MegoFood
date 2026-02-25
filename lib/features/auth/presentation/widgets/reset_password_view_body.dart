@@ -30,6 +30,9 @@ class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
+      listenWhen: (previous, current) {
+        return current is AuthresetPassword || current is AuthFailure;
+      },
       listener: (context, state) {
         FocusScope.of(context).unfocus();
         if (state is AuthresetPassword) {

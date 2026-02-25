@@ -23,6 +23,9 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
+      listenWhen: (previous, current) {
+        return current is AuthForgetPassword || current is AuthFailure;
+      },
       listener: (context, state) {
         if (state is AuthForgetPassword) {
           customSnackbar(context, state.temporary, SnackbarType.success);

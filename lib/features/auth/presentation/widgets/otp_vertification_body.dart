@@ -68,6 +68,13 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
+      listenWhen: (previous, current) {
+        return current is AuthConfirmEmail ||
+            current is AuthResendConfirmEmail ||
+            current is AuthVertifyForgetPasswordOtp ||
+            current is AuthForgetPassword ||
+            current is AuthFailure;
+      },
       listener: widget.listener,
       child: SingleChildScrollView(
         child: SafeArea(

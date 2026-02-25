@@ -3,28 +3,25 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/home/presentation/widgets/product_item.dart';
 
-class HomeGridProducts extends StatelessWidget {
-  const HomeGridProducts({super.key});
+class HomeSliverProducts extends StatelessWidget {
+  const HomeSliverProducts({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: 20,
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 220,
-        childAspectRatio: 0.85,
-        mainAxisSpacing: 16,
-        crossAxisSpacing: 16,
-        mainAxisExtent: 210,
-      ),
-      itemBuilder: (context, index) {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate((context, index) {
         return InkWell(
           onTap: () => GoRouter.of(context).push(AppRoutes.productDetails),
-          child: ProductItem(),
+          child: const ProductItem(),
         );
-      },
+      }, childCount: 20),
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 220,
+        mainAxisExtent: 210,
+        mainAxisSpacing: 16,
+        childAspectRatio: 0.85,
+        crossAxisSpacing: 16,
+      ),
     );
   }
 }

@@ -44,14 +44,15 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: SingleChildScrollView(
-              child: Column(
-                spacing: 16,
-                children: [
-                  //header
-                  HomeHeader(),
-                  //search field
-                  AppTextField(
+            child: CustomScrollView(
+              slivers: [
+                /// HEADER
+                const SliverToBoxAdapter(child: HomeHeader()),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                /// SEARCH
+                SliverToBoxAdapter(
+                  child: AppTextField(
                     focusNode: searchFocusNode,
                     onTap: () {
                       setState(() => showSuggestions = true);
@@ -69,14 +70,20 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       ),
                     ),
                   ),
-                  //offers
-                  HomeOffers(),
-                  // categories
-                  HomeCategories(),
-                  //products
-                  HomeGridProducts(),
-                ],
-              ),
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                /// OFFERS
+                const SliverToBoxAdapter(child: HomeOffers()),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                /// CATEGORIES
+                const SliverToBoxAdapter(child: HomeCategories()),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                //products
+                HomeSliverProducts(),
+              ],
             ),
           ),
           if (showSuggestions) HomeSearchSuggestions(),

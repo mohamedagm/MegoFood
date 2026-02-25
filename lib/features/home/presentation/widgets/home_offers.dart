@@ -8,15 +8,13 @@ class HomeOffers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.18,
-      width: double.infinity,
+      height: 160,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: 2,
+        itemCount: 3,
         separatorBuilder: (_, __) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
           return Container(
-            margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
               color: context.exColors.primary100,
               borderRadius: BorderRadius.circular(16),
@@ -28,10 +26,7 @@ class HomeOffers extends StatelessWidget {
                   top: 10,
                   bottom: 10,
                   child: SizedBox(
-                    child: Image.asset(
-                      'assets/images/burger_background.png',
-                      height: 150,
-                    ),
+                    child: Image.asset('assets/images/burger_background.png'),
                   ),
                 ),
                 Row(
@@ -47,11 +42,12 @@ class HomeOffers extends StatelessWidget {
                             style: context.exTextStyles.heading2,
                           ),
                           SizedBox(
-                            width: 125,
+                            width: 110,
                             height: 32,
                             child: AppElevatedButton(
                               buttonType: AppButtonType.primary,
                               onPressed: () {},
+                              textStyle: context.exTextStyles.small700,
                               child: Text('Buy now'),
                             ),
                           ),

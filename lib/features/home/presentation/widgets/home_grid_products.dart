@@ -8,22 +8,23 @@ class HomeGridProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GridView.builder(
-        itemCount: 20,
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 220,
-          childAspectRatio: 0.85,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-        ),
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () => GoRouter.of(context).push(AppRoutes.productDetails),
-            child: ProductItem(),
-          );
-        },
+    return GridView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: 20,
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 220,
+        childAspectRatio: 0.85,
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+        mainAxisExtent: 210,
       ),
+      itemBuilder: (context, index) {
+        return InkWell(
+          onTap: () => GoRouter.of(context).push(AppRoutes.productDetails),
+          child: ProductItem(),
+        );
+      },
     );
   }
 }

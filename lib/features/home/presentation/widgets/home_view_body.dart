@@ -44,37 +44,39 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              spacing: 16,
-              children: [
-                //header
-                HomeHeader(),
-                //search field
-                AppTextField(
-                  focusNode: searchFocusNode,
-                  onTap: () {
-                    setState(() => showSuggestions = true);
-                  },
-                  onChanged: (value) {
-                    setState(() => showSuggestions = value.isNotEmpty);
-                  },
-                  controller: controller,
-                  hintText: 'search...',
-                  prefixIcon: SvgPicture.asset(
-                    'assets/icons/Search.svg',
-                    colorFilter: ColorFilter.mode(
-                      context.exColors.grey400,
-                      BlendMode.srcIn,
+            child: SingleChildScrollView(
+              child: Column(
+                spacing: 16,
+                children: [
+                  //header
+                  HomeHeader(),
+                  //search field
+                  AppTextField(
+                    focusNode: searchFocusNode,
+                    onTap: () {
+                      setState(() => showSuggestions = true);
+                    },
+                    onChanged: (value) {
+                      setState(() => showSuggestions = value.isNotEmpty);
+                    },
+                    controller: controller,
+                    hintText: 'search...',
+                    prefixIcon: SvgPicture.asset(
+                      'assets/icons/Search.svg',
+                      colorFilter: ColorFilter.mode(
+                        context.exColors.grey400,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
-                ),
-                //offers
-                HomeOffers(),
-                // categories
-                HomeCategories(),
-                //products
-                HomeGridProducts(),
-              ],
+                  //offers
+                  HomeOffers(),
+                  // categories
+                  HomeCategories(),
+                  //products
+                  HomeGridProducts(),
+                ],
+              ),
             ),
           ),
           if (showSuggestions) HomeSearchSuggestions(),

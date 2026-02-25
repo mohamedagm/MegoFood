@@ -9,19 +9,20 @@ class AppElevatedButton extends StatelessWidget {
     this.onPressed,
     this.child,
     this.buttonType = AppButtonType.primary,
+    this.textStyle,
   });
 
   final void Function()? onPressed;
   final Widget? child;
   final AppButtonType buttonType;
-
+  final TextStyle? textStyle;
   @override
   Widget build(BuildContext context) {
     final button = ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(double.infinity, 55),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: context.exTextStyles.medium700,
+        textStyle: textStyle ?? context.exTextStyles.medium700,
         foregroundColor:
             buttonType == AppButtonType.primary ||
                 buttonType == AppButtonType.danger

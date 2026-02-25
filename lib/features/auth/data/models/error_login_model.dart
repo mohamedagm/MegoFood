@@ -1,11 +1,10 @@
 import 'package:mego_food/core/errors/failures.dart';
-import 'package:mego_food/features/auth/data/models/error_code_message.dart';
 
 class ErrorAuthModel extends Failures {
   final String type;
   final String title;
   final int status;
-  final ErrorCodeMessage error;
+  final Map<String, List<String>> errors;
   final String? traceId;
 
   ErrorAuthModel(
@@ -13,26 +12,26 @@ class ErrorAuthModel extends Failures {
     required this.type,
     required this.title,
     required this.status,
-    required this.error,
+    required this.errors,
     this.traceId,
   });
 
   factory ErrorAuthModel.fromJson(Map<String, dynamic> json) {
+    final rawErrors = json['errors'] as Map<String, dynamic>;
+
+    final parsedErrors = rawErrors.map(
+      (key, value) => MapEntry(key, List<String>.from(value)),
+    );
+
+    final combinedMessage = parsedErrors.values.expand((e) => e).join('\n');
+
     return ErrorAuthModel(
-      ErrorCodeMessage.fromJson(json['error']).message,
+      combinedMessage,
       type: json['type'],
       title: json['title'],
       status: json['status'],
-      error: ErrorCodeMessage.fromJson(json['error']),
+      errors: parsedErrors,
       traceId: json['traceId'],
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'type': type,
-    'title': title,
-    'status': status,
-    'error': error.toJson(),
-    'traceId': traceId,
-  };
 }

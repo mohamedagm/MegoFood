@@ -27,13 +27,13 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failures, Unit>> forgetPassword(String email) async {
+  Future<Either<Failures, String>> forgetPassword(String email) async {
     try {
-      await apiConsumer.post(
+      final response = await apiConsumer.post(
         ApiEndPoints.forgetPassword,
         data: {ApiKeys.email: email},
       );
-      return right(unit);
+      return right(response.data['message']);
     } on DioException catch (e) {
       return left(DioExceptions.fromDioError(e));
     }
@@ -49,7 +49,7 @@ class AuthRepoImpl implements AuthRepo {
         ApiEndPoints.vertifyForgetPassword,
         data: {ApiKeys.email: email, ApiKeys.otpForgetPassword: otp},
       );
-      return right(response.data); //token for rseset
+      return right(response.data['resetToken']); //token for rseset
     } on DioException catch (e) {
       return left(DioExceptions.fromDioError(e));
     }
@@ -63,7 +63,7 @@ class AuthRepoImpl implements AuthRepo {
     String confirmNewPassword,
   ) async {
     try {
-      await apiConsumer.put(
+      await apiConsumer.post(
         ApiEndPoints.resetPassword,
         data: {
           ApiKeys.email: email,

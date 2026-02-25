@@ -4,8 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/services/setup_service.dart';
 import 'package:mego_food/core/utils/functions/custom_snack_bar.dart';
-import 'package:mego_food/features/auth/data/models/error_login_model.dart';
-import 'package:mego_food/features/auth/data/models/validation_error_login_model.dart';
 import 'package:mego_food/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:mego_food/features/auth/presentation/manager/authCubit/auth_cubit.dart';
 import 'package:mego_food/features/auth/presentation/widgets/otp_vertification_body.dart';
@@ -43,19 +41,7 @@ class VertifyEmailOtpView extends StatelessWidget {
                 );
               } else if (state is AuthFailure) {
                 final failure = state.failure;
-                if (failure is ValidationErrorAuthModel) {
-                  customSnackbar(
-                    context,
-                    failure.errors.values.first.first,
-                    SnackbarType.error,
-                  );
-                } else if (failure is ErrorAuthModel) {
-                  customSnackbar(
-                    context,
-                    failure.error.message,
-                    SnackbarType.error,
-                  );
-                }
+                customSnackbar(context, failure.message, SnackbarType.error);
               }
             },
           ),

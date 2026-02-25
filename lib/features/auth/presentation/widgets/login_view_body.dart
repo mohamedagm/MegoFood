@@ -5,8 +5,6 @@ import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/utils/functions/custom_snack_bar.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
-import 'package:mego_food/features/auth/data/models/error_login_model.dart';
-import 'package:mego_food/features/auth/data/models/validation_error_login_model.dart';
 import 'package:mego_food/features/auth/presentation/manager/authCubit/auth_cubit.dart';
 import 'package:mego_food/features/auth/presentation/widgets/auth_header.dart';
 import 'package:mego_food/features/auth/presentation/widgets/auth_text_fields.dart';
@@ -50,15 +48,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           GoRouter.of(context).go(AppRoutes.home);
         } else if (state is AuthFailure) {
           final failure = state.failure;
-          if (failure is ValidationErrorAuthModel) {
-            customSnackbar(
-              context,
-              failure.errors.values.first.first,
-              SnackbarType.error,
-            );
-          } else if (failure is ErrorAuthModel) {
-            customSnackbar(context, failure.error.message, SnackbarType.error);
-          }
+          customSnackbar(context, failure.message, SnackbarType.error);
         }
       },
       child: SingleChildScrollView(

@@ -36,7 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await authRepo.forgetPassword(email);
     result.fold(
       (failure) => emit(AuthFailure(failure)),
-      (unit) => emit(AuthForgetPassword()),
+      (temporary) => emit(AuthForgetPassword(temporary)),
     );
   }
 

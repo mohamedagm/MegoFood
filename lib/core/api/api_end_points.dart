@@ -1,13 +1,14 @@
 class ApiEndPoints {
   static String baseUrl = 'http://megofood.runasp.net';
-  static String login = '/api/Account/Login';
-  static String register = '/api/Account/register';
-  static String forgetPassword = '/api/Account/ForgetPassword';
-  static String vertifyForgetPassword = '/api/Account/VerfiyForgetPasswordOTP';
-  static String resetPassword = '/api/Account/ResetPassword';
-  static String confirmEmail = '/api/Account/confirm-email';
+  static String login = '/api/Authentication/Login';
+  static String register = '/api/Authentication/register';
+  static String forgetPassword = '/api/Authentication/forgot-password';
+  static String vertifyForgetPassword =
+      '/api/Authentication/verify-forgot-password-otp';
+  static String resetPassword = '/api/Authentication/reset-password';
+  static String confirmEmail = '/api/Authentication/confirm-email';
   static String resendConfirmEmail =
-      '/api/Account/resend-confirmation-email- OTP';
+      '/api/Authentication/resend-confirmation-email';
 }
 
 class ApiKeys {

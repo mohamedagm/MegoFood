@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:mego_food/core/errors/failures.dart';
 import 'package:mego_food/features/auth/data/models/error_login_model.dart';
-import 'package:mego_food/features/auth/data/models/validation_error_login_model.dart';
 
 class DioExceptions extends Failures {
   DioExceptions(super.message);
@@ -26,13 +25,7 @@ class DioExceptions extends Failures {
         final data = e.response?.data;
 
         if (data is Map<String, dynamic>) {
-          if (data.containsKey('errors')) {
-            return ValidationErrorAuthModel.fromJson(data);
-          }
-
-          if (data.containsKey('error')) {
-            return ErrorAuthModel.fromJson(data);
-          }
+          return ErrorAuthModel.fromJson(data);
         }
 
         return DioExceptions("Server returned an error");

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/app_colors.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
@@ -38,8 +39,14 @@ class BoardingViewBottom extends StatelessWidget {
             Expanded(
               flex: 2,
               child: AppElevatedButton(
-                onPressed: () {
-                  GoRouter.of(context).push(AppRoutes.startAuth);
+                onPressed: () async {
+                  await CacheHelper.saveData(
+                    key: 'isOnboardingDone',
+                    value: true,
+                  );
+                  if (context.mounted) {
+                    GoRouter.of(context).go(AppRoutes.startAuth);
+                  }
                 },
                 buttonType: AppButtonType.skip,
                 child: const Text('Skip'),

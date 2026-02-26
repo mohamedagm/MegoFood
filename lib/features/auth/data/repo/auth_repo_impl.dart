@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:mego_food/core/api/api_consumer.dart';
 import 'package:mego_food/core/api/api_end_points.dart';
+import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/errors/dio_exceptions.dart';
 import 'package:mego_food/core/errors/failures.dart';
 import 'package:mego_food/features/auth/data/models/success_login_model.dart';
@@ -20,7 +21,13 @@ class AuthRepoImpl implements AuthRepo {
         ApiEndPoints.login,
         data: {ApiKeys.email: email, ApiKeys.password: password},
       );
-      return right(SuccessLoginModel.fromJson(response.data));
+      final model = SuccessLoginModel.fromJson(response.data);
+      await CacheHelper.saveData(key: 'token', value: model.token);
+      await CacheHelper.saveData(
+        key: 'refreshToken',
+        value: model.refreshToken,
+      );
+      return right(model);
     } on DioException catch (e) {
       return left(DioExceptions.fromDioError(e));
     }
@@ -118,8 +125,8 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failures, SuccessLoginModel>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<void> logout() async {
+    await CacheHelper.removeData(key: 'token');
+    await CacheHelper.removeData(key: 'refreshToken');
   }
 }

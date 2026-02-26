@@ -9,6 +9,7 @@ class ApiEndPoints {
   static String confirmEmail = '/api/Authentication/confirm-email';
   static String resendConfirmEmail =
       '/api/Authentication/resend-confirmation-email';
+  static String refreshToken = '/api/Authentication/refresh-token';
 }
 
 class ApiKeys {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_back_button.dart';
 import 'package:mego_food/core/widgets/custom_header.dart';
+import 'package:mego_food/features/auth/presentation/manager/authCubit/auth_cubit.dart';
 import 'package:mego_food/features/menu/presentation/widgets/menu_tabs.dart';
 
 class SettingViewBody extends StatefulWidget {
@@ -32,16 +34,6 @@ class _SettingViewBodyState extends State<SettingViewBody> {
     AppRoutes.settings,
     AppRoutes.settings,
   ];
-  List<String> dangerIconsList = [
-    'assets/icons/Delete.svg',
-    'assets/icons/Log out.svg',
-  ];
-  List<String> dangerTitlesList = ['Delete Account', 'Log out'];
-  List<String> dangerNavigationPaths = [
-    AppRoutes.deleteAcc,
-    AppRoutes.settings,
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -149,13 +141,19 @@ class _SettingViewBodyState extends State<SettingViewBody> {
               ),
             ),
             Text('Danger Actions', style: context.exTextStyles.small600),
-            ...List.generate(
-              2,
-              (index) => MenuTab(
-                navigationPath: dangerNavigationPaths[index],
-                prefIconLink: dangerIconsList[index],
-                title: dangerTitlesList[index],
-              ),
+            MenuTab(
+              navigationPath: AppRoutes.deleteAcc,
+              prefIconLink: 'assets/icons/Delete.svg',
+              title: 'Delete Account',
+            ),
+            MenuTab(
+              navigationPath: '',
+              onTap: () {
+                context.read<AuthCubit>().logOutC();
+                GoRouter.of(context).go(AppRoutes.startAuth);
+              },
+              prefIconLink: 'assets/icons/Log out.svg',
+              title: 'Log out',
             ),
           ],
         ),

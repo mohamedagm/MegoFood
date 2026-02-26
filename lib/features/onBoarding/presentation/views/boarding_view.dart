@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/const/app_assets.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/onBoarding/presentation/widgets/boarding_view_body.dart';
@@ -37,12 +38,22 @@ class _BoardingViewState extends State<BoardingView> {
                 ),
                 BoardingViewBottom(
                   controller: controller,
-                  onNextPressed: () => currentIndex == 2
-                      ? GoRouter.of(context).push(AppRoutes.startAuth)
-                      : controller!.nextPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                        ),
+                  onNextPressed: () async {
+                    if (currentIndex == 2) {
+                      await CacheHelper.saveData(
+                        key: 'isOnboardingDone',
+                        value: true,
+                      );
+                      if (context.mounted) {
+                        GoRouter.of(context).go(AppRoutes.startAuth);
+                      }
+                    } else {
+                      controller!.nextPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  },
                 ),
               ],
             ),

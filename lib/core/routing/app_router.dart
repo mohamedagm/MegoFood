@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/auth/presentation/views/add_address_view.dart';
 import 'package:mego_food/features/auth/presentation/views/create_profile_view.dart';
@@ -27,7 +28,7 @@ import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.d
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.onboarding,
+    initialLocation: initialRoutingLogic(),
     routes: <RouteBase>[
       GoRoute(
         path: AppRoutes.onboarding,
@@ -135,4 +136,12 @@ class AppRouter {
       ),
     ],
   );
+
+  static String initialRoutingLogic() {
+    return CacheHelper.getData(key: 'isOnboardingDone') == null
+        ? AppRoutes.onboarding
+        : CacheHelper.getData(key: 'token') == null
+        ? AppRoutes.startAuth
+        : AppRoutes.home;
+  }
 }

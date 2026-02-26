@@ -22,5 +22,5 @@ abstract class AuthRepo {
   Future<Either<Failures, Unit>> confirmEmail(String email, String otp);
   Future<Either<Failures, Unit>> resendConfirmEmail(String email);
 
-  Future<Either<Failures, SuccessLoginModel>> logout();
+  Future<void> logout();
 }

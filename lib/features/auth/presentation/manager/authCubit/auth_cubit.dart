@@ -91,4 +91,9 @@ class AuthCubit extends Cubit<AuthState> {
       (unit) => emit(AuthResendConfirmEmail()),
     );
   }
+
+  Future<void> logOutC() async {
+    await authRepo.logout();
+    emit(AuthLogOut());
+  }
 }

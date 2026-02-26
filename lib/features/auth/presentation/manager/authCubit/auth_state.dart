@@ -39,6 +39,8 @@ final class AuthConfirmEmail extends AuthState {}
 
 final class AuthResendConfirmEmail extends AuthState {}
 
+final class AuthLogOut extends AuthState {}
+
 final class AuthFailure extends AuthState {
   final Failures failure;
 

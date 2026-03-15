@@ -15,18 +15,13 @@ class AuthStartBottom extends StatelessWidget {
       spacing: 15,
       children: [
         AppElevatedButton(
-          child: Row(
-            spacing: 8,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.apple, size: 24, color: context.exColors.baseWhite),
-              Text(
-                'Continue with Apple',
-                style: context.exTextStyles.medium700,
-              ),
-            ],
+          child: Text(
+            'Continue with Email',
+            style: context.exTextStyles.medium700,
           ),
-          onPressed: () {},
+          onPressed: () {
+            GoRouter.of(context).push(AppRoutes.login);
+          },
         ),
         Text('or', style: context.exTextStyles.medium600),
         Row(
@@ -35,16 +30,12 @@ class AuthStartBottom extends StatelessWidget {
             3,
             (index) => Expanded(
               child: AppElevatedButton(
-                onPressed: () => {
-                  index == 2
-                      ? GoRouter.of(context).push(AppRoutes.login)
-                      : null,
-                },
+                onPressed: () => {},
                 buttonType: AppButtonType.skip,
                 child: SvgPicture.asset(
-                  Theme.of(context).brightness == Brightness.dark && index == 2
-                      ? AppAssets.emailFill
-                      : authIcons[index],
+                  authIcons[index],
+                  width: 32,
+                  height: 32,
                 ),
               ),
             ),

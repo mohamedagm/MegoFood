@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mego_food/core/errors/failures.dart';
+import 'package:mego_food/features/auth/data/models/address_model.dart';
 import 'package:mego_food/features/auth/data/models/success_login_model.dart';
 import 'package:mego_food/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:meta/meta.dart';
@@ -95,5 +96,21 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> logOutC() async {
     await authRepo.logout();
     emit(AuthLogOut());
+  }
+
+  Future<void> getLocation() async {
+    emit(AuthLoading());
+
+    final result = await authRepo.getCurrentAddress();
+
+    result.fold(
+      (failure) {
+        emit(AuthFailure(failure));
+      },
+
+      (address) {
+        emit(AuthAddAddress(address));
+      },
+    );
   }
 }

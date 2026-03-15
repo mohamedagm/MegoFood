@@ -118,9 +118,7 @@ class _CreateProfileViewBodyState extends State<CreateProfileViewBody> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               AppElevatedButton(
-                onPressed: () {
-                  
-                },
+                onPressed: () {},
                 buttonType: addressController.text.isEmpty
                     ? AppButtonType.disabled
                     : AppButtonType.primary,

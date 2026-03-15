@@ -41,6 +41,12 @@ final class AuthResendConfirmEmail extends AuthState {}
 
 final class AuthLogOut extends AuthState {}
 
+final class AuthAddAddress extends AuthState {
+  final AddressModel addressModel;
+
+  AuthAddAddress(this.addressModel);
+}
+
 final class AuthFailure extends AuthState {
   final Failures failure;
 

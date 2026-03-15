@@ -14,5 +14,5 @@ class AppAssets {
 List<String> authIcons = [
   AppAssets.google,
   AppAssets.facebook,
-  AppAssets.email,
+  AppAssets.apple,
 ];

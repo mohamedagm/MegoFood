@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:mego_food/core/errors/failures.dart';
+import 'package:mego_food/features/auth/data/models/address_model.dart';
 import 'package:mego_food/features/auth/data/models/success_login_model.dart';
 
 abstract class AuthRepo {
@@ -23,4 +24,6 @@ abstract class AuthRepo {
   Future<Either<Failures, Unit>> resendConfirmEmail(String email);
 
   Future<void> logout();
+
+  Future<Either<Failures, AddressModel>> getCurrentAddress();
 }

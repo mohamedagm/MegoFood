@@ -5,12 +5,16 @@ import 'package:mego_food/core/api/api_end_points.dart';
 import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/errors/dio_exceptions.dart';
 import 'package:mego_food/core/errors/failures.dart';
+import 'package:mego_food/core/services/location_service.dart';
+import 'package:mego_food/features/auth/data/models/address_model.dart';
 import 'package:mego_food/features/auth/data/models/success_login_model.dart';
 import 'package:mego_food/features/auth/data/repo/auth_repo.dart';
 
 class AuthRepoImpl implements AuthRepo {
   final ApiConsumer apiConsumer;
-  AuthRepoImpl(this.apiConsumer);
+  final LocationService locationService;
+
+  AuthRepoImpl(this.apiConsumer, this.locationService);
   @override
   Future<Either<Failures, SuccessLoginModel>> login(
     String email,
@@ -128,5 +132,16 @@ class AuthRepoImpl implements AuthRepo {
   Future<void> logout() async {
     await CacheHelper.removeData(key: 'token');
     await CacheHelper.removeData(key: 'refreshToken');
+  }
+
+  @override
+  Future<Either<Failures, AddressModel>> getCurrentAddress() async {
+    try {
+      final address = await locationService.getCurrentAddress();
+
+      return right(address);
+    } catch (e) {
+      return left(Failures(e.toString()));
+    }
   }
 }

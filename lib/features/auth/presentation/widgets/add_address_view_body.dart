@@ -3,17 +3,19 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/utils/validators/simple_validator.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
+import 'package:mego_food/features/auth/data/models/address_model.dart';
 import 'package:mego_food/features/auth/presentation/manager/authCubit/auth_cubit.dart';
 import 'package:mego_food/features/auth/presentation/widgets/add_address_header.dart';
 import 'package:mego_food/features/auth/presentation/widgets/set_default_address.dart';
 
 class AddAddressViewBody extends StatefulWidget {
   const AddAddressViewBody({super.key, this.initialData});
-  final Map<String, dynamic>? initialData;
+  final AddressModel? initialData;
 
   @override
   State<AddAddressViewBody> createState() => _AddAddressViewBodyState();
@@ -28,18 +30,18 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
   final postalController = TextEditingController();
   final countryController = TextEditingController();
   bool status = false;
+  AddressModel? addressModel;
   @override
   void initState() {
     super.initState();
     if (widget.initialData != null) {
       final data = widget.initialData!;
-      adressLabelController.text = data['label'] ?? '';
-      streetController.text = data['street'] ?? '';
-      cityController.text = data['city'] ?? '';
-      stateController.text = data['state'] ?? '';
-      postalController.text = data['zipCode'] ?? '';
-      countryController.text = data['country'] ?? '';
-      status = data['default'] ?? '';
+      adressLabelController.text = data.label ?? '';
+      streetController.text = data.street;
+      cityController.text = data.city;
+      stateController.text = data.state;
+      postalController.text = data.postalCode;
+      countryController.text = data.country;
     }
   }
 
@@ -91,6 +93,7 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
                     children: [
                       Expanded(
                         child: IgnorePointer(
+                          ignoring: state is AuthLoading,
                           child: AppElevatedButton(
                             onPressed: () {
                               context.read<AuthCubit>().getLocation();
@@ -103,7 +106,22 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
                       ),
                       Expanded(
                         child: AppElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final result = await GoRouter.of(
+                              context,
+                            ).push(AppRoutes.pickFromMap);
+
+                            if (result != null && result is AddressModel) {
+                              setState(() {
+                                addressModel = result;
+                                streetController.text = result.street;
+                                cityController.text = result.city;
+                                stateController.text = result.state;
+                                postalController.text = result.postalCode;
+                                countryController.text = result.country;
+                              });
+                            }
+                          },
                           child: Text('Pick From Map'),
                         ),
                       ),
@@ -165,15 +183,16 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                   AppElevatedButton(
                     onPressed: () {
-                      GoRouter.of(context).pop({
-                        'label': adressLabelController.text,
-                        'street': streetController.text,
-                        'city': cityController.text,
-                        'state': stateController.text,
-                        'zipCode': postalController.text,
-                        'country': countryController.text,
-                        'default': status,
-                      });
+                      GoRouter.of(context).pop(
+                        AddressModel(
+                          label: adressLabelController.text,
+                          street: streetController.text,
+                          city: cityController.text,
+                          state: stateController.text,
+                          postalCode: postalController.text,
+                          country: countryController.text,
+                        ),
+                      );
                     },
                     buttonType: adressLabelController.text.isEmpty
                         ? AppButtonType.disabled

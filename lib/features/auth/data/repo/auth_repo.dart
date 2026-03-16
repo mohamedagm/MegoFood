@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:mego_food/core/errors/failures.dart';
 import 'package:mego_food/features/auth/data/models/address_model.dart';
@@ -23,7 +25,19 @@ abstract class AuthRepo {
   Future<Either<Failures, Unit>> confirmEmail(String email, String otp);
   Future<Either<Failures, Unit>> resendConfirmEmail(String email);
 
+  Future<Either<Failures, Unit>> createProfile(
+    String name,
+    String phone,
+    String dateOfBirth,
+    AddressModel address,
+    File? image,
+  );
+
   Future<void> logout();
 
   Future<Either<Failures, AddressModel>> getCurrentAddress();
+  Future<Either<Failures, AddressModel>> getAddressFromCoordinates(
+    double latitude,
+    double longitude,
+  );
 }

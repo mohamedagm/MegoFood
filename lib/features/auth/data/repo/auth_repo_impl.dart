@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:mego_food/core/api/api_consumer.dart';
@@ -142,6 +145,74 @@ class AuthRepoImpl implements AuthRepo {
       return right(address);
     } catch (e) {
       return left(Failures(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, AddressModel>> getAddressFromCoordinates(
+    double latitude,
+    double longitude,
+  ) async {
+    try {
+      final address = await locationService.getAddressFromCoordinates(
+        latitude,
+        longitude,
+      );
+
+      return right(address);
+    } catch (e) {
+      return left(Failures(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, Unit>> createProfile(
+    String name,
+    String phone,
+    String dateOfBirth,
+    AddressModel address,
+    File? image,
+  ) async {
+    try {
+      final formData = FormData.fromMap({
+        'FullName': name,
+        'Phone': phone,
+        'DateOfBirth': dateOfBirth,
+        'Adresss.Street': address.street,
+        'Adresss.City': address.city,
+        'Adresss.State': address.state,
+        'Adresss.PostalCode': address.postalCode,
+        'Adresss.Country': address.country,
+        if (image != null)
+          'Image': await MultipartFile.fromFile(
+            image.path,
+            filename: image.path.split('/').last,
+          ),
+      });
+
+      final response = await apiConsumer.post(
+        ApiEndPoints.createProfile,
+        isFormData: true,
+        data: formData,
+      );
+      log('create profile response: ${response.data}');
+      log('create profile statusCode: ${response.statusCode}');
+      switch (response.statusCode) {
+        case 200:
+          return right(unit);
+        case 400:
+          return left(Failures('Invalid request data or validation error.'));
+        case 401:
+          return left(
+            Failures('Unauthorized. JWT token is missing or invalid.'),
+          );
+        case 404:
+          return left(Failures('User not found.'));
+        default:
+          return left(Failures('Server error: ${response.statusCode}'));
+      }
+    } catch (e) {
+      return left(Failures('Exception occurred: ${e.toString()}'));
     }
   }
 }

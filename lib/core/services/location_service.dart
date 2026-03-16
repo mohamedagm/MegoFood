@@ -33,4 +33,20 @@ class LocationService {
       country: place.country ?? '',
     );
   }
+
+  Future<AddressModel> getAddressFromCoordinates(
+    double latitude,
+    double longitude,
+  ) async {
+    final placemarks = await placemarkFromCoordinates(latitude, longitude);
+    final place = placemarks.first;
+
+    return AddressModel(
+      street: place.street ?? '',
+      city: place.locality ?? '',
+      state: place.administrativeArea ?? '',
+      postalCode: place.postalCode ?? '',
+      country: place.country ?? '',
+    );
+  }
 }

@@ -47,6 +47,8 @@ final class AuthAddAddress extends AuthState {
   AuthAddAddress(this.addressModel);
 }
 
+final class AuthCreateProfileSuccess extends AuthState {}
+
 final class AuthFailure extends AuthState {
   final Failures failure;
 

@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mego_food/core/errors/failures.dart';
@@ -111,6 +114,52 @@ class AuthCubit extends Cubit<AuthState> {
       (address) {
         emit(AuthAddAddress(address));
       },
+    );
+  }
+
+  Future<void> getAddressFromCoordinates({
+    required double latitude,
+    required double longitude,
+  }) async {
+    emit(AuthLoading());
+
+    final result = await authRepo.getAddressFromCoordinates(
+      latitude,
+      longitude,
+    );
+
+    result.fold(
+      (failure) {
+        emit(AuthFailure(failure));
+      },
+
+      (address) {
+        emit(AuthAddAddress(address));
+      },
+    );
+  }
+
+  Future<void> createProfileC({
+    required String name,
+    required String phone,
+    required String dateOfBirth,
+    required AddressModel address,
+    File? image,
+  }) async {
+    emit(AuthLoading());
+
+    final result = await authRepo.createProfile(
+      name,
+      phone,
+      dateOfBirth,
+      address,
+      image,
+    );
+    log('create profile result: $result');
+
+    result.fold(
+      (failure) => emit(AuthFailure(failure)),
+      (unit) => emit(AuthCreateProfileSuccess()),
     );
   }
 }

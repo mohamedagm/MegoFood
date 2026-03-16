@@ -1,9 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
+import 'package:mego_food/features/auth/data/models/address_model.dart';
 import 'package:mego_food/features/auth/presentation/views/add_address_view.dart';
 import 'package:mego_food/features/auth/presentation/views/create_profile_view.dart';
 import 'package:mego_food/features/auth/presentation/views/forget_password_view.dart';
+import 'package:mego_food/features/auth/presentation/views/pick_from_map_view.dart';
 import 'package:mego_food/features/auth/presentation/views/vertify_forget_password_otp_view.dart';
 import 'package:mego_food/features/auth/presentation/views/login_view.dart';
 import 'package:mego_food/features/auth/presentation/views/register_view.dart';
@@ -28,7 +30,7 @@ import 'package:mego_food/features/onBoarding/presentation/views/boarding_view.d
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: AppRoutes.createProfile,
+    initialLocation: initialRoutingLogic(),
     routes: <RouteBase>[
       GoRoute(
         path: AppRoutes.onboarding,
@@ -72,9 +74,13 @@ class AppRouter {
         builder: (context, state) => const CreateProfileView(),
       ),
       GoRoute(
+        path: AppRoutes.pickFromMap,
+        builder: (context, state) => const PickFromMapView(),
+      ),
+      GoRoute(
         path: AppRoutes.addAddress,
         builder: (context, state) {
-          final data = state.extra as Map<String, dynamic>?;
+          final data = state.extra as AddressModel?;
           return AddAddressView(initialData: data);
         },
       ),

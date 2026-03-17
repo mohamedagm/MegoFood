@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
+import 'package:mego_food/features/Main/main_view.dart';
 import 'package:mego_food/features/auth/data/models/address_model.dart';
 import 'package:mego_food/features/auth/presentation/views/add_address_view.dart';
 import 'package:mego_food/features/auth/presentation/views/create_profile_view.dart';
@@ -19,7 +20,6 @@ import 'package:mego_food/features/cart/presentation/views/order_placed_view.dar
 import 'package:mego_food/features/cart/presentation/widgets/change_address.dart';
 import 'package:mego_food/features/cart/presentation/widgets/change_card.dart';
 import 'package:mego_food/features/home/presentation/views/home_product_details_view.dart';
-import 'package:mego_food/features/home/presentation/views/home_view.dart';
 import 'package:mego_food/features/menu/presentation/views/menu_view.dart';
 import 'package:mego_food/features/menu/presentation/views/orders_view.dart';
 import 'package:mego_food/features/menu/presentation/views/profile_edit_view.dart';
@@ -85,8 +85,8 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: AppRoutes.home,
-        builder: (context, state) => const HomeView(),
+        path: AppRoutes.main,
+        builder: (context, state) => const MainView(),
       ),
       GoRoute(
         path: AppRoutes.productDetails,
@@ -148,6 +148,6 @@ class AppRouter {
         ? AppRoutes.onboarding
         : CacheHelper.getData(key: 'token') == null
         ? AppRoutes.startAuth
-        : AppRoutes.home;
+        : AppRoutes.main;
   }
 }

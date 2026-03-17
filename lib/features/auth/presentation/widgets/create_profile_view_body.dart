@@ -51,7 +51,7 @@ class _CreateProfileViewBodyState extends State<CreateProfileViewBody> {
             'Profile created successfully',
             SnackbarType.success,
           );
-          GoRouter.of(context).go(AppRoutes.home);
+          GoRouter.of(context).go(AppRoutes.main);
         } else if (state is AuthFailure) {
           final failure = state.failure;
           customSnackbar(context, failure.message, SnackbarType.error);
@@ -150,9 +150,11 @@ class _CreateProfileViewBodyState extends State<CreateProfileViewBody> {
                           ? AppButtonType.disabled
                           : AppButtonType.primary,
                       child: state is AuthLoading
-                          ? Center(child: CircularProgressIndicator(
-                            color: context.exColors.baseWhite,
-                          ))
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                color: context.exColors.baseWhite,
+                              ),
+                            )
                           : Text('Continue'),
                     ),
                   ),

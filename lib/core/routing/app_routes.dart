@@ -10,7 +10,7 @@ class AppRoutes {
   static const String createProfile = '/create-profile';
   static const String addAddress = '/add-address';
   static const String pickFromMap = '/pick-from-map';
-  static const String home = '/home';
+  static const String main = '/main';
   static const String productDetails = '/product-details';
   static const String cartPlaceOrder = '/cart-place-order';
   static const String addCoupon = '/add-coupon';

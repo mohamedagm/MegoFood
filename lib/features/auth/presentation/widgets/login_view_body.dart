@@ -43,11 +43,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       listener: (context, state) {
         FocusScope.of(context).unfocus();
         if (state is AuthLoginSuccess) {
-          customSnackbar(
-            context,
-            'your id: ${state.successLoginModel.userId}',
-            SnackbarType.success,
-          );
           // temporary until we handle  check if the user has profile or not
           GoRouter.of(context).go(AppRoutes.createProfile);
         } else if (state is AuthFailure) {

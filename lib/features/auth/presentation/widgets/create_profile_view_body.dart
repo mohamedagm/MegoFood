@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mego_food/core/const/app_assets.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/utils/functions/custom_snack_bar.dart';
 import 'package:mego_food/core/utils/validators/full_name_validator.dart';
 import 'package:mego_food/core/utils/validators/egyptian_phone_validator.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
@@ -44,13 +45,16 @@ class _CreateProfileViewBodyState extends State<CreateProfileViewBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.failure.message),
-              behavior: SnackBarBehavior.floating,
-            ),
+        if (state is AuthCreateProfileSuccess) {
+          customSnackbar(
+            context,
+            'Profile created successfully',
+            SnackbarType.success,
           );
+          GoRouter.of(context).go(AppRoutes.home);
+        } else if (state is AuthFailure) {
+          final failure = state.failure;
+          customSnackbar(context, failure.message, SnackbarType.error);
         }
       },
       builder: (context, state) {

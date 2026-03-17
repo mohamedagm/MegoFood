@@ -48,7 +48,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             'your id: ${state.successLoginModel.userId}',
             SnackbarType.success,
           );
-          GoRouter.of(context).go(AppRoutes.home);
+          // temporary until we handle  check if the user has profile or not
+          GoRouter.of(context).go(AppRoutes.createProfile);
         } else if (state is AuthFailure) {
           final failure = state.failure;
           customSnackbar(context, failure.message, SnackbarType.error);

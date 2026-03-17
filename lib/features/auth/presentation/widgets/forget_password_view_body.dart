@@ -85,7 +85,9 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                             ? SizedBox(
                                 height: 30,
                                 width: 30,
-                                child: CircularProgressIndicator(),
+                                child: CircularProgressIndicator(
+                                  color: context.exColors.baseWhite,
+                                ),
                               )
                             : Text('send OTP'),
                       );

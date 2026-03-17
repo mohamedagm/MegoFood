@@ -150,7 +150,9 @@ class _CreateProfileViewBodyState extends State<CreateProfileViewBody> {
                           ? AppButtonType.disabled
                           : AppButtonType.primary,
                       child: state is AuthLoading
-                          ? Center(child: CircularProgressIndicator())
+                          ? Center(child: CircularProgressIndicator(
+                            color: context.exColors.baseWhite,
+                          ))
                           : Text('Continue'),
                     ),
                   ),

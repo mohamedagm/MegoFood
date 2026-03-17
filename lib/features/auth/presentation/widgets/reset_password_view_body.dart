@@ -99,7 +99,9 @@ class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
                             ? SizedBox(
                                 height: 30,
                                 width: 30,
-                                child: CircularProgressIndicator(),
+                                child: CircularProgressIndicator(
+                                  color: context.exColors.baseWhite,
+                                ),
                               )
                             : Text('Continue'),
                       );

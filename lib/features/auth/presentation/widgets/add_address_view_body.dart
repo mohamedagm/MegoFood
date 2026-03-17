@@ -99,7 +99,11 @@ class _AddAddressViewBodyState extends State<AddAddressViewBody> {
                               context.read<AuthCubit>().getLocation();
                             },
                             child: state is AuthLoading
-                                ? Center(child: CircularProgressIndicator())
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                      color: context.exColors.baseWhite,
+                                    ),
+                                  )
                                 : Text('Get Location'),
                           ),
                         ),

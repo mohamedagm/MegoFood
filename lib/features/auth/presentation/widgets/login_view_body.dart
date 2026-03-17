@@ -94,25 +94,30 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   BlocSelector<AuthCubit, AuthState, bool>(
                     selector: (state) => state is AuthLoading,
                     builder: (context, isLoading) {
-                      return AppElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            context.read<AuthCubit>().loginC(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            );
-                          }
-                        },
-                        buttonType: emailController.text.isEmpty
-                            ? AppButtonType.disabled
-                            : AppButtonType.primary,
-                        child: isLoading
-                            ? SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: CircularProgressIndicator(),
-                              )
-                            : Text('Log In'),
+                      return IgnorePointer(
+                        ignoring: isLoading,
+                        child: AppElevatedButton(
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              context.read<AuthCubit>().loginC(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+                          },
+                          buttonType: emailController.text.isEmpty
+                              ? AppButtonType.disabled
+                              : AppButtonType.primary,
+                          child: isLoading
+                              ? SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator(
+                                    color: context.exColors.baseWhite,
+                                  ),
+                                )
+                              : Text('Log In'),
+                        ),
                       );
                     },
                   ),

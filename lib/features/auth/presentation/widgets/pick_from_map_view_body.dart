@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
 import 'package:mego_food/features/auth/presentation/manager/authCubit/auth_cubit.dart';
 
@@ -61,7 +62,11 @@ class _PickFromMapViewBodyState extends State<PickFromMapViewBody> {
                   );
                 },
                 child: state is AuthLoading
-                    ? Center(child: const CircularProgressIndicator())
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: context.exColors.baseWhite,
+                        ),
+                      )
                     : const Text("Confirm Location"),
               ),
             ),

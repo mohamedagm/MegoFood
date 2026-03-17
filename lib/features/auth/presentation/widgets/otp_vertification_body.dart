@@ -165,7 +165,9 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                             ? SizedBox(
                                 height: 30,
                                 width: 30,
-                                child: CircularProgressIndicator(),
+                                child: CircularProgressIndicator(
+                                  color: context.exColors.baseWhite,
+                                ),
                               )
                             : Text('Continue'),
                       );

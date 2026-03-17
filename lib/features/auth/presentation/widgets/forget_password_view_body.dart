@@ -70,26 +70,29 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                   BlocSelector<AuthCubit, AuthState, bool>(
                     selector: (state) => state is AuthLoading,
                     builder: (context, isLoading) {
-                      return AppElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            context.read<AuthCubit>().forgetPasswordC(
-                              email: emailController.text,
-                            );
-                          }
-                        },
-                        buttonType: emailController.text.isEmpty
-                            ? AppButtonType.disabled
-                            : AppButtonType.primary,
-                        child: isLoading
-                            ? SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: CircularProgressIndicator(
-                                  color: context.exColors.baseWhite,
-                                ),
-                              )
-                            : Text('send OTP'),
+                      return IgnorePointer(
+                        ignoring: isLoading,
+                        child: AppElevatedButton(
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              context.read<AuthCubit>().forgetPasswordC(
+                                email: emailController.text,
+                              );
+                            }
+                          },
+                          buttonType: emailController.text.isEmpty
+                              ? AppButtonType.disabled
+                              : AppButtonType.primary,
+                          child: isLoading
+                              ? SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator(
+                                    color: context.exColors.baseWhite,
+                                  ),
+                                )
+                              : Text('send OTP'),
+                        ),
                       );
                     },
                   ),

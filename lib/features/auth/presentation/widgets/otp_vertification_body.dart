@@ -142,34 +142,37 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                   BlocSelector<AuthCubit, AuthState, bool>(
                     selector: (state) => state is AuthLoading,
                     builder: (context, isLoading) {
-                      return AppElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            widget.isVertifyPassword
-                                ? context
-                                      .read<AuthCubit>()
-                                      .vertifyForgetPasswordOtpC(
-                                        email: widget.email,
-                                        otp: pinController.text,
-                                      )
-                                : context.read<AuthCubit>().confirmEmailC(
-                                    email: widget.email,
-                                    otp: pinController.text,
-                                  );
-                          }
-                        },
-                        buttonType: pinController.text.isEmpty
-                            ? AppButtonType.disabled
-                            : AppButtonType.primary,
-                        child: isLoading
-                            ? SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: CircularProgressIndicator(
-                                  color: context.exColors.baseWhite,
-                                ),
-                              )
-                            : Text('Continue'),
+                      return IgnorePointer(
+                        ignoring: isLoading,
+                        child: AppElevatedButton(
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              widget.isVertifyPassword
+                                  ? context
+                                        .read<AuthCubit>()
+                                        .vertifyForgetPasswordOtpC(
+                                          email: widget.email,
+                                          otp: pinController.text,
+                                        )
+                                  : context.read<AuthCubit>().confirmEmailC(
+                                      email: widget.email,
+                                      otp: pinController.text,
+                                    );
+                            }
+                          },
+                          buttonType: pinController.text.isEmpty
+                              ? AppButtonType.disabled
+                              : AppButtonType.primary,
+                          child: isLoading
+                              ? SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator(
+                                    color: context.exColors.baseWhite,
+                                  ),
+                                )
+                              : Text('Continue'),
+                        ),
                       );
                     },
                   ),

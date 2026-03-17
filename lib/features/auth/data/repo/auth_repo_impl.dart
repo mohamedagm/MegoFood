@@ -195,11 +195,13 @@ class AuthRepoImpl implements AuthRepo {
         isFormData: true,
         data: formData,
       );
+
       log('create profile response: ${response.data}');
       log('create profile statusCode: ${response.statusCode}');
-      switch (response.statusCode) {
-        case 200:
-          return right(unit);
+
+      return right(unit);
+    } on DioException catch (e) {
+      switch (e.response?.statusCode) {
         case 400:
           return left(Failures('Invalid request data or validation error.'));
         case 401:
@@ -209,7 +211,7 @@ class AuthRepoImpl implements AuthRepo {
         case 404:
           return left(Failures('User not found.'));
         default:
-          return left(Failures('Server error: ${response.statusCode}'));
+          return left(Failures('Server error: ${e.response?.statusCode}'));
       }
     } catch (e) {
       return left(Failures('Exception occurred: ${e.toString()}'));

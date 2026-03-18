@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/utils/helper/debouncer.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
 
 class SearchView extends StatefulWidget {
@@ -12,6 +13,18 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   TextEditingController searchController = TextEditingController();
+  final Debouncer debouncer = Debouncer(milliseconds: 500);
+
+  @override
+  void initState() {
+    searchController.addListener(() {
+      debouncer.run(() async {
+        // call api to search
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

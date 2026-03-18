@@ -24,7 +24,7 @@ class SearchCubit extends Cubit<SearchState> {
       if (e.response?.statusCode == 404) {
         emit(SearchFailure('No products found.'));
       } else {
-        emit(SearchFailure(e.toString()));
+        emit(SearchFailure('Something went wrong.'));
       }
     }
   }

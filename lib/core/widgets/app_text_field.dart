@@ -15,6 +15,7 @@ class AppTextField extends StatelessWidget {
     this.onTap,
     this.focusNode,
     this.onFieldSubmitted,
+    this.enabled = true,
   });
 
   final TextEditingController controller;
@@ -28,9 +29,11 @@ class AppTextField extends StatelessWidget {
   final void Function()? onTap;
   final FocusNode? focusNode;
   final void Function(String)? onFieldSubmitted;
+  final bool enabled;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled,
       onFieldSubmitted: onFieldSubmitted,
       focusNode: focusNode,
       onTap: onTap,

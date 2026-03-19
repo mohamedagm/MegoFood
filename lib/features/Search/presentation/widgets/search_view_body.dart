@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/utils/helper/debouncer.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
-import 'package:mego_food/features/Search/cubit/search_cubit.dart';
+import 'package:mego_food/features/Search/presentation/cubit/search_cubit.dart';
 
 class SearchViewBody extends StatefulWidget {
   const SearchViewBody({super.key});
@@ -17,19 +17,25 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   TextEditingController searchController = TextEditingController();
   final Debouncer debouncer = Debouncer(milliseconds: 600);
   String lastQuery = '';
+  void setupSearchListener() {
+    searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    final currentQuery = searchController.text;
+
+    if (currentQuery == lastQuery) return;
+
+    lastQuery = currentQuery;
+
+    debouncer.run(() async {
+      await context.read<SearchCubit>().searchByKeyword(currentQuery);
+    });
+  }
 
   @override
   void initState() {
-    searchController.addListener(() {
-      final currentQuery = searchController.text;
-      if (currentQuery == lastQuery) return;
-
-      lastQuery = currentQuery;
-
-      debouncer.run(() async {
-        await context.read<SearchCubit>().searchByKeyword(currentQuery);
-      });
-    });
+    setupSearchListener();
     super.initState();
   }
 

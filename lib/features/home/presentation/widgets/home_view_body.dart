@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
-import 'package:mego_food/features/Search/search_view.dart';
+import 'package:mego_food/features/Search/presentation/views/search_view.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_categories.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_grid_products.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_header.dart';

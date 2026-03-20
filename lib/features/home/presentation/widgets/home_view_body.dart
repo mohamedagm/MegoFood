@@ -56,12 +56,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-            /// OFFERS
-            const SliverToBoxAdapter(child: HomeOffers()),
-            const SliverToBoxAdapter(child: SizedBox(height: 16)),
-
             /// CATEGORIES
             const SliverToBoxAdapter(child: HomeCategories()),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+            /// OFFERS
+            const SliverToBoxAdapter(child: HomeOffers()),
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
             //products

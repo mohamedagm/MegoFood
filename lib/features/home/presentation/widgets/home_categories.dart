@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/home/presentation/cubit/home_cubit.dart';
+import 'package:mego_food/features/home/presentation/cubit/home_state.dart';
 
 class HomeCategories extends StatefulWidget {
   const HomeCategories({super.key});
@@ -11,20 +14,24 @@ class HomeCategories extends StatefulWidget {
 }
 
 class _HomeCategoriesState extends State<HomeCategories> {
-  List<String> demoData = List.generate(8, (index) => ('category $index'));
   late PageController controller;
   late Timer timer;
   int curPage = 100;
   @override
   void initState() {
     controller = PageController(viewportFraction: 0.4, initialPage: 100);
-    timer = Timer.periodic(Duration(seconds: 2), (timer) {
-      curPage += 1;
-      controller.animateToPage(
-        curPage,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+        if (!mounted || !controller.hasClients) return;
+
+        curPage++;
+
+        controller.animateToPage(
+          curPage,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+        );
+      });
     });
     super.initState();
   }
@@ -38,31 +45,47 @@ class _HomeCategoriesState extends State<HomeCategories> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 45,
-      child: PageView.builder(
-        onPageChanged: (value) {
-          curPage = value;
-        },
-        controller: controller,
-        itemBuilder: (context, index) {
-          final realIndex = index % demoData.length;
-          return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.exColors.grey200,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                demoData[realIndex],
-                style: context.exTextStyles.robotoLarge,
-              ),
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        if (state.categoriesStatus == RequestStatus.loading) {
+          return Center(child: const CircularProgressIndicator());
+        }
+
+        if (state.categoriesStatus == RequestStatus.success) {
+          return SizedBox(
+            height: 45,
+            child: PageView.builder(
+              onPageChanged: (value) {
+                curPage = value;
+              },
+              controller: controller,
+              itemBuilder: (context, index) {
+                final realIndex = index % state.categories.length;
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: context.exColors.grey200,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      state.categories[realIndex].name,
+                      style: context.exTextStyles.robotoLarge,
+                    ),
+                  ),
+                );
+              },
             ),
           );
-        },
-      ),
+        }
+
+        if (state.categoriesStatus == RequestStatus.failure) {
+          return Text(state.categoriesError ?? 'Error');
+        }
+
+        return const SizedBox();
+      },
     );
   }
 }

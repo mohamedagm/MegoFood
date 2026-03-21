@@ -11,6 +11,8 @@ class ApiEndPoints {
       '/api/Authentication/resend-confirmation-email';
   static String refreshToken = '/api/Authentication/refresh-token';
   static String createProfile = '/api/Authentication/Complete-Profile';
+  static String getAllBaseCategories =
+      '/api/BaseCategories/Get_All_BaseCategories';
 }
 
 class ApiKeys {

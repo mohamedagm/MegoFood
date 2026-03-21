@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/Main/main_view.dart';
+import 'package:mego_food/features/Search/presentation/views/search_view.dart';
 import 'package:mego_food/features/auth/data/models/address_model.dart';
 import 'package:mego_food/features/auth/presentation/views/add_address_view.dart';
 import 'package:mego_food/features/auth/presentation/views/create_profile_view.dart';
@@ -135,6 +136,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.chooseLang,
         builder: (context, state) => const ChooseLang(),
+      ),
+      GoRoute(
+        path: AppRoutes.search,
+        builder: (context, state) => const SearchView(),
       ),
       GoRoute(
         path: AppRoutes.deleteAcc,

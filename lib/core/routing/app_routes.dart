@@ -23,6 +23,7 @@ class AppRoutes {
   static const String myOrders = '/my-orders';
   static const String settings = '/settings';
   static const String chooseLang = '/choose-lang';
+  static const String search = '/search';
 
   static const String deleteAcc = '/delete-acc';
 }

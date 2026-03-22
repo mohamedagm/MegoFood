@@ -18,7 +18,7 @@ class CameraButton extends StatelessWidget {
         border: Border.all(color: Colors.white, width: 3),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.12),
+            color: Colors.black.withValues(alpha: 0.12),
             offset: const Offset(0, 2),
             blurRadius: 4,
           ),
@@ -26,7 +26,7 @@ class CameraButton extends StatelessWidget {
       ),
       child: SvgPicture.asset(
         'assets/icons/Camera filled.svg',
-        color: colors.grey500,
+        colorFilter: ColorFilter.mode(colors.grey500, BlendMode.srcIn),
       ),
     );
   }

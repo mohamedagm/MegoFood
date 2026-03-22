@@ -41,7 +41,10 @@ class ProfileImagePicker extends StatelessWidget {
                   ? Center(
                       child: SvgPicture.asset(
                         'assets/icons/Profile.svg',
-                        color: colors.baseWhite,
+                        colorFilter: ColorFilter.mode(
+                          colors.baseWhite,
+                          BlendMode.srcIn,
+                        ),
                         width: 72,
                         height: 72,
                       ),

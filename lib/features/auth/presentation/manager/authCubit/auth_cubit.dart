@@ -7,6 +7,7 @@ import 'package:mego_food/core/errors/failures.dart';
 import 'package:mego_food/features/auth/data/models/address_model.dart';
 import 'package:mego_food/features/auth/data/models/success_login_model.dart';
 import 'package:mego_food/features/auth/data/repo/auth_repo_impl.dart';
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 part 'auth_state.dart';

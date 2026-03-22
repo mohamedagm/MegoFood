@@ -101,7 +101,7 @@ class _StoreCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
+                color: Colors.black.withValues(alpha: 0.08),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
@@ -149,7 +149,7 @@ class _StoreCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.red.withOpacity(0.3),
+                              color: Colors.red.withValues(alpha: 0.3),
                               blurRadius: 4,
                               offset: const Offset(0, 2),
                             ),
@@ -175,7 +175,7 @@ class _StoreCard extends StatelessWidget {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 4,
                             offset: const Offset(0, 1),
                           ),
@@ -356,7 +356,9 @@ class _StoreCard extends StatelessWidget {
                             gradient: LinearGradient(
                               colors: [
                                 context.exColors.primary500,
-                                (context.exColors.primary500).withOpacity(0.8),
+                                (context.exColors.primary500).withValues(
+                                  alpha: 0.8,
+                                ),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(12),

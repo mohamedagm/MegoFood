@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:mego_food/core/api/api_end_points.dart';
 import 'package:mego_food/core/cache/cache_helper.dart';
@@ -14,10 +16,10 @@ class ApiInterceptor extends Interceptor {
       options.headers['Authorization'] = 'Bearer $token';
     }
 
-    print('🔹 REQUEST [${options.method}] => ${options.uri}');
-    print('Headers: ${options.headers}');
-    print('Query: ${options.queryParameters}');
-    print('Data: ${options.data}');
+    log('🔹 REQUEST [${options.method}] => ${options.uri}');
+    log('Headers: ${options.headers}');
+    log('Query: ${options.queryParameters}');
+    log('Data: ${options.data}');
 
     handler.next(options);
   }

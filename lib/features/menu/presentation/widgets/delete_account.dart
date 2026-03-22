@@ -70,7 +70,6 @@ class _DeleteAccountState extends State<DeleteAccount> {
                       final confirm = await showDeleteConfirmDialog(context);
 
                       if (confirm == true) {
-                        // TODO: Call delete account API here
                         // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                       }

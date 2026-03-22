@@ -4,10 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
+import 'package:mego_food/features/home/presentation/widgets/home_top_picked.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_categories.dart';
-import 'package:mego_food/features/home/presentation/widgets/home_grid_products.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_header.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_offers.dart';
+import 'package:mego_food/features/home/presentation/widgets/home_top_stores.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -62,8 +63,49 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             const SliverToBoxAdapter(child: HomeOffers()),
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-            //products
-            HomeSliverProducts(),
+            // TOP PICKED
+            SliverToBoxAdapter(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Top Picked',
+                    style: context.exTextStyles.medium600.copyWith(
+                      color: context.exColors.primary500,
+                    ),
+                  ),
+                  Text(
+                    'See all',
+                    style: context.exTextStyles.medium600.copyWith(
+                      color: context.exColors.primary500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SliverToBoxAdapter(child: HomeTopPicked()),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+            SliverToBoxAdapter(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Top Stores',
+                    style: context.exTextStyles.medium600.copyWith(
+                      color: context.exColors.primary500,
+                    ),
+                  ),
+                  Text(
+                    'See all',
+                    style: context.exTextStyles.medium600.copyWith(
+                      color: context.exColors.primary500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            HomeTopStores(),
           ],
         ),
       ),

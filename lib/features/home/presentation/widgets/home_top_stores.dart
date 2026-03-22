@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:mego_food/core/routing/app_routes.dart';
-import 'package:mego_food/features/home/presentation/widgets/product_item.dart';
+import 'package:mego_food/features/home/presentation/widgets/store_card.dart';
 
 class HomeTopStores extends StatelessWidget {
   const HomeTopStores({super.key});
@@ -9,14 +7,11 @@ class HomeTopStores extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList.builder(
+      itemCount: 5,
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.only(bottom: 16),
-        child: InkWell(
-          onTap: () => GoRouter.of(context).push(AppRoutes.productDetails),
-          child: SizedBox(height: 300, child: const ProductItem()),
-        ),
+        child: StoreCard(),
       ),
-      itemCount: 5,
     );
   }
 }

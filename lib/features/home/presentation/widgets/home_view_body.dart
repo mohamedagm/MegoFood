@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
-import 'package:mego_food/features/home/presentation/widgets/home_top_picked.dart';
+import 'package:mego_food/features/home/presentation/widgets/home_top_rated.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_categories.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_header.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_offers.dart';
@@ -63,13 +63,13 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             const SliverToBoxAdapter(child: HomeOffers()),
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-            // TOP PICKED
+            // TOP Rated
             SliverToBoxAdapter(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Top Picked',
+                    'Top Rated',
                     style: context.exTextStyles.medium600.copyWith(
                       color: context.exColors.primary500,
                     ),
@@ -83,7 +83,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 ],
               ),
             ),
-            SliverToBoxAdapter(child: HomeTopPicked()),
+            SliverToBoxAdapter(child: HomeTopRated()),
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
             SliverToBoxAdapter(
@@ -105,6 +105,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 ],
               ),
             ),
+            
             HomeTopStores(),
           ],
         ),

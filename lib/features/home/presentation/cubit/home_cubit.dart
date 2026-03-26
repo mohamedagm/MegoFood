@@ -8,11 +8,6 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.repo) : super(const HomeState());
 
   Future<void> getBaseCategories() async {
-    // instead of emit(loading state)
-    // that cant assign to more than one endpoint in the same Screen
-    // every time we can use Copywith to handle this problem
-    // each endpoint has its own state and error and data (that handle by copywith)
-    // So We have Only State for the whole Screen but we can handle it by copywith for assign to each endpoint
     emit(state.copyWith(categoriesStatus: RequestStatus.loading));
 
     final result = await repo.getBaseCategories();
@@ -28,6 +23,27 @@ class HomeCubit extends Cubit<HomeState> {
         state.copyWith(
           categoriesStatus: RequestStatus.success,
           categories: categories,
+        ),
+      ),
+    );
+  }
+
+  Future<void> getTopRatedProducts() async {
+    emit(state.copyWith(topRatedProductsStatus: RequestStatus.loading));
+
+    final result = await repo.getTopPicks();
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          topRatedProductsStatus: RequestStatus.failure,
+          topRatedProductsError: failure.message,
+        ),
+      ),
+      (products) => emit(
+        state.copyWith(
+          topRatedProductsStatus: RequestStatus.success,
+          topRatedProducts: products,
         ),
       ),
     );

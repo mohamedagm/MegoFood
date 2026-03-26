@@ -1,5 +1,7 @@
 class ApiEndPoints {
+  //base url
   static String baseUrl = 'http://megofood.runasp.net';
+  //authentication
   static String login = '/api/Authentication/Login';
   static String register = '/api/Authentication/register';
   static String forgetPassword = '/api/Authentication/forgot-password';
@@ -11,8 +13,12 @@ class ApiEndPoints {
       '/api/Authentication/resend-confirmation-email';
   static String refreshToken = '/api/Authentication/refresh-token';
   static String createProfile = '/api/Authentication/Complete-Profile';
+  //Base Categories
   static String getAllBaseCategories =
       '/api/BaseCategories/Get_All_BaseCategories';
+  //products
+  static String getProductsByCategory =
+      '/api/Products/Get_Products_By_Category';
 }
 
 class ApiKeys {

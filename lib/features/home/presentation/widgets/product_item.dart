@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/home/data/model/product_model.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
+  const ProductItem({super.key, required this.productModel});
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +22,8 @@ class ProductItem extends StatelessWidget {
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(16),
                 ),
-                child: Image.asset(
-                  'assets/images/product.png',
+                child: Image.network(
+                  productModel.imageUrl,
                   height: 120,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -31,7 +33,7 @@ class ProductItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                'Product Name',
+                productModel.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: context.exTextStyles.medium,
@@ -42,7 +44,10 @@ class ProductItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('\$12.99', style: context.exTextStyles.robotoMedium),
+                  Text(
+                    '\$${productModel.price}',
+                    style: context.exTextStyles.robotoMedium,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                       color: context.exColors.primary100,

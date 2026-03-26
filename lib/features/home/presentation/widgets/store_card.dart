@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/home/data/model/restaurant_model.dart';
 
 class StoreCard extends StatelessWidget {
-  const StoreCard({super.key});
-
+  const StoreCard({super.key, required this.restaurantModel});
+  final RestaurantModel restaurantModel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -150,7 +151,7 @@ class StoreCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Pizza Hut',
+                          restaurantModel.name,
                           style: context.exTextStyles.medium600.copyWith(
                             color: context.exColors.primary500,
                           ),
@@ -199,7 +200,7 @@ class StoreCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 3),
                         Text(
-                          '4.5',
+                          '${restaurantModel.rating}',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,

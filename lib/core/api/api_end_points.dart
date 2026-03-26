@@ -19,6 +19,9 @@ class ApiEndPoints {
   //products
   static String getProductsByCategory =
       '/api/Products/Get_Products_By_Category';
+  //Restaurants
+  static String getRestaurantesByBaseCategoryId =
+      '/api/Restaurants/Get_All_Restaurantes_ByBaseCategoryId';
 }
 
 class ApiKeys {

@@ -48,4 +48,25 @@ class HomeCubit extends Cubit<HomeState> {
       ),
     );
   }
+
+  Future<void> getTopStores() async {
+    emit(state.copyWith(topRatedRestaurantsStatus: RequestStatus.loading));
+
+    final result = await repo.getTopStores();
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          topRatedRestaurantsStatus: RequestStatus.failure,
+          topRatedRestaurantsError: failure.message,
+        ),
+      ),
+      (restaurants) => emit(
+        state.copyWith(
+          topRatedRestaurantsStatus: RequestStatus.success,
+          topRatedRestaurants: restaurants,
+        ),
+      ),
+    );
+  }
 }

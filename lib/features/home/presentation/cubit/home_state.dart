@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:mego_food/features/home/data/model/base_category_model.dart';
 import 'package:mego_food/features/home/data/model/product_model.dart';
+import 'package:mego_food/features/home/data/model/restaurant_model.dart';
 
 enum RequestStatus { initial, loading, success, failure }
 
@@ -12,6 +13,10 @@ class HomeState extends Equatable {
   final List<ProductModel> topRatedProducts;
   final String? topRatedProductsError;
 
+  final RequestStatus topRatedRestaurantsStatus;
+  final List<RestaurantModel> topRatedRestaurants;
+  final String? topRatedRestaurantsError;
+
   const HomeState({
     this.categoriesStatus = RequestStatus.initial,
     this.categories = const [],
@@ -19,6 +24,9 @@ class HomeState extends Equatable {
     this.topRatedProductsStatus = RequestStatus.initial,
     this.topRatedProducts = const [],
     this.topRatedProductsError,
+    this.topRatedRestaurantsStatus = RequestStatus.initial,
+    this.topRatedRestaurants = const [],
+    this.topRatedRestaurantsError,
   });
   HomeState copyWith({
     RequestStatus? categoriesStatus,
@@ -27,6 +35,9 @@ class HomeState extends Equatable {
     RequestStatus? topRatedProductsStatus,
     List<ProductModel>? topRatedProducts,
     String? topRatedProductsError,
+    RequestStatus? topRatedRestaurantsStatus,
+    List<RestaurantModel>? topRatedRestaurants,
+    String? topRatedRestaurantsError,
   }) {
     return HomeState(
       categoriesStatus: categoriesStatus ?? this.categoriesStatus,
@@ -38,6 +49,12 @@ class HomeState extends Equatable {
       topRatedProducts: topRatedProducts ?? this.topRatedProducts,
       topRatedProductsError:
           topRatedProductsError ?? this.topRatedProductsError,
+
+      topRatedRestaurantsStatus:
+          topRatedRestaurantsStatus ?? this.topRatedRestaurantsStatus,
+      topRatedRestaurants: topRatedRestaurants ?? this.topRatedRestaurants,
+      topRatedRestaurantsError:
+          topRatedRestaurantsError ?? this.topRatedRestaurantsError,
     );
   }
 
@@ -49,5 +66,8 @@ class HomeState extends Equatable {
     topRatedProductsStatus,
     topRatedProducts,
     topRatedProductsError,
+    topRatedRestaurantsStatus,
+    topRatedRestaurants,
+    topRatedRestaurantsError,
   ];
 }

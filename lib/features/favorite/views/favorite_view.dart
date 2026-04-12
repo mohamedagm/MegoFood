@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/custom_header.dart';
-import 'package:mego_food/features/home/presentation/widgets/favorite_item.dart';
+import 'package:mego_food/features/favorite/widgets/favorite_item.dart';
 
 class FavoriteView extends StatelessWidget {
   const FavoriteView({super.key});

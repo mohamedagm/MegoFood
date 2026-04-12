@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mego_food/features/cart/presentation/views/cart_view.dart';
 import 'package:mego_food/features/explore/presentation/views/explore_view.dart';
-import 'package:mego_food/features/Main/custom_bottom_nav.dart';
-import 'package:mego_food/features/home/presentation/views/favorite_view.dart';
+import 'package:mego_food/features/favorite/views/favorite_view.dart';
+import 'package:mego_food/features/main/custom_bottom_nav.dart';
 import 'package:mego_food/features/home/presentation/views/home_view.dart';
-import 'package:mego_food/features/home/presentation/views/notification_view.dart';
+import 'package:mego_food/features/notification/views/notification_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});

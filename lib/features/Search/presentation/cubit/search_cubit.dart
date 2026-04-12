@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mego_food/features/Search/data/repo/search_repo.dart';
-import 'package:mego_food/features/Search/data/models/result_item_model.dart';
+import 'package:mego_food/features/search/data/repo/search_repo.dart';
+import 'package:mego_food/features/search/data/models/result_item_model.dart';
 
 part 'search_state.dart';
 

@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/utils/helper/debouncer.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
-import 'package:mego_food/features/Search/presentation/cubit/search_cubit.dart';
+import 'package:mego_food/features/search/presentation/cubit/search_cubit.dart';
 
 class SearchViewBody extends StatefulWidget {
   const SearchViewBody({super.key});

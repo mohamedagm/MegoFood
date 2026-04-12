@@ -6,7 +6,7 @@ import 'package:mego_food/core/widgets/app_back_button.dart';
 import 'package:mego_food/core/widgets/custom_header.dart';
 import 'package:mego_food/features/cart/presentation/widgets/checkout_info_tile.dart';
 import 'package:mego_food/features/cart/presentation/widgets/place_order_price_sec.dart';
-import 'package:mego_food/features/home/presentation/widgets/total_footer.dart';
+import 'package:mego_food/features/product_details/presentation/widgets/total_footer.dart';
 
 class CheckoutView extends StatelessWidget {
   const CheckoutView({super.key});

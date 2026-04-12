@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:mego_food/core/api/dio_consumer.dart';
 import 'package:mego_food/core/errors/failures.dart';
-import 'package:mego_food/features/Search/data/models/result_item_model.dart';
+import 'package:mego_food/features/search/data/models/result_item_model.dart';
 
 class SearchRepo {
   final DioConsumer dioConsumer;

@@ -7,7 +7,7 @@ import 'package:mego_food/core/widgets/custom_header.dart';
 import 'package:mego_food/features/cart/presentation/widgets/add_coupon_container.dart';
 import 'package:mego_food/features/cart/presentation/widgets/cart_list.dart';
 import 'package:mego_food/features/cart/presentation/widgets/place_order_price_sec.dart';
-import 'package:mego_food/features/home/presentation/widgets/total_footer.dart';
+import 'package:mego_food/features/product_details/presentation/widgets/total_footer.dart';
 
 class CartPlaceOrderView extends StatefulWidget {
   const CartPlaceOrderView({super.key});

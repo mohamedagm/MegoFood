@@ -21,6 +21,7 @@ import 'package:mego_food/features/cart/presentation/views/order_placed_view.dar
 import 'package:mego_food/features/cart/presentation/widgets/change_address.dart';
 import 'package:mego_food/features/cart/presentation/widgets/change_card.dart';
 import 'package:mego_food/features/product_details/presentation/views/product_details_view.dart';
+import 'package:mego_food/features/restaurant_details/presentation/views/restaurant_details_view.dart';
 import 'package:mego_food/features/menu/presentation/views/menu_view.dart';
 import 'package:mego_food/features/menu/presentation/views/orders_view.dart';
 import 'package:mego_food/features/menu/presentation/views/profile_edit_view.dart';
@@ -144,6 +145,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.deleteAcc,
         builder: (context, state) => const DeleteAccount(),
+      ),
+      GoRoute(
+        path: AppRoutes.restaurantDetails,
+        builder: (context, state) => const RestaurantDetailsView(),
       ),
     ],
   );

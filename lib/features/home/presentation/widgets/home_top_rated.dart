@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_cubit.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_state.dart';
 import 'package:mego_food/features/home/presentation/widgets/top_rated_item.dart';
@@ -23,8 +25,16 @@ class HomeTopRated extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: TopRatedItem(
-                        productModel: state.topRatedProducts[index],
+                      child: GestureDetector(
+                        onTap: () {
+                          context.push(
+                            AppRoutes.productDetails,
+                            extra: state.topRatedProducts[index],
+                          );
+                        },
+                        child: TopRatedItem(
+                          productModel: state.topRatedProducts[index],
+                        ),
                       ),
                     ),
                   ),

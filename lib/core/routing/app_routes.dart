@@ -26,4 +26,5 @@ class AppRoutes {
   static const String search = '/search';
 
   static const String deleteAcc = '/delete-acc';
+  static const String restaurantDetails = '/restaurant-details';
 }

@@ -10,7 +10,7 @@ class StoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => GoRouter.of(context).push(AppRoutes.productDetails),
+      onTap: () => GoRouter.of(context).push(AppRoutes.restaurantDetails),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

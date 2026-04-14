@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/home/data/model/product_model.dart';
 
 class ProductDesc extends StatefulWidget {
-  const ProductDesc({super.key});
+  const ProductDesc({super.key, required this.productModel});
+  final ProductModel productModel;
 
   @override
   State<ProductDesc> createState() => _ProductDescState();
@@ -21,7 +23,7 @@ class _ProductDescState extends State<ProductDesc> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'A classic favorite! Indulge in a crispy, thin crust topped with rich tomato sauce, layers of gooey mozzarella cheese, and delicious pepperoni slices. Perfectly baked with a hint of herbs for a mouth-watering experience in every bite.',
+            widget.productModel.description,
             style: context.exTextStyles.small,
             maxLines: readMore ? 2 : 10,
             overflow: TextOverflow.ellipsis,

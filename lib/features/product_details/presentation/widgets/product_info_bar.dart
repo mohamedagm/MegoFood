@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/home/data/model/product_model.dart';
 
 class ProductInfoBar extends StatelessWidget {
-  const ProductInfoBar({super.key});
+  const ProductInfoBar({super.key, required this.productModel});
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,10 @@ class ProductInfoBar extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 4),
-              Text("4.8", style: context.exTextStyles.medium),
+              Text(
+                "${productModel.rating}",
+                style: context.exTextStyles.medium,
+              ),
             ],
           ),
 

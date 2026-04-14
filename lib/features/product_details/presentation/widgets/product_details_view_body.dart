@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/home/data/model/product_model.dart';
 import 'package:mego_food/features/product_details/presentation/widgets/product_count.dart';
 import 'package:mego_food/features/product_details/presentation/widgets/product_desc.dart';
 import 'package:mego_food/features/product_details/presentation/widgets/product_details_header.dart';
@@ -9,15 +10,14 @@ import 'package:mego_food/features/product_details/presentation/widgets/product_
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailsViewBody extends StatefulWidget {
-  const ProductDetailsViewBody({super.key});
+  const ProductDetailsViewBody({super.key, required this.productModel});
+  final ProductModel productModel;
 
   @override
-  State<ProductDetailsViewBody> createState() =>
-      _ProductDetailsViewBodyState();
+  State<ProductDetailsViewBody> createState() => _ProductDetailsViewBodyState();
 }
 
-class _ProductDetailsViewBodyState
-    extends State<ProductDetailsViewBody> {
+class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
   PageController controller = PageController();
   @override
   void dispose() {
@@ -37,7 +37,10 @@ class _ProductDetailsViewBodyState
               //header
               ProductDetailsHeader(),
               //pageView
-              ProductPageView(controller: controller),
+              ProductPageView(
+                controller: controller,
+                productModel: widget.productModel,
+              ),
               //indicator
               SmoothPageIndicator(
                 controller: controller,
@@ -52,15 +55,15 @@ class _ProductDetailsViewBodyState
                 ),
               ),
               //info bar
-              ProductInfoBar(),
+              ProductInfoBar(productModel: widget.productModel),
               //name + count
-              ProductCount(),
+              ProductCount(productModel: widget.productModel),
               //desc
-              ProductDesc(),
+              ProductDesc(productModel: widget.productModel),
               //price+AddToCart
               TotalFooter(
                 buttonText: 'Add to card',
-                total: 12.99,
+                total: widget.productModel.price,
                 onPressed: () {},
               ),
             ],

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/home/data/model/product_model.dart';
 
 class ProductCount extends StatefulWidget {
-  const ProductCount({super.key});
+  const ProductCount({super.key, required this.productModel});
+  final ProductModel productModel;
 
   @override
   State<ProductCount> createState() => _ProductCountState();
@@ -18,7 +20,7 @@ class _ProductCountState extends State<ProductCount> {
       children: [
         Expanded(
           child: Text(
-            'Pepperoni Cheese\nPizza',
+            widget.productModel.name,
             style: context.exTextStyles.large,
             maxLines: 2,
             overflow: TextOverflow.fade,

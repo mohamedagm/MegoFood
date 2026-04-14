@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_cubit.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_state.dart';
 import 'package:mego_food/features/home/presentation/widgets/store_card.dart';
@@ -16,8 +18,14 @@ class HomeTopStores extends StatelessWidget {
             itemCount: state.topRatedRestaurants.length,
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.only(bottom: 16),
-              child: StoreCard(
-                restaurantModel: state.topRatedRestaurants[index],
+              child: GestureDetector(
+                onTap: () => GoRouter.of(context).push(
+                  AppRoutes.restaurantDetails,
+                  extra: state.topRatedRestaurants[index],
+                ),
+                child: StoreCard(
+                  restaurantModel: state.topRatedRestaurants[index],
+                ),
               ),
             ),
           );

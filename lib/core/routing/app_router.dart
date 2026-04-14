@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/home/data/model/product_model.dart';
+import 'package:mego_food/features/home/data/model/restaurant_model.dart';
 import 'package:mego_food/features/main/main_view.dart';
 import 'package:mego_food/features/search/presentation/views/search_view.dart';
 import 'package:mego_food/features/auth/data/models/address_model.dart';
@@ -150,7 +151,9 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.restaurantDetails,
-        builder: (context, state) => const RestaurantDetailsView(),
+        builder: (context, state) => RestaurantDetailsView(
+          restaurantModel: state.extra as RestaurantModel,
+        ),
       ),
     ],
   );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/home/data/model/restaurant_model.dart';
 
 class RestaurantInfoSection extends StatelessWidget {
-  const RestaurantInfoSection({super.key});
+  const RestaurantInfoSection({super.key, required this.restaurantModel});
+  final RestaurantModel restaurantModel;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class RestaurantInfoSection extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'El-Prince',
+                  restaurantModel.name,
                   style: context.exTextStyles.heading2.copyWith(
                     color: context.exColors.primary600,
                   ),
@@ -41,7 +43,7 @@ class RestaurantInfoSection extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '4.8',
+                      '${restaurantModel.rating}',
                       style: context.exTextStyles.small700.copyWith(
                         color: Colors.green.shade700,
                       ),
@@ -53,7 +55,7 @@ class RestaurantInfoSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Oriental • Grill • Fast Food',
+            restaurantModel.description,
             style: context.exTextStyles.medium400.copyWith(
               color: context.exColors.grey400,
             ),

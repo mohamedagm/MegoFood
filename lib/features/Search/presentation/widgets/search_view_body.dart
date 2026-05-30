@@ -15,6 +15,7 @@ class SearchViewBody extends StatefulWidget {
 
 class _SearchViewBodyState extends State<SearchViewBody> {
   TextEditingController searchController = TextEditingController();
+  final FocusNode searchFocusNode = FocusNode();
   final Debouncer debouncer = Debouncer(milliseconds: 600);
   String lastQuery = '';
   void setupSearchListener() {
@@ -35,12 +36,20 @@ class _SearchViewBodyState extends State<SearchViewBody> {
 
   @override
   void initState() {
-    setupSearchListener();
     super.initState();
+    setupSearchListener();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 250), () {
+        if (!mounted) return;
+        searchFocusNode.requestFocus();
+      });
+    });
   }
 
   @override
   void dispose() {
+    debouncer.dispose();
+    searchFocusNode.dispose();
     searchController.dispose();
     super.dispose();
   }
@@ -58,6 +67,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
               child: Material(
                 child: AppTextField(
                   controller: searchController,
+                  focusNode: searchFocusNode,
                   hintText: 'search...',
                   prefixIcon: SvgPicture.asset(
                     'assets/icons/Search.svg',

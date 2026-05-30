@@ -4,213 +4,272 @@ import 'package:mego_food/features/home/data/model/restaurant_model.dart';
 
 class StoreCard extends StatelessWidget {
   const StoreCard({super.key, required this.restaurantModel});
+
   final RestaurantModel restaurantModel;
+
   @override
   Widget build(BuildContext context) {
+    final imageUrl = restaurantModel.imageUrl;
+    final deliveryTime = restaurantModel.deliveryTimeMinutes == null
+        ? '20-30 min'
+        : '${restaurantModel.deliveryTimeMinutes} min';
+    final distance = restaurantModel.distanceKm == null
+        ? '2.5 km'
+        : '${restaurantModel.distanceKm!.toStringAsFixed(1)} km';
+    final deliveryFee = restaurantModel.deliveryFee == null
+        ? null
+        : restaurantModel.deliveryFee == 0
+        ? 'Free delivery'
+        : '\$${restaurantModel.deliveryFee!.toStringAsFixed(1)} delivery';
+
     return Container(
-            decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(16),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withValues(alpha: 0.08),
-        blurRadius: 4,
-        offset: const Offset(0, 4),
-      ),
-    ],
-            ),
-            child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Stack(
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(16),
-            ),
-            child: Image.asset(
-              'assets/images/download (1).png',
-              height: 140,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned.fill(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
-              ),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black.withValues(alpha: 0.45),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 10,
-            left: 10,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 4,
-              ),
-              decoration: BoxDecoration(
-                color: context.exColors.primary600,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.local_fire_department,
-                    color: Colors.white,
-                    size: 13,
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    'Top Rated',
-                    style: context.exTextStyles.robotoSmall.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 4,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.access_time,
-                    color: context.exColors.primary600,
-                    size: 13,
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    '20-30 min',
-                    style: context.exTextStyles.robotoSmall.copyWith(
-                      color: context.exColors.primary600,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+      decoration: BoxDecoration(
+        color: context.exColors.grey0,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 4,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
-    
-      Padding(
-        padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: context.exColors.primary600,
-                border: Border.all(
-                  color: context.exColors.primary600,
-                  width: 1.5,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
                 ),
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/download (1).png'),
-                  fit: BoxFit.cover,
-                ),
+                child: _RestaurantImage(imageUrl: imageUrl, height: 140),
               ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    restaurantModel.name,
-                    style: context.exTextStyles.medium600.copyWith(
-                      color: context.exColors.primary500,
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  ),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withValues(alpha: 0.45),
+                        ],
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 3),
-                  Row(
+                ),
+              ),
+              Positioned(
+                top: 10,
+                left: 10,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: restaurantModel.hasOffer
+                        ? context.exColors.orange
+                        : context.exColors.primary600,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        Icons.location_on,
-                        color: context.exColors.primary600,
+                        restaurantModel.hasOffer
+                            ? Icons.local_offer
+                            : Icons.local_fire_department,
+                        color: Colors.white,
                         size: 13,
                       ),
-                      const SizedBox(width: 2),
+                      const SizedBox(width: 4),
                       Text(
-                        'Gota • 2.5 km',
-                        style: context.exTextStyles.small.copyWith(
-                          color: context.exColors.grey400,
-                          fontSize: 12,
+                        restaurantModel.offerText ?? 'Top Rated',
+                        style: context.exTextStyles.robotoSmall.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 5,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.green.shade50,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: Colors.green.shade200,
-                  width: 1,
                 ),
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.star_rounded,
-                    color: Colors.green.shade600,
-                    size: 14,
+              Positioned(
+                bottom: 10,
+                right: 10,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
                   ),
-                  const SizedBox(width: 3),
-                  Text(
-                    '${restaurantModel.rating}',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green.shade700,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.access_time,
+                        color: context.exColors.primary600,
+                        size: 13,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        deliveryTime,
+                        style: context.exTextStyles.robotoSmall.copyWith(
+                          color: context.exColors.primary600,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+            child: Row(
+              children: [
+                ClipOval(
+                  child: SizedBox(
+                    width: 44,
+                    height: 44,
+                    child: _RestaurantImage(imageUrl: imageUrl, height: 44),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        restaurantModel.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.exTextStyles.medium600.copyWith(
+                          color: context.exColors.primary500,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            color: context.exColors.primary600,
+                            size: 13,
+                          ),
+                          const SizedBox(width: 2),
+                          Flexible(
+                            child: Text(
+                              deliveryFee == null
+                                  ? 'Gota - $distance'
+                                  : '$distance - $deliveryFee',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: context.exTextStyles.small.copyWith(
+                                color: context.exColors.grey400,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                if (!restaurantModel.isOpen)
+                  Container(
+                    margin: const EdgeInsets.only(right: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: context.exColors.grey100,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      'Closed',
+                      style: context.exTextStyles.small.copyWith(
+                        color: context.exColors.grey500,
+                      ),
                     ),
                   ),
-                ],
-              ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade50,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.green.shade200, width: 1),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.star_rounded,
+                        color: Colors.green.shade600,
+                        size: 14,
+                      ),
+                      const SizedBox(width: 3),
+                      Text(
+                        restaurantModel.rating.toStringAsFixed(1),
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    ],
-            ),
-          );
+    );
+  }
+}
+
+class _RestaurantImage extends StatelessWidget {
+  const _RestaurantImage({required this.imageUrl, required this.height});
+
+  final String? imageUrl;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    if (imageUrl == null || imageUrl!.isEmpty) {
+      return Image.asset(
+        'assets/images/download (1).png',
+        height: height,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      );
+    }
+
+    return Image.network(
+      imageUrl!,
+      height: height,
+      width: double.infinity,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) => Image.asset(
+        'assets/images/download (1).png',
+        height: height,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      ),
+    );
   }
 }

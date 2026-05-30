@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/features/category_restaurants/data/models/category_restaurants_args.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_cubit.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_state.dart';
 
@@ -52,6 +55,8 @@ class _HomeCategoriesState extends State<HomeCategories> {
         }
 
         if (state.categoriesStatus == RequestStatus.success) {
+          if (state.categories.isEmpty) return const SizedBox();
+
           return SizedBox(
             height: 45,
             child: PageView.builder(
@@ -61,17 +66,30 @@ class _HomeCategoriesState extends State<HomeCategories> {
               controller: controller,
               itemBuilder: (context, index) {
                 final realIndex = index % state.categories.length;
+                final category = state.categories[realIndex];
+
                 return Padding(
                   padding: const EdgeInsets.only(right: 8),
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: context.exColors.grey200,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      state.categories[realIndex].name,
-                      style: context.exTextStyles.robotoLarge,
+                  child: GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).push(
+                        AppRoutes.categoryRestaurants,
+                        extra: CategoryRestaurantsArgs(
+                          categoryId: category.id,
+                          categoryName: category.name,
+                        ),
+                      );
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: context.exColors.grey200,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        category.name,
+                        style: context.exTextStyles.robotoLarge,
+                      ),
                     ),
                   ),
                 );
@@ -89,15 +107,16 @@ class _HomeCategoriesState extends State<HomeCategories> {
     );
   }
 }
- // التركايه الجامده هنا فين ؟
- // انت عايز انفينيت اسكرول يباشا
- // علطول متزموش بليميت يا حبيبي يعني متديش للست فيو ايتم كاونت
- // بس مش دي التركايه
- // التركايه بجد هتعرض 8 9 عناصر ازاي لا نهائي ؟؟ وهنا تتدخل تركاية جميله
- // الا وهي معايا شوية اندكس وعايز اكررهم يبيييه
- // يبقي عليك وعلي باقي القسمه الجميل وبعمليه بسيطه بناءا عليها تعرض انهي اندكس
- // وكلهم تحت مظلة ال كام انكدس بتوعك يجمالو
- // realIndex = index % demoData.length;
- // هنا هنفضل نعد من 0 ل لينث الليست
- // متعة الرياضه وجمدان ال بروبلم سولفنج حرفيا هيا لوب الحل
- // الباقي تحريك وكلام كدا لذوذ برضو بس حتة اللوجيك دي هي الاساسا
+
+// التركايه الجامده هنا فين ؟
+// انت عايز انفينيت اسكرول يباشا
+// علطول متزموش بليميت يا حبيبي يعني متديش للست فيو ايتم كاونت
+// بس مش دي التركايه
+// التركايه بجد هتعرض 8 9 عناصر ازاي لا نهائي ؟؟ وهنا تتدخل تركاية جميله
+// الا وهي معايا شوية اندكس وعايز اكررهم يبيييه
+// يبقي عليك وعلي باقي القسمه الجميل وبعمليه بسيطه بناءا عليها تعرض انهي اندكس
+// وكلهم تحت مظلة ال كام انكدس بتوعك يجمالو
+// realIndex = index % demoData.length;
+// هنا هنفضل نعد من 0 ل لينث الليست
+// متعة الرياضه وجمدان ال بروبلم سولفنج حرفيا هيا لوب الحل
+// الباقي تحريك وكلام كدا لذوذ برضو بس حتة اللوجيك دي هي الاساسا

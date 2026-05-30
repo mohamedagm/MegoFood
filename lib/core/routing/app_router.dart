@@ -22,6 +22,8 @@ import 'package:mego_food/features/cart/presentation/views/checkout_view.dart';
 import 'package:mego_food/features/cart/presentation/views/order_placed_view.dart';
 import 'package:mego_food/features/cart/presentation/widgets/change_address.dart';
 import 'package:mego_food/features/cart/presentation/widgets/change_card.dart';
+import 'package:mego_food/features/category_restaurants/data/models/category_restaurants_args.dart';
+import 'package:mego_food/features/category_restaurants/presentation/views/category_restaurants_screen.dart';
 import 'package:mego_food/features/product_details/presentation/views/product_details_view.dart';
 import 'package:mego_food/features/restaurant_details/presentation/views/restaurant_details_view.dart';
 import 'package:mego_food/features/menu/presentation/views/menu_view.dart';
@@ -154,6 +156,16 @@ class AppRouter {
         builder: (context, state) => RestaurantDetailsView(
           restaurantModel: state.extra as RestaurantModel,
         ),
+      ),
+      GoRoute(
+        path: AppRoutes.categoryRestaurants,
+        builder: (context, state) {
+          final args = state.extra as CategoryRestaurantsArgs;
+          return CategoryRestaurantsScreen(
+            categoryId: args.categoryId,
+            categoryName: args.categoryName,
+          );
+        },
       ),
     ],
   );

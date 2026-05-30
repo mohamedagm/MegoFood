@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/widgets/app_shimmer.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
 import 'package:mego_food/features/category_restaurants/presentation/cubit/category_restaurants_cubit.dart';
 import 'package:mego_food/features/category_restaurants/presentation/cubit/category_restaurants_state.dart';
 import 'package:mego_food/features/category_restaurants/presentation/widgets/category_header_section.dart';
 import 'package:mego_food/features/category_restaurants/presentation/widgets/category_restaurants_state_message.dart';
 import 'package:mego_food/features/category_restaurants/presentation/widgets/restaurant_filter_chip.dart';
-import 'package:mego_food/features/category_restaurants/presentation/widgets/restaurant_skeleton_card.dart';
+import 'package:mego_food/features/category_restaurants/presentation/widgets/restaurant_shimmer_card.dart';
 import 'package:mego_food/features/home/data/model/restaurant_model.dart';
 import 'package:mego_food/features/home/presentation/widgets/store_card.dart';
 
@@ -96,11 +97,9 @@ class _CategoryRestaurantsViewBodyState
     return BlocBuilder<CategoryRestaurantsCubit, CategoryRestaurantsState>(
       builder: (context, state) {
         if (state is CategoryRestaurantsLoading) {
-          return ListView.separated(
+          return ShimmerList(
             padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
-            itemCount: 5,
-            separatorBuilder: (context, index) => const SizedBox(height: 16),
-            itemBuilder: (context, index) => const RestaurantSkeletonCard(),
+            itemBuilder: (context, index) => const RestaurantShimmerCard(),
           );
         }
 
@@ -135,12 +134,6 @@ class _CategoryRestaurantsViewBodyState
                   ),
                   onChanged: (value) => setState(() => _searchQuery = value),
                 ),
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-              sliver: SliverToBoxAdapter(
-                child: CategoryHeaderSection(categoryName: widget.categoryName),
               ),
             ),
             SliverToBoxAdapter(

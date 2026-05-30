@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/widgets/app_cached_image.dart';
 import 'package:mego_food/features/home/data/model/product_model.dart';
 
 class ProductItem extends StatelessWidget {
@@ -22,11 +23,14 @@ class ProductItem extends StatelessWidget {
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(16),
                 ),
-                child: Image.network(
-                  productModel.imageUrl,
+                child: AppCachedImage(
+                  imageUrl: productModel.imageUrl,
                   height: 120,
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  fallbackAsset: 'assets/images/product.png',
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  ),
                 ),
               ),
             ),

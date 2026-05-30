@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/widgets/app_cached_image.dart';
 import 'package:mego_food/features/home/data/model/restaurant_model.dart';
 
 class StoreCard extends StatelessWidget {
@@ -250,26 +251,11 @@ class _RestaurantImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl == null || imageUrl!.isEmpty) {
-      return Image.asset(
-        'assets/images/download (1).png',
-        height: height,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      );
-    }
-
-    return Image.network(
-      imageUrl!,
+    return AppCachedImage(
+      imageUrl: imageUrl,
       height: height,
       width: double.infinity,
-      fit: BoxFit.cover,
-      errorBuilder: (context, error, stackTrace) => Image.asset(
-        'assets/images/download (1).png',
-        height: height,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      ),
+      fallbackAsset: 'assets/images/download (1).png',
     );
   }
 }

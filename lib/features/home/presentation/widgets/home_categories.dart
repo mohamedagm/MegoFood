@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/widgets/app_shimmer.dart';
 import 'package:mego_food/features/category_restaurants/data/models/category_restaurants_args.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_cubit.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_state.dart';
@@ -51,7 +52,19 @@ class _HomeCategoriesState extends State<HomeCategories> {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state.categoriesStatus == RequestStatus.loading) {
-          return Center(child: const CircularProgressIndicator());
+          return SizedBox(
+            height: 45,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: 4,
+              separatorBuilder: (context, index) => const SizedBox(width: 8),
+              itemBuilder: (context, index) => ShimmerBox(
+                height: 45,
+                width: MediaQuery.of(context).size.width * 0.4,
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+          );
         }
 
         if (state.categoriesStatus == RequestStatus.success) {

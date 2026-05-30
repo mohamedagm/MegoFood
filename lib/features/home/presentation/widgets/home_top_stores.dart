@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
+import 'package:mego_food/core/widgets/restaurant_shimmer_card.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_cubit.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_state.dart';
 import 'package:mego_food/features/home/presentation/widgets/store_card.dart';
@@ -30,8 +31,12 @@ class HomeTopStores extends StatelessWidget {
             ),
           );
         } else if (state.topRatedRestaurantsStatus == RequestStatus.loading) {
-          return SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
+          return SliverList.builder(
+            itemCount: 5,
+            itemBuilder: (context, index) => const Padding(
+              padding: EdgeInsets.only(bottom: 16),
+              child: RestaurantShimmerCard(),
+            ),
           );
         } else if (state.topRatedRestaurantsStatus == RequestStatus.failure) {
           return SliverToBoxAdapter(

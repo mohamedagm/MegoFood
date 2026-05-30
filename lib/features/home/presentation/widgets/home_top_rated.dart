@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_cubit.dart';
 import 'package:mego_food/features/home/presentation/cubit/home_state.dart';
+import 'package:mego_food/features/home/presentation/widgets/product_shimmer_card.dart';
 import 'package:mego_food/features/home/presentation/widgets/top_rated_item.dart';
 
 class HomeTopRated extends StatelessWidget {
@@ -43,7 +44,22 @@ class HomeTopRated extends StatelessWidget {
             ),
           );
         } else if (state.topRatedProductsStatus == RequestStatus.loading) {
-          return Center(child: CircularProgressIndicator());
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.25,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: const Padding(
+                    padding: EdgeInsets.all(4.0),
+                    child: ProductShimmerCard(),
+                  ),
+                );
+              },
+            ),
+          );
         } else if (state.topRatedProductsStatus == RequestStatus.failure) {
           return Text(state.topRatedProductsError ?? 'Error');
         }

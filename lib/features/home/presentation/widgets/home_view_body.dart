@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
+import 'package:mego_food/features/home/presentation/cubit/home_cubit.dart';
+import 'package:mego_food/features/home/presentation/cubit/home_state.dart';
+import 'package:mego_food/features/home/presentation/widgets/home_section_header.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_top_rated.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_categories.dart';
 import 'package:mego_food/features/home/presentation/widgets/home_header.dart';
@@ -65,44 +69,45 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
             // TOP Rated
             SliverToBoxAdapter(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Top Rated',
-                    style: context.exTextStyles.medium600.copyWith(
-                      color: context.exColors.primary500,
-                    ),
-                  ),
-                  Text(
-                    'See all',
-                    style: context.exTextStyles.medium600.copyWith(
-                      color: context.exColors.primary500,
-                    ),
-                  ),
-                ],
+              child: BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  final canSeeAll =
+                      state.topRatedProductsStatus == RequestStatus.success &&
+                      state.topRatedProducts.isNotEmpty;
+
+                  return HomeSectionHeader(
+                    title: 'Top Rated',
+                    onSeeAll: canSeeAll
+                        ? () => context.push(
+                            AppRoutes.topRatedProducts,
+                            extra: state.topRatedProducts,
+                          )
+                        : null,
+                  );
+                },
               ),
             ),
             SliverToBoxAdapter(child: HomeTopRated()),
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
             SliverToBoxAdapter(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Top Stores',
-                    style: context.exTextStyles.medium600.copyWith(
-                      color: context.exColors.primary500,
-                    ),
-                  ),
-                  Text(
-                    'See all',
-                    style: context.exTextStyles.medium600.copyWith(
-                      color: context.exColors.primary500,
-                    ),
-                  ),
-                ],
+              child: BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  final canSeeAll =
+                      state.topRatedRestaurantsStatus ==
+                          RequestStatus.success &&
+                      state.topRatedRestaurants.isNotEmpty;
+
+                  return HomeSectionHeader(
+                    title: 'Top Stores',
+                    onSeeAll: canSeeAll
+                        ? () => context.push(
+                            AppRoutes.topStores,
+                            extra: state.topRatedRestaurants,
+                          )
+                        : null,
+                  );
+                },
               ),
             ),
 

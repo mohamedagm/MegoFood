@@ -24,6 +24,8 @@ class AppRoutes {
   static const String settings = '/settings';
   static const String chooseLang = '/choose-lang';
   static const String search = '/search';
+  static const String topRatedProducts = '/top-rated-products';
+  static const String topStores = '/top-stores';
 
   static const String deleteAcc = '/delete-acc';
   static const String restaurantDetails = '/restaurant-details';

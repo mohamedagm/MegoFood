@@ -24,6 +24,8 @@ import 'package:mego_food/features/cart/presentation/widgets/change_address.dart
 import 'package:mego_food/features/cart/presentation/widgets/change_card.dart';
 import 'package:mego_food/features/category_restaurants/data/models/category_restaurants_args.dart';
 import 'package:mego_food/features/category_restaurants/presentation/views/category_restaurants_screen.dart';
+import 'package:mego_food/features/home/presentation/views/top_rated_products_view.dart';
+import 'package:mego_food/features/home/presentation/views/top_stores_view.dart';
 import 'package:mego_food/features/product_details/presentation/views/product_details_view.dart';
 import 'package:mego_food/features/restaurant_details/presentation/views/restaurant_details_view.dart';
 import 'package:mego_food/features/menu/presentation/views/menu_view.dart';
@@ -146,6 +148,16 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.search,
         builder: (context, state) => const SearchView(),
+      ),
+      GoRoute(
+        path: AppRoutes.topRatedProducts,
+        builder: (context, state) =>
+            TopRatedProductsView(products: state.extra as List<ProductModel>),
+      ),
+      GoRoute(
+        path: AppRoutes.topStores,
+        builder: (context, state) =>
+            TopStoresView(restaurants: state.extra as List<RestaurantModel>),
       ),
       GoRoute(
         path: AppRoutes.deleteAcc,

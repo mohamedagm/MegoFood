@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/widgets/app_cached_image.dart';
+import 'package:mego_food/features/cart/data/models/cart_item_model.dart';
 
-class CartListItem extends StatefulWidget {
-  const CartListItem({super.key});
-
-  @override
-  State<CartListItem> createState() => _CartListItemState();
-}
-
-class _CartListItemState extends State<CartListItem> {
-  int count = 1;
+class CartListItem extends StatelessWidget {
+  const CartListItem({
+    super.key,
+    required this.item,
+    required this.onIncrement,
+    required this.onDecrementOrRemove,
+    required this.onRemove,
+  });
+  final CartItemModel item;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrementOrRemove;
+  final VoidCallback onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -29,44 +34,28 @@ class _CartListItemState extends State<CartListItem> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(4),
-                  bottomRight: Radius.circular(4),
-                  bottomLeft: Radius.circular(16),
-                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(4), bottomRight: Radius.circular(4),
+                  bottomLeft: Radius.circular(16), topLeft: Radius.circular(16),
                 ),
-                child: Image.asset(
-                  fit: BoxFit.cover,
-                  'assets/images/pizaa.png',
+                child: AppCachedImage(
+                  imageUrl: item.imageUrl,
                   height: 80,
                   width: 80,
+                  fallbackAsset: 'assets/images/pizaa.png',
                 ),
               ),
-              Positioned(
-                top: 4,
-                left: 4,
-                child: Container(
-                  width: 47,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: context.exColors.grey100,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/Star filled.svg',
-                        height: 16,
-                        colorFilter: ColorFilter.mode(
-                          context.exColors.yellow,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                      Text('4.7', style: context.exTextStyles.small),
-                    ],
-                  ),
+              Positioned(top: 4, left: 4, child: Container(
+                width: 47, height: 20,
+                decoration: BoxDecoration(color: context.exColors.grey100, borderRadius: BorderRadius.circular(8)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SvgPicture.asset('assets/icons/Star filled.svg', height: 16,
+                      colorFilter: ColorFilter.mode(context.exColors.yellow, BlendMode.srcIn)),
+                    Text('${item.rating}', style: context.exTextStyles.small),
+                  ],
                 ),
-              ),
+              )),
             ],
           ),
           Expanded(
@@ -74,20 +63,13 @@ class _CartListItemState extends State<CartListItem> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Pepperoni Cheese Pizza',
-                  style: context.exTextStyles.medium,
-                  maxLines: 2,
-                  overflow: TextOverflow.fade,
-                ),
+                Text(item.name, style: context.exTextStyles.medium, maxLines: 2, overflow: TextOverflow.fade),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(r'$12.99', style: context.exTextStyles.robotoMedium),
+                    Text('\$${item.unitPrice.toStringAsFixed(2)}', style: context.exTextStyles.robotoMedium),
                     Container(
-                      width: 95,
-                      height: 40,
-                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      width: 95, height: 40, padding: EdgeInsets.symmetric(horizontal: 4),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(32),
                         border: Border.all(color: context.exColors.grey100),
@@ -96,36 +78,19 @@ class _CartListItemState extends State<CartListItem> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                            onTap: () => setState(() {
-                              if (count > 1) count--;
-                            }),
-                            child: Container(
-                              height: 32,
-                              width: 32,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: context.exColors.grey100,
-                              ),
-                              child: count == 1
+                            onTap: item.quantity == 1 ? onRemove : onDecrementOrRemove,
+                            child: Container(height: 32, width: 32,
+                              decoration: BoxDecoration(shape: BoxShape.circle, color: context.exColors.grey100),
+                              child: item.quantity == 1
                                   ? SvgPicture.asset('assets/icons/Delete.svg')
                                   : Icon(Icons.remove),
                             ),
                           ),
-                          Text(
-                            '$count',
-                            style: context.exTextStyles.robotoMedium,
-                          ),
+                          Text('${item.quantity}', style: context.exTextStyles.robotoMedium),
                           InkWell(
-                            onTap: () => setState(() {
-                              count++;
-                            }),
-                            child: Container(
-                              height: 32,
-                              width: 32,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: context.exColors.grey100,
-                              ),
+                            onTap: onIncrement,
+                            child: Container(height: 32, width: 32,
+                              decoration: BoxDecoration(shape: BoxShape.circle, color: context.exColors.grey100),
                               child: Icon(Icons.add),
                             ),
                           ),

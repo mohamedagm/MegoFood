@@ -2,8 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 
 class PlaceOrderPriceSec extends StatelessWidget {
-  const PlaceOrderPriceSec({super.key, this.coupon});
+  const PlaceOrderPriceSec({
+    super.key,
+    required this.subtotal,
+    this.coupon,
+    this.deliveryCharges = 3.99,
+    this.couponDiscount = 10,
+  });
+
+  final double subtotal;
   final Map<String, dynamic>? coupon;
+  final double deliveryCharges;
+  final double couponDiscount;
+
+  double get discount => coupon == null ? 0 : couponDiscount;
+  double get total => subtotal + deliveryCharges - discount;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +26,10 @@ class PlaceOrderPriceSec extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Subtotal', style: context.exTextStyles.medium400),
-            Text('56.27', style: context.exTextStyles.medium),
+            Text(
+              '\$${subtotal.toStringAsFixed(2)}',
+              style: context.exTextStyles.medium,
+            ),
           ],
         ),
         if (coupon != null)
@@ -21,7 +37,10 @@ class PlaceOrderPriceSec extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Coupon', style: context.exTextStyles.medium400),
-              Text('-10', style: context.exTextStyles.medium),
+              Text(
+                '-\$${discount.toStringAsFixed(2)}',
+                style: context.exTextStyles.medium,
+              ),
             ],
           ),
         Row(
@@ -29,7 +48,10 @@ class PlaceOrderPriceSec extends StatelessWidget {
 
           children: [
             Text('Delivery Charges', style: context.exTextStyles.medium400),
-            Text('+3.99', style: context.exTextStyles.medium),
+            Text(
+              '+\$${deliveryCharges.toStringAsFixed(2)}',
+              style: context.exTextStyles.medium,
+            ),
           ],
         ),
         Divider(color: context.exColors.grey200),
@@ -38,7 +60,10 @@ class PlaceOrderPriceSec extends StatelessWidget {
 
           children: [
             Text('Total', style: context.exTextStyles.large400),
-            Text('60.26', style: context.exTextStyles.robotoLarge),
+            Text(
+              '\$${total.toStringAsFixed(2)}',
+              style: context.exTextStyles.robotoLarge,
+            ),
           ],
         ),
       ],

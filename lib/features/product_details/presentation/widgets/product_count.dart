@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/features/home/data/model/product_model.dart';
 
-class ProductCount extends StatefulWidget {
-  const ProductCount({super.key, required this.productModel});
+class ProductCount extends StatelessWidget {
+  const ProductCount({
+    super.key,
+    required this.productModel,
+    required this.quantity,
+    required this.onIncrement,
+    required this.onDecrement,
+  });
   final ProductModel productModel;
-
-  @override
-  State<ProductCount> createState() => _ProductCountState();
-}
-
-class _ProductCountState extends State<ProductCount> {
-  int count = 1;
+  final int quantity;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +21,11 @@ class _ProductCountState extends State<ProductCount> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: Text(
-            widget.productModel.name,
-            style: context.exTextStyles.large,
-            maxLines: 2,
-            overflow: TextOverflow.fade,
-          ),
+          child: Text(productModel.name, style: context.exTextStyles.large,
+            maxLines: 2, overflow: TextOverflow.fade),
         ),
         Container(
-          height: 50,
-          width: 120,
+          height: 50, width: 120,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(32),
             border: Border.all(color: context.exColors.grey100),
@@ -37,31 +34,17 @@ class _ProductCountState extends State<ProductCount> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               InkWell(
-                onTap: () => setState(() {
-                  count++;
-                }),
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: context.exColors.grey100,
-                  ),
+                onTap: onIncrement,
+                child: Container(height: 40, width: 40,
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: context.exColors.grey100),
                   child: Icon(Icons.add),
                 ),
               ),
-              Text('$count', style: context.exTextStyles.robotoMedium),
+              Text('$quantity', style: context.exTextStyles.robotoMedium),
               InkWell(
-                onTap: () => setState(() {
-                  if (count > 1) count--;
-                }),
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: context.exColors.grey100,
-                  ),
+                onTap: onDecrement,
+                child: Container(height: 40, width: 40,
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: context.exColors.grey100),
                   child: Icon(Icons.remove),
                 ),
               ),

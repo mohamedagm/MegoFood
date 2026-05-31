@@ -123,7 +123,10 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.orderPlaced,
-        builder: (context, state) => const OrderPlacedView(),
+        builder: (context, state) {
+          final amountPaid = (state.extra as num?)?.toDouble() ?? 0;
+          return OrderPlacedView(amountPaid: amountPaid);
+        },
       ),
       GoRoute(
         path: AppRoutes.menu,

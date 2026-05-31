@@ -8,11 +8,13 @@ import 'package:mego_food/core/storage/hive_adapters.dart';
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(CartItemModelAdapter());
+    registerAdapter(FavoriteItemModelAdapter());
   }
 }
 
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
     registerAdapter(CartItemModelAdapter());
+    registerAdapter(FavoriteItemModelAdapter());
   }
 }

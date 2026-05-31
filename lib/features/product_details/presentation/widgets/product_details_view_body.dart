@@ -68,7 +68,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
           child: Column(
             spacing: 16,
             children: [
-              ProductDetailsHeader(),
+              ProductDetailsHeader(productModel: widget.productModel),
               ProductPageView(
                 controller: controller,
                 productModel: widget.productModel,

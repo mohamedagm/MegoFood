@@ -7,8 +7,10 @@ import 'package:mego_food/core/routing/app_router.dart';
 import 'package:mego_food/core/services/setup_service.dart';
 import 'package:mego_food/core/storage/hive_storage_service.dart';
 import 'package:mego_food/core/theme/app_theme.dart';
-import 'package:mego_food/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:mego_food/features/cart/data/repo/cart_repo.dart';
+import 'package:mego_food/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
+import 'package:mego_food/features/favorite/data/repo/favorite_repo.dart';
+import 'package:mego_food/features/favorite/presentation/manager/favorite_cubit/favorite_cubit.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -27,8 +29,13 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
-    return BlocProvider(
-      create: (_) => CartCubit(getIt<CartRepo>())..loadCart(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => CartCubit(getIt<CartRepo>())..loadCart()),
+        BlocProvider(
+          create: (_) => FavoriteCubit(getIt<FavoriteRepo>())..loadFavorites(),
+        ),
+      ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: AppRouter.router,

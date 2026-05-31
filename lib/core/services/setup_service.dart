@@ -9,6 +9,9 @@ import 'package:mego_food/features/cart/data/datasource/cart_local_data_source.d
 import 'package:mego_food/features/cart/data/repo/cart_repo.dart';
 import 'package:mego_food/features/cart/data/repo/cart_repo_impl.dart';
 import 'package:mego_food/features/category_restaurants/data/repo/category_restaurants_repo.dart';
+import 'package:mego_food/features/favorite/data/datasource/favorite_local_data_source.dart';
+import 'package:mego_food/features/favorite/data/repo/favorite_repo.dart';
+import 'package:mego_food/features/favorite/data/repo/favorite_repo_impl.dart';
 import 'package:mego_food/features/home/data/repo/home_repo.dart';
 
 final getIt = GetIt.instance;
@@ -21,9 +24,7 @@ class SetupService {
       () => DioConsumer(dio: getIt<Dio>()),
     );
     getIt.registerLazySingleton<LocationService>(() => LocationService());
-    getIt.registerLazySingleton<HiveStorageService>(
-      () => HiveStorageService(),
-    );
+    getIt.registerLazySingleton<HiveStorageService>(() => HiveStorageService());
 
     getIt.registerLazySingleton<AuthRepoImpl>(
       () => AuthRepoImpl(getIt<DioConsumer>(), getIt.get<LocationService>()),
@@ -40,6 +41,12 @@ class SetupService {
     );
     getIt.registerLazySingleton<CartRepo>(
       () => CartRepoImpl(getIt<CartLocalDataSource>()),
+    );
+    getIt.registerLazySingleton<FavoriteLocalDataSource>(
+      () => FavoriteLocalDataSource(getIt<HiveStorageService>()),
+    );
+    getIt.registerLazySingleton<FavoriteRepo>(
+      () => FavoriteRepoImpl(getIt<FavoriteLocalDataSource>()),
     );
   }
 }

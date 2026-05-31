@@ -1,8 +1,14 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/cache/cache_helper.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
+import 'package:mego_food/core/services/setup_service.dart';
+import 'package:mego_food/features/cart/data/repo/cart_repo.dart';
+import 'package:mego_food/features/cart/presentation/manager/cart_cubit/cart_cubit.dart';
 import 'package:mego_food/features/home/data/model/product_model.dart';
 import 'package:mego_food/features/home/data/model/restaurant_model.dart';
+import 'package:mego_food/features/favorite/data/repo/favorite_repo.dart';
+import 'package:mego_food/features/favorite/presentation/manager/favorite_cubit/favorite_cubit.dart';
 import 'package:mego_food/features/main/main_view.dart';
 import 'package:mego_food/features/search/presentation/views/search_view.dart';
 import 'package:mego_food/features/auth/data/models/address_model.dart';
@@ -92,26 +98,51 @@ class AppRouter {
           return AddAddressView(initialData: data);
         },
       ),
-      GoRoute(
-        path: AppRoutes.main,
-        builder: (context, state) => const MainView(),
-      ),
-      GoRoute(
-        path: AppRoutes.productDetails,
-        builder: (context, state) =>
-            ProductDetailsView(productModel: state.extra as ProductModel),
-      ),
-      GoRoute(
-        path: AppRoutes.cartPlaceOrder,
-        builder: (context, state) => const CartPlaceOrderView(),
+      ShellRoute(
+        builder: (context, state, child) {
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => CartCubit(getIt<CartRepo>())..loadCart(),
+              ),
+              BlocProvider(
+                create: (_) =>
+                    FavoriteCubit(getIt<FavoriteRepo>())..loadFavorites(),
+              ),
+            ],
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(
+            path: AppRoutes.main,
+            builder: (context, state) => const MainView(),
+          ),
+          GoRoute(
+            path: AppRoutes.productDetails,
+            builder: (context, state) =>
+                ProductDetailsView(productModel: state.extra as ProductModel),
+          ),
+          GoRoute(
+            path: AppRoutes.cartPlaceOrder,
+            builder: (context, state) => const CartPlaceOrderView(),
+          ),
+          GoRoute(
+            path: AppRoutes.checkOut,
+            builder: (context, state) => const CheckoutView(),
+          ),
+          GoRoute(
+            path: AppRoutes.orderPlaced,
+            builder: (context, state) {
+              final amountPaid = (state.extra as num?)?.toDouble() ?? 0;
+              return OrderPlacedView(amountPaid: amountPaid);
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: AppRoutes.addCoupon,
         builder: (context, state) => const AddCouponView(),
-      ),
-      GoRoute(
-        path: AppRoutes.checkOut,
-        builder: (context, state) => const CheckoutView(),
       ),
       GoRoute(
         path: AppRoutes.changeAddress,
@@ -120,13 +151,6 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.changeCard,
         builder: (context, state) => const ChangeCard(),
-      ),
-      GoRoute(
-        path: AppRoutes.orderPlaced,
-        builder: (context, state) {
-          final amountPaid = (state.extra as num?)?.toDouble() ?? 0;
-          return OrderPlacedView(amountPaid: amountPaid);
-        },
       ),
       GoRoute(
         path: AppRoutes.menu,

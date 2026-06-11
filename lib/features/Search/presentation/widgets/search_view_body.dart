@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
 import 'package:mego_food/core/utils/helper/debouncer.dart';
+import 'package:mego_food/core/widgets/app_shimmer.dart';
 import 'package:mego_food/core/widgets/app_text_field.dart';
 import 'package:mego_food/features/search/presentation/cubit/search_cubit.dart';
+import 'package:mego_food/features/search/presentation/widgets/search_result_item.dart';
+import 'package:mego_food/features/search/presentation/widgets/search_result_shimmer_item.dart';
 
 class SearchViewBody extends StatefulWidget {
   const SearchViewBody({super.key});
@@ -82,18 +87,63 @@ class _SearchViewBodyState extends State<SearchViewBody> {
             BlocBuilder<SearchCubit, SearchState>(
               builder: (context, state) {
                 if (state is SearchSuccess) {
-                  return Text(
-                    'Search results for "${searchController.text}"',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  final count = state.results.length;
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Search results for "${searchController.text}"',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.exTextStyles.large700.copyWith(
+                            color: context.exColors.typography500,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: context.exColors.grey100,
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        child: Text(
+                          '$count items',
+                          style: context.exTextStyles.small600.copyWith(
+                            color: context.exColors.typography400,
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 } else if (state is SearchLoading) {
-                  return const Text('Searching...');
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: ShimmerBox(
+                          height: 20,
+                          width: double.infinity,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      ShimmerBox(
+                        height: 30,
+                        width: 72,
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                    ],
+                  );
                 } else if (state is SearchFailure) {
                   if (searchController.text.isNotEmpty) {
-                    return Text(state.message);
+                    return Text(
+                      state.message,
+                      style: context.exTextStyles.medium400.copyWith(
+                        color: context.exColors.red,
+                      ),
+                    );
                   } else {
                     return const SizedBox.shrink();
                   }
@@ -106,28 +156,29 @@ class _SearchViewBodyState extends State<SearchViewBody> {
               builder: (context, state) {
                 if (state is SearchSuccess) {
                   var searchResults = state.results;
+                  if (searchResults.isEmpty) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(
+                          'No meals found',
+                          style: context.exTextStyles.medium400,
+                        ),
+                      ),
+                    );
+                  }
                   return Expanded(
-                    child: ListView.builder(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.only(bottom: 20),
                       itemCount: searchResults.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 12),
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: CircleAvatar(
-                            radius: 40,
-                            backgroundColor: context.exColors.grey300,
-                            child: Image.network(
-                              searchResults[index].imageUrl,
-                              fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) => Icon(Icons.image),
-                            ),
-                          ),
-                          title: Text(searchResults[index].name),
-                          subtitle: Text(searchResults[index].description),
-                          trailing: Text(
-                            '\$${searchResults[index].price}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green,
-                            ),
+                        final item = searchResults[index];
+                        return SearchResultItem(
+                          item: item,
+                          onTap: () => GoRouter.of(context).push(
+                            AppRoutes.productDetails,
+                            extra: item.toProductModel(),
                           ),
                         );
                       },
@@ -135,7 +186,14 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                   );
                 } else if (state is SearchLoading) {
                   return Expanded(
-                    child: Center(child: const CircularProgressIndicator()),
+                    child: ListView.separated(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      itemCount: 5,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 12),
+                      itemBuilder: (context, index) =>
+                          const SearchResultShimmerItem(),
+                    ),
                   );
                 } else {
                   return const SizedBox.shrink();

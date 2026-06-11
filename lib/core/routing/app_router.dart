@@ -98,6 +98,7 @@ class AppRouter {
           return AddAddressView(initialData: data);
         },
       ),
+      
       ShellRoute(
         builder: (context, state, child) {
           return MultiBlocProvider(
@@ -124,6 +125,10 @@ class AppRouter {
                 ProductDetailsView(productModel: state.extra as ProductModel),
           ),
           GoRoute(
+            path: AppRoutes.search,
+            builder: (context, state) => const SearchView(),
+          ),
+          GoRoute(
             path: AppRoutes.cartPlaceOrder,
             builder: (context, state) => const CartPlaceOrderView(),
           ),
@@ -140,6 +145,7 @@ class AppRouter {
           ),
         ],
       ),
+      
       GoRoute(
         path: AppRoutes.addCoupon,
         builder: (context, state) => const AddCouponView(),
@@ -171,10 +177,6 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.chooseLang,
         builder: (context, state) => const ChooseLang(),
-      ),
-      GoRoute(
-        path: AppRoutes.search,
-        builder: (context, state) => const SearchView(),
       ),
       GoRoute(
         path: AppRoutes.topRatedProducts,

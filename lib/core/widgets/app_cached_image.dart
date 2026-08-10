@@ -4,6 +4,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mego_food/core/widgets/app_shimmer.dart';
 
+bool isValidImageUrl(String? imageUrl) {
+  if (imageUrl == null) return false;
+
+  final trimmedUrl = imageUrl.trim();
+  if (trimmedUrl.isEmpty) return false;
+
+  final uri = Uri.tryParse(trimmedUrl);
+  return uri != null && uri.hasScheme && uri.hasAuthority;
+}
+
 class AppCachedImage extends StatelessWidget {
   const AppCachedImage({
     super.key,
@@ -25,6 +35,10 @@ class AppCachedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final url = imageUrl?.trim() ?? '';
+
+    if (!isValidImageUrl(url)) {
+      return Image.asset(fallbackAsset, height: height, width: width, fit: fit);
+    }
 
     return CachedNetworkImage(
       imageUrl: url,

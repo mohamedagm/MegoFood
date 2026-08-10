@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mego_food/core/widgets/app_cached_image.dart';
 import 'package:mego_food/features/home/data/model/product_model.dart';
 
 class ProductPageView extends StatelessWidget {
@@ -24,9 +25,11 @@ class ProductPageView extends StatelessWidget {
             margin: EdgeInsets.only(right: 8),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                productModel.imageUrl,
+              child: AppCachedImage(
+                imageUrl: productModel.imageUrl,
+                height: double.infinity,
                 width: double.infinity,
+                fallbackAsset: 'assets/images/product.png',
                 fit: BoxFit.cover,
               ),
             ),

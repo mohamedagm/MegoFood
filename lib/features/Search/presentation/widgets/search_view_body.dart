@@ -23,8 +23,25 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   final FocusNode searchFocusNode = FocusNode();
   final Debouncer debouncer = Debouncer(milliseconds: 600);
   String lastQuery = '';
+
   void setupSearchListener() {
     searchController.addListener(_onSearchChanged);
+  }
+
+  void _requestSearchFocus() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      Future.delayed(const Duration(milliseconds: 400), () {
+        if (!mounted) return;
+        if (!searchFocusNode.hasFocus) {
+          FocusScope.of(context).requestFocus(searchFocusNode);
+        }
+        final currentFocus = primaryFocus;
+        if (currentFocus == null || !currentFocus.hasFocus) {
+          FocusScope.of(context).requestFocus(searchFocusNode);
+        }
+      });
+    });
   }
 
   void _onSearchChanged() {
@@ -43,12 +60,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   void initState() {
     super.initState();
     setupSearchListener();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 250), () {
-        if (!mounted) return;
-        searchFocusNode.requestFocus();
-      });
-    });
+    _requestSearchFocus();
   }
 
   @override
@@ -73,6 +85,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                 child: AppTextField(
                   controller: searchController,
                   focusNode: searchFocusNode,
+                  autofocus: true,
                   hintText: 'search...',
                   prefixIcon: SvgPicture.asset(
                     'assets/icons/Search.svg',

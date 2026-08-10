@@ -56,19 +56,16 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               SliverToBoxAdapter(
                 child: GestureDetector(
                   onTap: () => GoRouter.of(context).push(AppRoutes.search),
-                  child: Hero(
-                    tag: 'search',
-                    child: Material(
-                      child: AppTextField(
-                        enabled: false,
-                        controller: controller,
-                        hintText: 'search...',
-                        prefixIcon: SvgPicture.asset(
-                          'assets/icons/Search.svg',
-                          colorFilter: ColorFilter.mode(
-                            context.exColors.grey400,
-                            BlendMode.srcIn,
-                          ),
+                  child: Material(
+                    child: AppTextField(
+                      enabled: false,
+                      controller: controller,
+                      hintText: 'search...',
+                      prefixIcon: SvgPicture.asset(
+                        'assets/icons/Search.svg',
+                        colorFilter: ColorFilter.mode(
+                          context.exColors.grey400,
+                          BlendMode.srcIn,
                         ),
                       ),
                     ),

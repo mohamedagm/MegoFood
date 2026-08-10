@@ -16,6 +16,7 @@ class AppTextField extends StatelessWidget {
     this.focusNode,
     this.onFieldSubmitted,
     this.enabled = true,
+    this.autofocus = false,
   });
 
   final TextEditingController controller;
@@ -30,10 +31,13 @@ class AppTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final void Function(String)? onFieldSubmitted;
   final bool enabled;
+  final bool autofocus;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       enabled: enabled,
+      autofocus: autofocus,
       onFieldSubmitted: onFieldSubmitted,
       focusNode: focusNode,
       onTap: onTap,

@@ -98,7 +98,7 @@ class AppRouter {
           return AddAddressView(initialData: data);
         },
       ),
-      
+      // ShellRoute to provide CartCubit and FavoriteCubit to all routes that need them
       ShellRoute(
         builder: (context, state, child) {
           return MultiBlocProvider(
@@ -129,6 +129,12 @@ class AppRouter {
             builder: (context, state) => const SearchView(),
           ),
           GoRoute(
+            path: AppRoutes.topRatedProducts,
+            builder: (context, state) => TopRatedProductsView(
+              products: state.extra as List<ProductModel>,
+            ),
+          ),
+          GoRoute(
             path: AppRoutes.cartPlaceOrder,
             builder: (context, state) => const CartPlaceOrderView(),
           ),
@@ -145,7 +151,7 @@ class AppRouter {
           ),
         ],
       ),
-      
+      //
       GoRoute(
         path: AppRoutes.addCoupon,
         builder: (context, state) => const AddCouponView(),
@@ -177,11 +183,6 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.chooseLang,
         builder: (context, state) => const ChooseLang(),
-      ),
-      GoRoute(
-        path: AppRoutes.topRatedProducts,
-        builder: (context, state) =>
-            TopRatedProductsView(products: state.extra as List<ProductModel>),
       ),
       GoRoute(
         path: AppRoutes.topStores,

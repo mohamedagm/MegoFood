@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mego_food/core/routing/app_routes.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/widgets/app_cached_image.dart';
 import 'package:mego_food/core/widgets/app_elevated_button.dart';
+import 'package:mego_food/features/auth/presentation/manager/userProfileCubit/user_profile_cubit.dart';
 import 'package:mego_food/features/menu/presentation/widgets/menu_tabs.dart';
 
 class MenuViewBody extends StatefulWidget {
@@ -77,15 +81,43 @@ class _MenuViewBodyState extends State<MenuViewBody> {
             Row(
               spacing: 16,
               children: [
-                CircleAvatar(radius: 40, child: Icon(Icons.person)),
+                BlocBuilder<UserProfileCubit, UserProfileState>(
+                  builder: (context, state) {
+                    final profile = state is UserProfileLoaded
+                        ? state.profile
+                        : null;
+                    final hasPhoto = isValidImageUrl(profile?.photoUrl);
+                    return CircleAvatar(
+                      radius: 40,
+                      backgroundImage: hasPhoto
+                          ? CachedNetworkImageProvider(profile!.photoUrl!)
+                          : null,
+                      child: hasPhoto ? null : Icon(Icons.person, size: 40),
+                    );
+                  },
+                ),
                 Column(
                   spacing: 4,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Daniel Jones', style: context.exTextStyles.large),
-                    Text(
-                      'daniel.jones@example.com',
-                      style: context.exTextStyles.small,
+                    BlocBuilder<UserProfileCubit, UserProfileState>(
+                      builder: (context, state) {
+                        final name = state is UserProfileLoaded
+                            ? state.profile.fullName
+                            : '';
+                        return Text(name, style: context.exTextStyles.large);
+                      },
+                    ),
+                    BlocBuilder<UserProfileCubit, UserProfileState>(
+                      builder: (context, state) {
+                        final email = state is UserProfileLoaded
+                            ? state.profile.email
+                            : '';
+                        return Text(
+                          email,
+                          style: context.exTextStyles.small,
+                        );
+                      },
                     ),
                     Container(
                       height: 28,

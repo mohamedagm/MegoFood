@@ -53,15 +53,14 @@ class ImagePickerOptions extends StatelessWidget {
         style: TextStyle(color: context.exColors.primary600, fontSize: 20),
       ),
       onTap: () async {
-        if (source == ImageSource.camera) {
-          Navigator.pop(context);
-        }
+        final navigator = Navigator.of(context);
+        navigator.pop();
+        // Wait for the bottom sheet to fully close before launching the
+        // camera, otherwise the picked image result is lost on Android.
+        await Future.delayed(const Duration(milliseconds: 400));
         final XFile? pickedFile = await picker.pickImage(source: source);
         if (pickedFile != null) {
           onImagePicked(File(pickedFile.path));
-        }
-        if (context.mounted) {
-          Navigator.pop(context);
         }
       },
     );

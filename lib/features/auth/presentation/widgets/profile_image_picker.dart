@@ -1,22 +1,27 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mego_food/core/theme/theme_context_extensions.dart';
+import 'package:mego_food/core/widgets/app_cached_image.dart';
 import 'camera_button.dart';
 
 class ProfileImagePicker extends StatelessWidget {
   final File? image;
+  final String? imageUrl;
   final VoidCallback onPick;
 
   const ProfileImagePicker({
     super.key,
     required this.image,
     required this.onPick,
+    this.imageUrl,
   });
 
   @override
   Widget build(BuildContext context) {
     final colors = context.exColors;
+    final showNetwork = image == null && isValidImageUrl(imageUrl);
 
     return Center(
       child: InkWell(
@@ -35,9 +40,14 @@ class ProfileImagePicker extends StatelessWidget {
                         image: FileImage(image!),
                         fit: BoxFit.cover,
                       )
+                    : showNetwork
+                    ? DecorationImage(
+                        image: CachedNetworkImageProvider(imageUrl!),
+                        fit: BoxFit.cover,
+                      )
                     : null,
               ),
-              child: image == null
+              child: image == null && !showNetwork
                   ? Center(
                       child: SvgPicture.asset(
                         'assets/icons/Profile.svg',

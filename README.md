@@ -80,7 +80,7 @@ _From onboarding to order placed — a complete food delivery experience built w
 | :-: | :-------------------------------------------- | :------------------ |
 | ⚙️  | [Configuration](#configuration)               | `Backend URL`       |
 | 🗺  | [Roadmap](#roadmap)                           | `In progress`       |
-| 👤  | [Developer](#developer)                       | `Contributors`      |
+| 👥  | [Team](#developer)                            | `Contributors`      |
 | 📄  | [License](#license)                           | `All Rights Reserved` |
 
 ---
@@ -338,7 +338,7 @@ flutter run
 |   🔄   | Maps enhancements 🗺                          |
 |   🔄   | Remaining backend endpoints wiring            |
 
-<h2 id="developer">👤 Developer</h2>
+<h2 id="developer">👥 Team</h2>
 
 <table align="center">
 <tr>
@@ -350,6 +350,15 @@ flutter run
   <sub>Flutter Developer</sub><br>
   <a href="https://github.com/mohamedagm"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"></a>
   <a href="https://www.linkedin.com/in/mohamedahmedgm/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"></a>
+</td>
+<td align="center">
+  <a href="https://github.com/Ahmed40988">
+    <img src="https://github.com/Ahmed40988.png" width="120" height="120" style="border-radius:50%"><br>
+    <b>Ahmed Momtaz</b>
+  </a><br>
+  <sub>Backend Developer (.NET)</sub><br>
+  <a href="https://github.com/Ahmed40988"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+  <a href="https://www.linkedin.com/in/ahmedmomtaz40988/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"></a>
 </td>
 </tr>
 </table>

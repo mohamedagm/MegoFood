@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:mego_food/core/errors/failures.dart';
 import 'package:mego_food/features/auth/data/models/address_model.dart';
+import 'package:mego_food/features/auth/data/models/profile_model.dart';
 import 'package:mego_food/features/auth/data/models/success_login_model.dart';
 
 abstract class AuthRepo {
@@ -32,6 +33,8 @@ abstract class AuthRepo {
     AddressModel address,
     File? image,
   );
+
+  Future<Either<Failures, ProfileModel>> getProfile();
 
   Future<void> logout();
 

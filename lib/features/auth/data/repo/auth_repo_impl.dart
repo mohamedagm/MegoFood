@@ -10,6 +10,7 @@ import 'package:mego_food/core/errors/dio_exceptions.dart';
 import 'package:mego_food/core/errors/failures.dart';
 import 'package:mego_food/core/services/location_service.dart';
 import 'package:mego_food/features/auth/data/models/address_model.dart';
+import 'package:mego_food/features/auth/data/models/profile_model.dart';
 import 'package:mego_food/features/auth/data/models/success_login_model.dart';
 import 'package:mego_food/features/auth/data/repo/auth_repo.dart';
 
@@ -204,6 +205,27 @@ class AuthRepoImpl implements AuthRepo {
       switch (e.response?.statusCode) {
         case 400:
           return left(Failures('Invalid request data or validation error.'));
+        case 401:
+          return left(
+            Failures('Unauthorized. JWT token is missing or invalid.'),
+          );
+        case 404:
+          return left(Failures('User not found.'));
+        default:
+          return left(Failures('Server error: ${e.response?.statusCode}'));
+      }
+    } catch (e) {
+      return left(Failures('Exception occurred: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failures, ProfileModel>> getProfile() async {
+    try {
+      final response = await apiConsumer.get(ApiEndPoints.getProfile);
+      return right(ProfileModel.fromJson(response.data));
+    } on DioException catch (e) {
+      switch (e.response?.statusCode) {
         case 401:
           return left(
             Failures('Unauthorized. JWT token is missing or invalid.'),
